@@ -1,0 +1,37 @@
+{
+  "docVersion": "1.0.0",
+  "resource": {
+    "name": "StudentSectionsFunction",
+    "kind": "process",
+    "type": "function",
+    "apiVersion": "orchestrator.uipath.com/v1",
+    "projectKey": "6c54fe75-700a-45fa-8283-14f1bfb4e243",
+    "dependencies": [
+      {
+        "kind": "package",
+        "name": "StudentSectionsFunction"
+      }
+    ],
+    "runtimeDependencies": [],
+    "folders": [
+      {
+        "fullyQualifiedName": "solution_folder"
+      }
+    ],
+    "spec": {
+      "type": "Function",
+      "name": "StudentSectionsFunction",
+      "package": {
+        "key": "3ed031d3-2dfa-4476-9955-8b66eb5f28e9"
+      },
+      "targetFrameworkValue": "Portable",
+      "retentionAction": "Delete",
+      "retentionPeriod": 30,
+      "staleRetentionAction": "Delete",
+      "staleRetentionPeriod": 180
+    },
+    "locks": [],
+    "key": "f1e0970f-91a8-4ca9-9504-b23d05a1af3b",
+    "files": []
+  }
+}

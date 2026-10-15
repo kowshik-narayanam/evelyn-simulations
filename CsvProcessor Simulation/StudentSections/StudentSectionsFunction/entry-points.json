@@ -1,0 +1,205 @@
+{
+    "$schema": "https://cloud.uipath.com/draft/2024-12/entry-point",
+    "$id": "entry-points.json",
+    "entryPoints": [
+        {
+            "filePath": "main",
+            "uniqueId": "4c1022b6-1e19-464c-a63c-22a2cfecc8d1",
+            "type": "function",
+            "input": {
+                "type": "object",
+                "properties": {
+                    "operation": {
+                        "title": "Operation",
+                        "type": "string"
+                    },
+                    "students": {
+                        "items": {
+                            "properties": {
+                                "name": {
+                                    "minLength": 1,
+                                    "title": "Name",
+                                    "type": "string"
+                                },
+                                "id_number": {
+                                    "minLength": 1,
+                                    "title": "Id Number",
+                                    "type": "string"
+                                },
+                                "age": {
+                                    "maximum": 25,
+                                    "minimum": 3,
+                                    "title": "Age",
+                                    "type": "integer"
+                                }
+                            },
+                            "required": [
+                                "name",
+                                "id_number",
+                                "age"
+                            ],
+                            "title": "Student",
+                            "type": "object"
+                        },
+                        "title": "Students",
+                        "type": "array"
+                    },
+                    "section_1": {
+                        "items": {
+                            "properties": {
+                                "name": {
+                                    "minLength": 1,
+                                    "title": "Name",
+                                    "type": "string"
+                                },
+                                "id_number": {
+                                    "minLength": 1,
+                                    "title": "Id Number",
+                                    "type": "string"
+                                },
+                                "age": {
+                                    "maximum": 25,
+                                    "minimum": 3,
+                                    "title": "Age",
+                                    "type": "integer"
+                                }
+                            },
+                            "required": [
+                                "name",
+                                "id_number",
+                                "age"
+                            ],
+                            "title": "Student",
+                            "type": "object"
+                        },
+                        "title": "Section 1",
+                        "type": "array"
+                    },
+                    "section_2": {
+                        "items": {
+                            "properties": {
+                                "name": {
+                                    "minLength": 1,
+                                    "title": "Name",
+                                    "type": "string"
+                                },
+                                "id_number": {
+                                    "minLength": 1,
+                                    "title": "Id Number",
+                                    "type": "string"
+                                },
+                                "age": {
+                                    "maximum": 25,
+                                    "minimum": 3,
+                                    "title": "Age",
+                                    "type": "integer"
+                                }
+                            },
+                            "required": [
+                                "name",
+                                "id_number",
+                                "age"
+                            ],
+                            "title": "Student",
+                            "type": "object"
+                        },
+                        "title": "Section 2",
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "operation"
+                ],
+                "title": "SectionsIn"
+            },
+            "output": {
+                "type": "object",
+                "properties": {
+                    "section_1": {
+                        "items": {
+                            "properties": {
+                                "name": {
+                                    "minLength": 1,
+                                    "title": "Name",
+                                    "type": "string"
+                                },
+                                "id_number": {
+                                    "minLength": 1,
+                                    "title": "Id Number",
+                                    "type": "string"
+                                },
+                                "age": {
+                                    "maximum": 25,
+                                    "minimum": 3,
+                                    "title": "Age",
+                                    "type": "integer"
+                                }
+                            },
+                            "required": [
+                                "name",
+                                "id_number",
+                                "age"
+                            ],
+                            "title": "Student",
+                            "type": "object"
+                        },
+                        "title": "Section 1",
+                        "type": "array"
+                    },
+                    "section_2": {
+                        "items": {
+                            "properties": {
+                                "name": {
+                                    "minLength": 1,
+                                    "title": "Name",
+                                    "type": "string"
+                                },
+                                "id_number": {
+                                    "minLength": 1,
+                                    "title": "Id Number",
+                                    "type": "string"
+                                },
+                                "age": {
+                                    "maximum": 25,
+                                    "minimum": 3,
+                                    "title": "Age",
+                                    "type": "integer"
+                                }
+                            },
+                            "required": [
+                                "name",
+                                "id_number",
+                                "age"
+                            ],
+                            "title": "Student",
+                            "type": "object"
+                        },
+                        "title": "Section 2",
+                        "type": "array"
+                    },
+                    "section_1_path": {
+                        "type": "string"
+                    },
+                    "section_2_path": {
+                        "type": "string"
+                    }
+                },
+                "required": [],
+                "title": "SectionsOut"
+            },
+            "graph": {
+                "nodes": [
+                    {
+                        "id": "main.py:87",
+                        "name": "main",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    }
+                ],
+                "edges": []
+            }
+        }
+    ]
+}

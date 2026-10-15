@@ -1,0 +1,106 @@
+{
+    "$schema": "https://cloud.uipath.com/draft/2024-12/entry-point",
+    "$id": "entry-points.json",
+    "entryPoints": [
+        {
+            "filePath": "main",
+            "uniqueId": "cd20f186-a772-4126-b97c-7a66f64bb604",
+            "type": "function",
+            "input": {
+                "type": "object",
+                "properties": {
+                    "csv_path": {
+                        "default": "input/students.csv",
+                        "title": "Csv Path",
+                        "type": "string"
+                    }
+                },
+                "required": [],
+                "title": "IntakeIn"
+            },
+            "output": {
+                "type": "object",
+                "properties": {
+                    "students": {
+                        "items": {
+                            "properties": {
+                                "name": {
+                                    "minLength": 1,
+                                    "title": "Name",
+                                    "type": "string"
+                                },
+                                "id_number": {
+                                    "minLength": 1,
+                                    "title": "Id Number",
+                                    "type": "string"
+                                },
+                                "age": {
+                                    "maximum": 25,
+                                    "minimum": 3,
+                                    "title": "Age",
+                                    "type": "integer"
+                                }
+                            },
+                            "required": [
+                                "name",
+                                "id_number",
+                                "age"
+                            ],
+                            "title": "Student",
+                            "type": "object"
+                        },
+                        "title": "Students",
+                        "type": "array"
+                    },
+                    "count": {
+                        "title": "Count",
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "students",
+                    "count"
+                ],
+                "title": "IntakeOut"
+            },
+            "graph": {
+                "nodes": [
+                    {
+                        "id": "main.py:48",
+                        "name": "main",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "intake.py:31",
+                        "name": "parse_students",
+                        "type": "function",
+                        "metadata": {
+                            "file": "intake.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:22",
+                        "name": "sdk",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    }
+                ],
+                "edges": [
+                    {
+                        "source": "main.py:48",
+                        "target": "intake.py:31"
+                    },
+                    {
+                        "source": "main.py:48",
+                        "target": "main.py:22"
+                    }
+                ]
+            }
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+  "docVersion": "1.0.0",
+  "resource": {
+    "name": "StudentSectionsFlow",
+    "kind": "package",
+    "apiVersion": "orchestrator.uipath.com/v1",
+    "projectKey": "94c1f711-f908-4928-a4ee-f080f06f6e2d",
+    "dependencies": [],
+    "runtimeDependencies": [],
+    "folders": [
+      {
+        "fullyQualifiedName": "solution_folder"
+      }
+    ],
+    "spec": {
+      "name": "StudentSectionsFlow"
+    },
+    "locks": [],
+    "key": "ceab88cd-0bf5-4c32-89ac-cbbe5b834c57",
+    "files": []
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "docVersion": "1.0.0",
+  "resource": {
+    "name": "StudentIntakeFlow",
+    "kind": "process",
+    "type": "flow",
+    "apiVersion": "orchestrator.uipath.com/v1",
+    "projectKey": "b7765ba3-7cec-440e-b5a1-95ffcebb4b54",
+    "dependencies": [
+      {
+        "kind": "package",
+        "name": "StudentIntakeFlow"
+      }
+    ],
+    "runtimeDependencies": [],
+    "folders": [
+      {
+        "fullyQualifiedName": "solution_folder"
+      }
+    ],
+    "spec": {
+      "runtimeProfile": "Standard",
+      "type": "Flow",
+      "name": "StudentIntakeFlow",
+      "package": {
+        "key": "211586dc-c488-4ea0-956b-e6b2269051bf"
+      },
+      "targetFrameworkValue": "Portable",
+      "retentionAction": "Delete",
+      "retentionPeriod": 30,
+      "staleRetentionAction": "Delete",
+      "staleRetentionPeriod": 180
+    },
+    "locks": [],
+    "key": "549ec08b-4cde-4ffd-bb20-1a74951c5047",
+    "files": []
+  }
+}

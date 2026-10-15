@@ -1,0 +1,27 @@
+{
+  "DocVersion": "1.0.0",
+  "StudioMinVersion": "2025.10.0",
+  "SolutionId": "b28e35c6-30a7-4009-b471-546d6a2ad8a5",
+  "Projects": [
+    {
+      "Type": "Function",
+      "ProjectRelativePath": "StudentIntakeFunction/project.uiproj",
+      "Id": "e11e0887-29a0-40e9-a81e-5a31e215f002"
+    },
+    {
+      "Type": "Function",
+      "ProjectRelativePath": "StudentSectionsFunction/project.uiproj",
+      "Id": "6c54fe75-700a-45fa-8283-14f1bfb4e243"
+    },
+    {
+      "Type": "Flow",
+      "ProjectRelativePath": "StudentSectionsFlow/project.uiproj",
+      "Id": "94c1f711-f908-4928-a4ee-f080f06f6e2d"
+    },
+    {
+      "Type": "Flow",
+      "ProjectRelativePath": "StudentIntakeFlow/project.uiproj",
+      "Id": "b7765ba3-7cec-440e-b5a1-95ffcebb4b54"
+    }
+  ]
+}

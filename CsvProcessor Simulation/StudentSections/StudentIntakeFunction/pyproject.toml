@@ -1,0 +1,15 @@
+[project]
+name = "StudentIntakeFunction"
+version = "0.0.1"
+description = "StudentIntakeFunction"
+authors = [{ name = "John Doe", email = "john.doe@myemail.com" }]
+dependencies = [
+    "pydantic>=2.10,<3",
+    "uipath>=2.14.0, <2.15.0",
+]
+requires-python = ">=3.11"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]

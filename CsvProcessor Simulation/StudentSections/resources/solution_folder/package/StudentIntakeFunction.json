@@ -1,0 +1,22 @@
+{
+  "docVersion": "1.0.0",
+  "resource": {
+    "name": "StudentIntakeFunction",
+    "kind": "package",
+    "apiVersion": "orchestrator.uipath.com/v1",
+    "projectKey": "e11e0887-29a0-40e9-a81e-5a31e215f002",
+    "dependencies": [],
+    "runtimeDependencies": [],
+    "folders": [
+      {
+        "fullyQualifiedName": "solution_folder"
+      }
+    ],
+    "spec": {
+      "name": "StudentIntakeFunction"
+    },
+    "locks": [],
+    "key": "00b6f2bd-e6d0-4629-bf59-8b6b02ca7f89",
+    "files": []
+  }
+}

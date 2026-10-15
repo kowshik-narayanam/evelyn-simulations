@@ -1,0 +1,1319 @@
+{
+  "id": "826411ef-8a87-4013-8664-7a1a2eb4bca6",
+  "version": "1.9",
+  "name": "StudentSectionsFlow",
+  "runtime": "maestro",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "core.trigger.manual",
+      "typeVersion": "1.0",
+      "display": {
+        "label": "Manual trigger",
+        "icon": "play"
+      },
+      "inputs": {
+        "entryPointId": "1a8e0bf2-6293-4586-8895-ec7224d730b9",
+        "isDefaultEntryPoint": true
+      },
+      "outputs": {
+        "output": {
+          "type": "object",
+          "description": "Data passed when manually triggering the process.",
+          "source": "null",
+          "var": "output"
+        }
+      },
+      "uniqueId": "d1c213dc-5888-4443-b4e6-51602dddbd63"
+    },
+    {
+      "id": "assignSections1",
+      "type": "uipath.core.function.f1e0970f-91a8-4ca9-9504-b23d05a1af3b",
+      "typeVersion": "1.0.0",
+      "display": {
+        "label": "Assign sections",
+        "icon": "function"
+      },
+      "inputs": {
+        "operation": "assign_sections",
+        "students": "=js:$vars.start.output.students",
+        "section_1": null,
+        "section_2": null
+      },
+      "outputs": {
+        "output": {
+          "type": "object",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "section_1": {
+                "items": {
+                  "properties": {
+                    "name": {
+                      "minLength": 1,
+                      "title": "Name",
+                      "type": "string"
+                    },
+                    "id_number": {
+                      "minLength": 1,
+                      "title": "Id Number",
+                      "type": "string"
+                    },
+                    "age": {
+                      "maximum": 25,
+                      "minimum": 3,
+                      "title": "Age",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "id_number",
+                    "age"
+                  ],
+                  "title": "Student",
+                  "type": "object"
+                },
+                "title": "Section 1",
+                "type": "array"
+              },
+              "section_2": {
+                "items": {
+                  "properties": {
+                    "name": {
+                      "minLength": 1,
+                      "title": "Name",
+                      "type": "string"
+                    },
+                    "id_number": {
+                      "minLength": 1,
+                      "title": "Id Number",
+                      "type": "string"
+                    },
+                    "age": {
+                      "maximum": 25,
+                      "minimum": 3,
+                      "title": "Age",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "id_number",
+                    "age"
+                  ],
+                  "title": "Student",
+                  "type": "object"
+                },
+                "title": "Section 2",
+                "type": "array"
+              },
+              "section_1_path": {
+                "type": "string"
+              },
+              "section_2_path": {
+                "type": "string"
+              }
+            }
+          },
+          "source": "=this",
+          "var": "output"
+        },
+        "error": {
+          "type": "object",
+          "description": "Error information if the node fails",
+          "schema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "detail",
+              "category",
+              "status"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code as a string"
+              },
+              "message": {
+                "type": "string",
+                "description": "High-level error message"
+              },
+              "detail": {
+                "type": "string",
+                "description": "Detailed error description"
+              },
+              "category": {
+                "type": "string",
+                "description": "Error category"
+              },
+              "status": {
+                "type": "integer",
+                "description": "HTTP status code"
+              }
+            },
+            "additionalProperties": false
+          },
+          "source": "=Error",
+          "var": "error"
+        }
+      },
+      "uniqueId": "ef0c55a6-f0d0-47b5-9745-20c848000174"
+    },
+    {
+      "id": "writeCsvs1",
+      "type": "uipath.core.function.f1e0970f-91a8-4ca9-9504-b23d05a1af3b",
+      "typeVersion": "1.0.0",
+      "display": {
+        "label": "Write CSVs",
+        "icon": "function"
+      },
+      "inputs": {
+        "operation": "write_csvs",
+        "students": null,
+        "section_1": "=js:$vars.assignSections1.output.section_1",
+        "section_2": "=js:$vars.assignSections1.output.section_2"
+      },
+      "outputs": {
+        "output": {
+          "type": "object",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "section_1": {
+                "items": {
+                  "properties": {
+                    "name": {
+                      "minLength": 1,
+                      "title": "Name",
+                      "type": "string"
+                    },
+                    "id_number": {
+                      "minLength": 1,
+                      "title": "Id Number",
+                      "type": "string"
+                    },
+                    "age": {
+                      "maximum": 25,
+                      "minimum": 3,
+                      "title": "Age",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "id_number",
+                    "age"
+                  ],
+                  "title": "Student",
+                  "type": "object"
+                },
+                "title": "Section 1",
+                "type": "array"
+              },
+              "section_2": {
+                "items": {
+                  "properties": {
+                    "name": {
+                      "minLength": 1,
+                      "title": "Name",
+                      "type": "string"
+                    },
+                    "id_number": {
+                      "minLength": 1,
+                      "title": "Id Number",
+                      "type": "string"
+                    },
+                    "age": {
+                      "maximum": 25,
+                      "minimum": 3,
+                      "title": "Age",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "id_number",
+                    "age"
+                  ],
+                  "title": "Student",
+                  "type": "object"
+                },
+                "title": "Section 2",
+                "type": "array"
+              },
+              "section_1_path": {
+                "type": "string"
+              },
+              "section_2_path": {
+                "type": "string"
+              }
+            }
+          },
+          "source": "=this",
+          "var": "output"
+        },
+        "error": {
+          "type": "object",
+          "description": "Error information if the node fails",
+          "schema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "detail",
+              "category",
+              "status"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code as a string"
+              },
+              "message": {
+                "type": "string",
+                "description": "High-level error message"
+              },
+              "detail": {
+                "type": "string",
+                "description": "Detailed error description"
+              },
+              "category": {
+                "type": "string",
+                "description": "Error category"
+              },
+              "status": {
+                "type": "integer",
+                "description": "HTTP status code"
+              }
+            },
+            "additionalProperties": false
+          },
+          "source": "=Error",
+          "var": "error"
+        }
+      },
+      "uniqueId": "dad5fff5-4a4a-48eb-9ba6-e39b9f891568"
+    },
+    {
+      "id": "end1",
+      "type": "core.control.end",
+      "typeVersion": "1.0",
+      "display": {
+        "label": "End",
+        "icon": "circle-check"
+      },
+      "inputs": {},
+      "outputs": {
+        "section_1_path": {
+          "source": "=js:$vars.writeCsvs1.output.section_1_path",
+          "type": "string"
+        },
+        "section_2_path": {
+          "source": "=js:$vars.writeCsvs1.output.section_2_path",
+          "type": "string"
+        },
+        "section_1_count": {
+          "source": "=js:$vars.assignSections1.output.section_1.length",
+          "type": "number"
+        },
+        "section_2_count": {
+          "source": "=js:$vars.assignSections1.output.section_2.length",
+          "type": "number"
+        }
+      },
+      "uniqueId": "60a7755a-06d7-491a-aa4e-a4ba312fc21c"
+    }
+  ],
+  "edges": [
+    {
+      "id": "start-output-assignSections1-input",
+      "sourceNodeId": "start",
+      "sourcePort": "output",
+      "targetNodeId": "assignSections1",
+      "targetPort": "input"
+    },
+    {
+      "id": "assignSections1-output-writeCsvs1-input",
+      "sourceNodeId": "assignSections1",
+      "sourcePort": "output",
+      "targetNodeId": "writeCsvs1",
+      "targetPort": "input"
+    },
+    {
+      "id": "writeCsvs1-output-end1-input",
+      "sourceNodeId": "writeCsvs1",
+      "sourcePort": "output",
+      "targetNodeId": "end1",
+      "targetPort": "input"
+    }
+  ],
+  "definitions": [
+    {
+      "nodeType": "core.trigger.manual",
+      "version": "1.0",
+      "category": "trigger",
+      "description": "Start the process manually",
+      "tags": [
+        "trigger",
+        "start",
+        "manual"
+      ],
+      "sortOrder": 80,
+      "display": {
+        "label": "Manual trigger",
+        "icon": "play",
+        "shape": "circle"
+      },
+      "handleConfiguration": [
+        {
+          "position": "right",
+          "handles": [
+            {
+              "id": "output",
+              "type": "source",
+              "handleType": "output",
+              "showButton": true,
+              "constraints": {
+                "forbiddenTargetCategories": [
+                  "trigger"
+                ]
+              }
+            }
+          ],
+          "visible": true
+        }
+      ],
+      "model": {
+        "type": "bpmn:StartEvent",
+        "entryPointId": true
+      },
+      "outputDefinition": {
+        "output": {
+          "type": "object",
+          "description": "Data passed when manually triggering the process.",
+          "source": "null",
+          "var": "output"
+        }
+      },
+      "toolbarExtensions": {
+        "design": {
+          "actions": [
+            {
+              "id": "change-trigger-type",
+              "icon": "square-mouse-pointer",
+              "label": "Change trigger type"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "nodeType": "uipath.core.function.f1e0970f-91a8-4ca9-9504-b23d05a1af3b",
+      "version": "1.0.0",
+      "category": "function.in-solution",
+      "runtimeConstraints": {
+        "exclude": [
+          "api-function"
+        ]
+      },
+      "description": "(In-solution) StudentSectionsFunction",
+      "tags": [
+        "in-solution",
+        "local"
+      ],
+      "sortOrder": 650,
+      "supportsErrorHandling": true,
+      "display": {
+        "label": "StudentSectionsFunction",
+        "icon": "function"
+      },
+      "handleConfiguration": [
+        {
+          "position": "left",
+          "handles": [
+            {
+              "id": "input",
+              "type": "target",
+              "handleType": "input"
+            }
+          ]
+        },
+        {
+          "position": "right",
+          "handles": [
+            {
+              "id": "output",
+              "type": "source",
+              "handleType": "output"
+            },
+            {
+              "id": "error",
+              "label": "Error",
+              "type": "source",
+              "handleType": "output",
+              "visible": "{inputs.errorHandlingEnabled}",
+              "constraints": {
+                "maxConnections": 1
+              }
+            }
+          ]
+        }
+      ],
+      "toolbarExtensions": {
+        "design": {
+          "actions": [
+            {
+              "id": "open-workflow",
+              "icon": "external-link",
+              "label": "Open"
+            }
+          ]
+        }
+      },
+      "projectId": "6c54fe75-700a-45fa-8283-14f1bfb4e243",
+      "model": {
+        "type": "bpmn:ServiceTask",
+        "serviceType": "Orchestrator.ExecuteFunctionAsync",
+        "version": "v2",
+        "bindings": {
+          "resource": "process",
+          "resourceSubType": "Function",
+          "resourceKey": "f1e0970f-91a8-4ca9-9504-b23d05a1af3b",
+          "orchestratorType": "function",
+          "values": [
+            {
+              "name": "name",
+              "propertyAttribute": "name",
+              "default": "StudentSectionsFunction"
+            },
+            {
+              "name": "folderPath",
+              "propertyAttribute": "folderPath",
+              "default": ""
+            }
+          ]
+        },
+        "projectId": "6c54fe75-700a-45fa-8283-14f1bfb4e243",
+        "projectName": "StudentSectionsFunction",
+        "isInSolution": true,
+        "context": [
+          {
+            "name": "name",
+            "type": "string",
+            "value": "<bindings.name>"
+          },
+          {
+            "name": "folderPath",
+            "type": "string",
+            "value": "<bindings.folderPath>"
+          },
+          {
+            "name": "_label",
+            "type": "string",
+            "value": "StudentSectionsFunction"
+          }
+        ]
+      },
+      "form": {
+        "id": "activity-properties",
+        "title": "Function",
+        "sections": [
+          {
+            "id": "inputs",
+            "title": "Inputs",
+            "collapsible": true,
+            "defaultExpanded": true,
+            "fields": [
+              {
+                "name": "inputs.operation",
+                "type": "text",
+                "label": "operation"
+              },
+              {
+                "name": "inputs.students",
+                "type": "custom",
+                "component": "object-editor",
+                "label": "students",
+                "componentProps": {
+                  "schema": {
+                    "items": {
+                      "properties": {
+                        "name": {
+                          "minLength": 1,
+                          "title": "Name",
+                          "type": "string"
+                        },
+                        "id_number": {
+                          "minLength": 1,
+                          "title": "Id Number",
+                          "type": "string"
+                        },
+                        "age": {
+                          "maximum": 25,
+                          "minimum": 3,
+                          "title": "Age",
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "id_number",
+                        "age"
+                      ],
+                      "title": "Student",
+                      "type": "object"
+                    },
+                    "title": "Students",
+                    "type": "array"
+                  }
+                }
+              },
+              {
+                "name": "inputs.section_1",
+                "type": "custom",
+                "component": "object-editor",
+                "label": "section_1",
+                "componentProps": {
+                  "schema": {
+                    "items": {
+                      "properties": {
+                        "name": {
+                          "minLength": 1,
+                          "title": "Name",
+                          "type": "string"
+                        },
+                        "id_number": {
+                          "minLength": 1,
+                          "title": "Id Number",
+                          "type": "string"
+                        },
+                        "age": {
+                          "maximum": 25,
+                          "minimum": 3,
+                          "title": "Age",
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "id_number",
+                        "age"
+                      ],
+                      "title": "Student",
+                      "type": "object"
+                    },
+                    "title": "Section 1",
+                    "type": "array"
+                  }
+                }
+              },
+              {
+                "name": "inputs.section_2",
+                "type": "custom",
+                "component": "object-editor",
+                "label": "section_2",
+                "componentProps": {
+                  "schema": {
+                    "items": {
+                      "properties": {
+                        "name": {
+                          "minLength": 1,
+                          "title": "Name",
+                          "type": "string"
+                        },
+                        "id_number": {
+                          "minLength": 1,
+                          "title": "Id Number",
+                          "type": "string"
+                        },
+                        "age": {
+                          "maximum": 25,
+                          "minimum": 3,
+                          "title": "Age",
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "id_number",
+                        "age"
+                      ],
+                      "title": "Student",
+                      "type": "object"
+                    },
+                    "title": "Section 2",
+                    "type": "array"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "inputDefinition": {
+        "type": "object",
+        "properties": {
+          "operation": {
+            "title": "Operation",
+            "type": "string"
+          },
+          "students": {
+            "items": {
+              "properties": {
+                "name": {
+                  "minLength": 1,
+                  "title": "Name",
+                  "type": "string"
+                },
+                "id_number": {
+                  "minLength": 1,
+                  "title": "Id Number",
+                  "type": "string"
+                },
+                "age": {
+                  "maximum": 25,
+                  "minimum": 3,
+                  "title": "Age",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "name",
+                "id_number",
+                "age"
+              ],
+              "title": "Student",
+              "type": "object"
+            },
+            "title": "Students",
+            "type": "array"
+          },
+          "section_1": {
+            "items": {
+              "properties": {
+                "name": {
+                  "minLength": 1,
+                  "title": "Name",
+                  "type": "string"
+                },
+                "id_number": {
+                  "minLength": 1,
+                  "title": "Id Number",
+                  "type": "string"
+                },
+                "age": {
+                  "maximum": 25,
+                  "minimum": 3,
+                  "title": "Age",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "name",
+                "id_number",
+                "age"
+              ],
+              "title": "Student",
+              "type": "object"
+            },
+            "title": "Section 1",
+            "type": "array"
+          },
+          "section_2": {
+            "items": {
+              "properties": {
+                "name": {
+                  "minLength": 1,
+                  "title": "Name",
+                  "type": "string"
+                },
+                "id_number": {
+                  "minLength": 1,
+                  "title": "Id Number",
+                  "type": "string"
+                },
+                "age": {
+                  "maximum": 25,
+                  "minimum": 3,
+                  "title": "Age",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "name",
+                "id_number",
+                "age"
+              ],
+              "title": "Student",
+              "type": "object"
+            },
+            "title": "Section 2",
+            "type": "array"
+          }
+        }
+      },
+      "inputDefaults": {
+        "operation": "",
+        "students": null,
+        "section_1": null,
+        "section_2": null
+      },
+      "outputDefinition": {
+        "output": {
+          "type": "object",
+          "source": "=this",
+          "var": "output",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "section_1": {
+                "items": {
+                  "properties": {
+                    "name": {
+                      "minLength": 1,
+                      "title": "Name",
+                      "type": "string"
+                    },
+                    "id_number": {
+                      "minLength": 1,
+                      "title": "Id Number",
+                      "type": "string"
+                    },
+                    "age": {
+                      "maximum": 25,
+                      "minimum": 3,
+                      "title": "Age",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "id_number",
+                    "age"
+                  ],
+                  "title": "Student",
+                  "type": "object"
+                },
+                "title": "Section 1",
+                "type": "array"
+              },
+              "section_2": {
+                "items": {
+                  "properties": {
+                    "name": {
+                      "minLength": 1,
+                      "title": "Name",
+                      "type": "string"
+                    },
+                    "id_number": {
+                      "minLength": 1,
+                      "title": "Id Number",
+                      "type": "string"
+                    },
+                    "age": {
+                      "maximum": 25,
+                      "minimum": 3,
+                      "title": "Age",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "id_number",
+                    "age"
+                  ],
+                  "title": "Student",
+                  "type": "object"
+                },
+                "title": "Section 2",
+                "type": "array"
+              },
+              "section_1_path": {
+                "type": "string"
+              },
+              "section_2_path": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "error": {
+          "type": "object",
+          "description": "Error information if the node fails",
+          "source": "=Error",
+          "var": "error",
+          "schema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "detail",
+              "category",
+              "status"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code as a string"
+              },
+              "message": {
+                "type": "string",
+                "description": "High-level error message"
+              },
+              "detail": {
+                "type": "string",
+                "description": "Detailed error description"
+              },
+              "category": {
+                "type": "string",
+                "description": "Error category"
+              },
+              "status": {
+                "type": "integer",
+                "description": "HTTP status code"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "debug": {
+        "runtime": "bpmnEngine"
+      }
+    },
+    {
+      "nodeType": "core.control.end",
+      "version": "1.0",
+      "category": "control-flow",
+      "description": "Mark the end of a process path",
+      "tags": [
+        "control-flow",
+        "end",
+        "finish",
+        "complete"
+      ],
+      "sortOrder": 66,
+      "display": {
+        "label": "End",
+        "icon": "circle-check",
+        "shape": "circle"
+      },
+      "handleConfiguration": [
+        {
+          "position": "left",
+          "handles": [
+            {
+              "id": "input",
+              "type": "target",
+              "handleType": "input"
+            }
+          ]
+        }
+      ],
+      "model": {
+        "type": "bpmn:EndEvent"
+      }
+    }
+  ],
+  "variables": {
+    "globals": [
+      {
+        "id": "students",
+        "direction": "in",
+        "type": "array",
+        "subType": "object",
+        "description": "The students to place, as StudentIntakeFlow parsed them",
+        "triggerNodeId": "start"
+      },
+      {
+        "id": "section_1_path",
+        "direction": "out",
+        "type": "string",
+        "description": "Path of section 1's CSV inside the bucket"
+      },
+      {
+        "id": "section_2_path",
+        "direction": "out",
+        "type": "string",
+        "description": "Path of section 2's CSV inside the bucket"
+      },
+      {
+        "id": "section_1_count",
+        "direction": "out",
+        "type": "number",
+        "description": "How many students are in section 1"
+      },
+      {
+        "id": "section_2_count",
+        "direction": "out",
+        "type": "number",
+        "description": "How many students are in section 2"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "start.output",
+        "type": "object",
+        "description": "Data passed when manually triggering the process.",
+        "binding": {
+          "nodeId": "start",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "assignSections1.output",
+        "type": "object",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "section_1": {
+              "items": {
+                "properties": {
+                  "name": {
+                    "minLength": 1,
+                    "title": "Name",
+                    "type": "string"
+                  },
+                  "id_number": {
+                    "minLength": 1,
+                    "title": "Id Number",
+                    "type": "string"
+                  },
+                  "age": {
+                    "maximum": 25,
+                    "minimum": 3,
+                    "title": "Age",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "name",
+                  "id_number",
+                  "age"
+                ],
+                "title": "Student",
+                "type": "object"
+              },
+              "title": "Section 1",
+              "type": "array"
+            },
+            "section_2": {
+              "items": {
+                "properties": {
+                  "name": {
+                    "minLength": 1,
+                    "title": "Name",
+                    "type": "string"
+                  },
+                  "id_number": {
+                    "minLength": 1,
+                    "title": "Id Number",
+                    "type": "string"
+                  },
+                  "age": {
+                    "maximum": 25,
+                    "minimum": 3,
+                    "title": "Age",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "name",
+                  "id_number",
+                  "age"
+                ],
+                "title": "Student",
+                "type": "object"
+              },
+              "title": "Section 2",
+              "type": "array"
+            },
+            "section_1_path": {
+              "type": "string"
+            },
+            "section_2_path": {
+              "type": "string"
+            }
+          }
+        },
+        "binding": {
+          "nodeId": "assignSections1",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "assignSections1.error",
+        "type": "object",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "required": [
+            "code",
+            "message",
+            "detail",
+            "category",
+            "status"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Error code as a string"
+            },
+            "message": {
+              "type": "string",
+              "description": "High-level error message"
+            },
+            "detail": {
+              "type": "string",
+              "description": "Detailed error description"
+            },
+            "category": {
+              "type": "string",
+              "description": "Error category"
+            },
+            "status": {
+              "type": "integer",
+              "description": "HTTP status code"
+            }
+          },
+          "additionalProperties": false
+        },
+        "description": "Error information if the node fails",
+        "binding": {
+          "nodeId": "assignSections1",
+          "outputId": "error"
+        }
+      },
+      {
+        "id": "writeCsvs1.output",
+        "type": "object",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "section_1": {
+              "items": {
+                "properties": {
+                  "name": {
+                    "minLength": 1,
+                    "title": "Name",
+                    "type": "string"
+                  },
+                  "id_number": {
+                    "minLength": 1,
+                    "title": "Id Number",
+                    "type": "string"
+                  },
+                  "age": {
+                    "maximum": 25,
+                    "minimum": 3,
+                    "title": "Age",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "name",
+                  "id_number",
+                  "age"
+                ],
+                "title": "Student",
+                "type": "object"
+              },
+              "title": "Section 1",
+              "type": "array"
+            },
+            "section_2": {
+              "items": {
+                "properties": {
+                  "name": {
+                    "minLength": 1,
+                    "title": "Name",
+                    "type": "string"
+                  },
+                  "id_number": {
+                    "minLength": 1,
+                    "title": "Id Number",
+                    "type": "string"
+                  },
+                  "age": {
+                    "maximum": 25,
+                    "minimum": 3,
+                    "title": "Age",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "name",
+                  "id_number",
+                  "age"
+                ],
+                "title": "Student",
+                "type": "object"
+              },
+              "title": "Section 2",
+              "type": "array"
+            },
+            "section_1_path": {
+              "type": "string"
+            },
+            "section_2_path": {
+              "type": "string"
+            }
+          }
+        },
+        "binding": {
+          "nodeId": "writeCsvs1",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "writeCsvs1.error",
+        "type": "object",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "required": [
+            "code",
+            "message",
+            "detail",
+            "category",
+            "status"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Error code as a string"
+            },
+            "message": {
+              "type": "string",
+              "description": "High-level error message"
+            },
+            "detail": {
+              "type": "string",
+              "description": "Detailed error description"
+            },
+            "category": {
+              "type": "string",
+              "description": "Error category"
+            },
+            "status": {
+              "type": "integer",
+              "description": "HTTP status code"
+            }
+          },
+          "additionalProperties": false
+        },
+        "description": "Error information if the node fails",
+        "binding": {
+          "nodeId": "writeCsvs1",
+          "outputId": "error"
+        }
+      },
+      {
+        "id": "end1.section_1_path",
+        "type": "string",
+        "binding": {
+          "nodeId": "end1",
+          "outputId": "section_1_path"
+        }
+      },
+      {
+        "id": "end1.section_2_path",
+        "type": "string",
+        "binding": {
+          "nodeId": "end1",
+          "outputId": "section_2_path"
+        }
+      },
+      {
+        "id": "end1.section_1_count",
+        "type": "number",
+        "binding": {
+          "nodeId": "end1",
+          "outputId": "section_1_count"
+        }
+      },
+      {
+        "id": "end1.section_2_count",
+        "type": "number",
+        "binding": {
+          "nodeId": "end1",
+          "outputId": "section_2_count"
+        }
+      }
+    ]
+  },
+  "bindings": [
+    {
+      "id": "bX7wnlBCj",
+      "name": "name",
+      "type": "string",
+      "resource": "process",
+      "resourceKey": "f1e0970f-91a8-4ca9-9504-b23d05a1af3b",
+      "default": "StudentSectionsFunction",
+      "propertyAttribute": "name",
+      "resourceSubType": "Function"
+    },
+    {
+      "id": "b2AWK3RQs",
+      "name": "folderPath",
+      "type": "string",
+      "resource": "process",
+      "resourceKey": "f1e0970f-91a8-4ca9-9504-b23d05a1af3b",
+      "propertyAttribute": "folderPath",
+      "resourceSubType": "Function"
+    }
+  ],
+  "layout": {
+    "nodes": {
+      "start": {
+        "position": {
+          "x": -192,
+          "y": 0
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        },
+        "collapsed": false
+      },
+      "assignSections1": {
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        },
+        "collapsed": false
+      },
+      "writeCsvs1": {
+        "position": {
+          "x": 192,
+          "y": 0
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        },
+        "collapsed": false
+      },
+      "end1": {
+        "position": {
+          "x": 384,
+          "y": 0
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        },
+        "collapsed": false
+      }
+    }
+  }
+}

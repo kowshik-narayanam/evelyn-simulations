@@ -1,0 +1,38 @@
+{
+  "docVersion": "1.0.0",
+  "resource": {
+    "name": "StudentSectionsFlow",
+    "kind": "process",
+    "type": "flow",
+    "apiVersion": "orchestrator.uipath.com/v1",
+    "projectKey": "94c1f711-f908-4928-a4ee-f080f06f6e2d",
+    "dependencies": [
+      {
+        "kind": "package",
+        "name": "StudentSectionsFlow"
+      }
+    ],
+    "runtimeDependencies": [],
+    "folders": [
+      {
+        "fullyQualifiedName": "solution_folder"
+      }
+    ],
+    "spec": {
+      "runtimeProfile": "Standard",
+      "type": "Flow",
+      "name": "StudentSectionsFlow",
+      "package": {
+        "key": "ceab88cd-0bf5-4c32-89ac-cbbe5b834c57"
+      },
+      "targetFrameworkValue": "Portable",
+      "retentionAction": "Delete",
+      "retentionPeriod": 30,
+      "staleRetentionAction": "Delete",
+      "staleRetentionPeriod": 180
+    },
+    "locks": [],
+    "key": "6b99be1f-1c80-46a0-9a5c-c2fb0087e339",
+    "files": []
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "docVersion": "1.0.0",
+  "resource": {
+    "name": "StudentSectionsFiles",
+    "kind": "bucket",
+    "type": "orchestratorBucket",
+    "apiVersion": "orchestrator.uipath.com/v1",
+    "dependencies": [],
+    "runtimeDependencies": [],
+    "folders": [
+      {
+        "fullyQualifiedName": "solution_folder"
+      }
+    ],
+    "spec": {
+      "name": "StudentSectionsFiles",
+      "type": "Orchestrator"
+    },
+    "locks": [],
+    "key": "bdfbfde8-ba95-4b7b-ab5d-14d35ae58e41",
+    "files": []
+  }
+}

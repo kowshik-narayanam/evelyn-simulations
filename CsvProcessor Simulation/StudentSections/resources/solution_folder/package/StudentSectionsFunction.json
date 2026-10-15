@@ -1,0 +1,22 @@
+{
+  "docVersion": "1.0.0",
+  "resource": {
+    "name": "StudentSectionsFunction",
+    "kind": "package",
+    "apiVersion": "orchestrator.uipath.com/v1",
+    "projectKey": "6c54fe75-700a-45fa-8283-14f1bfb4e243",
+    "dependencies": [],
+    "runtimeDependencies": [],
+    "folders": [
+      {
+        "fullyQualifiedName": "solution_folder"
+      }
+    ],
+    "spec": {
+      "name": "StudentSectionsFunction"
+    },
+    "locks": [],
+    "key": "3ed031d3-2dfa-4476-9955-8b66eb5f28e9",
+    "files": []
+  }
+}

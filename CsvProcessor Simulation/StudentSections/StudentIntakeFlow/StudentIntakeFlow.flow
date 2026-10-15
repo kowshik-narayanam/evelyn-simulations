@@ -1,0 +1,1121 @@
+{
+  "id": "1566284d-0a1d-4110-88df-401103cc2048",
+  "version": "1.9",
+  "name": "StudentIntakeFlow",
+  "runtime": "maestro",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "core.trigger.manual",
+      "typeVersion": "1.0",
+      "display": {
+        "label": "Manual trigger",
+        "icon": "play"
+      },
+      "inputs": {
+        "entryPointId": "64b37e33-1077-41b1-99b6-81889cbb0dbf",
+        "isDefaultEntryPoint": true
+      },
+      "outputs": {
+        "output": {
+          "type": "object",
+          "description": "Data passed when manually triggering the process.",
+          "source": "null",
+          "var": "output"
+        }
+      },
+      "uniqueId": "fc84b5c1-f4fd-46df-bf5a-474c7757d689"
+    },
+    {
+      "id": "parseCsv1",
+      "type": "uipath.core.function.fc171933-f8ef-4cae-95ba-11eddd0a81b0",
+      "typeVersion": "1.0.0",
+      "display": {
+        "label": "Parse CSV",
+        "icon": "function"
+      },
+      "inputs": {
+        "csv_path": "=js:$vars.start.output.csv_path"
+      },
+      "outputs": {
+        "output": {
+          "type": "object",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "students": {
+                "items": {
+                  "properties": {
+                    "name": {
+                      "minLength": 1,
+                      "title": "Name",
+                      "type": "string"
+                    },
+                    "id_number": {
+                      "minLength": 1,
+                      "title": "Id Number",
+                      "type": "string"
+                    },
+                    "age": {
+                      "maximum": 25,
+                      "minimum": 3,
+                      "title": "Age",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "id_number",
+                    "age"
+                  ],
+                  "title": "Student",
+                  "type": "object"
+                },
+                "title": "Students",
+                "type": "array"
+              },
+              "count": {
+                "title": "Count",
+                "type": "integer"
+              }
+            }
+          },
+          "source": "=this",
+          "var": "output"
+        },
+        "error": {
+          "type": "object",
+          "description": "Error information if the node fails",
+          "schema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "detail",
+              "category",
+              "status"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code as a string"
+              },
+              "message": {
+                "type": "string",
+                "description": "High-level error message"
+              },
+              "detail": {
+                "type": "string",
+                "description": "Detailed error description"
+              },
+              "category": {
+                "type": "string",
+                "description": "Error category"
+              },
+              "status": {
+                "type": "integer",
+                "description": "HTTP status code"
+              }
+            },
+            "additionalProperties": false
+          },
+          "source": "=Error",
+          "var": "error"
+        }
+      },
+      "uniqueId": "a193da4d-0574-4e68-a7ff-0e3bd292b731"
+    },
+    {
+      "id": "runSectionsFlow1",
+      "type": "uipath.core.flow.6b99be1f-1c80-46a0-9a5c-c2fb0087e339",
+      "typeVersion": "1.0.0",
+      "display": {
+        "label": "Run sections flow",
+        "icon": "flow-project"
+      },
+      "inputs": {
+        "students": "=js:$vars.parseCsv1.output.students",
+        "fireAndForget": false
+      },
+      "outputs": {
+        "output": {
+          "type": "object",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "section_1_path": {
+                "type": "string",
+                "description": "Path of section 1's CSV inside the bucket"
+              },
+              "section_2_path": {
+                "type": "string",
+                "description": "Path of section 2's CSV inside the bucket"
+              },
+              "section_1_count": {
+                "type": "number",
+                "description": "How many students are in section 1"
+              },
+              "section_2_count": {
+                "type": "number",
+                "description": "How many students are in section 2"
+              }
+            }
+          },
+          "source": "=this",
+          "var": "output"
+        },
+        "error": {
+          "type": "object",
+          "description": "Error information if the node fails",
+          "schema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "detail",
+              "category",
+              "status"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code as a string"
+              },
+              "message": {
+                "type": "string",
+                "description": "High-level error message"
+              },
+              "detail": {
+                "type": "string",
+                "description": "Detailed error description"
+              },
+              "category": {
+                "type": "string",
+                "description": "Error category"
+              },
+              "status": {
+                "type": "integer",
+                "description": "HTTP status code"
+              }
+            },
+            "additionalProperties": false
+          },
+          "source": "=Error",
+          "var": "error"
+        }
+      },
+      "uniqueId": "d32d3366-518d-4e54-ab5a-183031c4f4aa"
+    },
+    {
+      "id": "end1",
+      "type": "core.control.end",
+      "typeVersion": "1.0",
+      "display": {
+        "label": "End",
+        "icon": "circle-check"
+      },
+      "inputs": {},
+      "outputs": {
+        "student_count": {
+          "source": "=js:$vars.parseCsv1.output.count",
+          "type": "number"
+        },
+        "section_1_path": {
+          "source": "=js:$vars.runSectionsFlow1.output.section_1_path",
+          "type": "string"
+        },
+        "section_2_path": {
+          "source": "=js:$vars.runSectionsFlow1.output.section_2_path",
+          "type": "string"
+        }
+      },
+      "uniqueId": "f97cfa7f-02c5-44e3-adea-5fcf3f2e1afa"
+    }
+  ],
+  "edges": [
+    {
+      "id": "start-output-parseCsv1-input",
+      "sourceNodeId": "start",
+      "sourcePort": "output",
+      "targetNodeId": "parseCsv1",
+      "targetPort": "input"
+    },
+    {
+      "id": "parseCsv1-output-runSectionsFlow1-input",
+      "sourceNodeId": "parseCsv1",
+      "sourcePort": "output",
+      "targetNodeId": "runSectionsFlow1",
+      "targetPort": "input"
+    },
+    {
+      "id": "runSectionsFlow1-output-end1-input",
+      "sourceNodeId": "runSectionsFlow1",
+      "sourcePort": "output",
+      "targetNodeId": "end1",
+      "targetPort": "input"
+    }
+  ],
+  "definitions": [
+    {
+      "nodeType": "core.trigger.manual",
+      "version": "1.0",
+      "category": "trigger",
+      "description": "Start the process manually",
+      "tags": [
+        "trigger",
+        "start",
+        "manual"
+      ],
+      "sortOrder": 80,
+      "display": {
+        "label": "Manual trigger",
+        "icon": "play",
+        "shape": "circle"
+      },
+      "handleConfiguration": [
+        {
+          "position": "right",
+          "handles": [
+            {
+              "id": "output",
+              "type": "source",
+              "handleType": "output",
+              "showButton": true,
+              "constraints": {
+                "forbiddenTargetCategories": [
+                  "trigger"
+                ]
+              }
+            }
+          ],
+          "visible": true
+        }
+      ],
+      "model": {
+        "type": "bpmn:StartEvent",
+        "entryPointId": true
+      },
+      "outputDefinition": {
+        "output": {
+          "type": "object",
+          "description": "Data passed when manually triggering the process.",
+          "source": "null",
+          "var": "output"
+        }
+      },
+      "toolbarExtensions": {
+        "design": {
+          "actions": [
+            {
+              "id": "change-trigger-type",
+              "icon": "square-mouse-pointer",
+              "label": "Change trigger type"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "nodeType": "uipath.core.function.fc171933-f8ef-4cae-95ba-11eddd0a81b0",
+      "version": "1.0.0",
+      "category": "function.in-solution",
+      "runtimeConstraints": {
+        "exclude": [
+          "api-function"
+        ]
+      },
+      "description": "(In-solution) StudentIntakeFunction",
+      "tags": [
+        "in-solution",
+        "local"
+      ],
+      "sortOrder": 650,
+      "supportsErrorHandling": true,
+      "display": {
+        "label": "StudentIntakeFunction",
+        "icon": "function"
+      },
+      "handleConfiguration": [
+        {
+          "position": "left",
+          "handles": [
+            {
+              "id": "input",
+              "type": "target",
+              "handleType": "input"
+            }
+          ]
+        },
+        {
+          "position": "right",
+          "handles": [
+            {
+              "id": "output",
+              "type": "source",
+              "handleType": "output"
+            },
+            {
+              "id": "error",
+              "label": "Error",
+              "type": "source",
+              "handleType": "output",
+              "visible": "{inputs.errorHandlingEnabled}",
+              "constraints": {
+                "maxConnections": 1
+              }
+            }
+          ]
+        }
+      ],
+      "toolbarExtensions": {
+        "design": {
+          "actions": [
+            {
+              "id": "open-workflow",
+              "icon": "external-link",
+              "label": "Open"
+            }
+          ]
+        }
+      },
+      "projectId": "e11e0887-29a0-40e9-a81e-5a31e215f002",
+      "model": {
+        "type": "bpmn:ServiceTask",
+        "serviceType": "Orchestrator.ExecuteFunctionAsync",
+        "version": "v2",
+        "bindings": {
+          "resource": "process",
+          "resourceSubType": "Function",
+          "resourceKey": "fc171933-f8ef-4cae-95ba-11eddd0a81b0",
+          "orchestratorType": "function",
+          "values": [
+            {
+              "name": "name",
+              "propertyAttribute": "name",
+              "default": "StudentIntakeFunction"
+            },
+            {
+              "name": "folderPath",
+              "propertyAttribute": "folderPath",
+              "default": ""
+            }
+          ]
+        },
+        "projectId": "e11e0887-29a0-40e9-a81e-5a31e215f002",
+        "projectName": "StudentIntakeFunction",
+        "isInSolution": true,
+        "context": [
+          {
+            "name": "name",
+            "type": "string",
+            "value": "<bindings.name>"
+          },
+          {
+            "name": "folderPath",
+            "type": "string",
+            "value": "<bindings.folderPath>"
+          },
+          {
+            "name": "_label",
+            "type": "string",
+            "value": "StudentIntakeFunction"
+          }
+        ]
+      },
+      "form": {
+        "id": "activity-properties",
+        "title": "Function",
+        "sections": [
+          {
+            "id": "inputs",
+            "title": "Inputs",
+            "collapsible": true,
+            "defaultExpanded": true,
+            "fields": [
+              {
+                "name": "inputs.csv_path",
+                "type": "text",
+                "label": "csv_path"
+              }
+            ]
+          }
+        ]
+      },
+      "inputDefinition": {
+        "type": "object",
+        "properties": {
+          "csv_path": {
+            "default": "input/students.csv",
+            "title": "Csv Path",
+            "type": "string"
+          }
+        }
+      },
+      "inputDefaults": {
+        "csv_path": ""
+      },
+      "outputDefinition": {
+        "output": {
+          "type": "object",
+          "source": "=this",
+          "var": "output",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "students": {
+                "items": {
+                  "properties": {
+                    "name": {
+                      "minLength": 1,
+                      "title": "Name",
+                      "type": "string"
+                    },
+                    "id_number": {
+                      "minLength": 1,
+                      "title": "Id Number",
+                      "type": "string"
+                    },
+                    "age": {
+                      "maximum": 25,
+                      "minimum": 3,
+                      "title": "Age",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "id_number",
+                    "age"
+                  ],
+                  "title": "Student",
+                  "type": "object"
+                },
+                "title": "Students",
+                "type": "array"
+              },
+              "count": {
+                "title": "Count",
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "error": {
+          "type": "object",
+          "description": "Error information if the node fails",
+          "source": "=Error",
+          "var": "error",
+          "schema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "detail",
+              "category",
+              "status"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code as a string"
+              },
+              "message": {
+                "type": "string",
+                "description": "High-level error message"
+              },
+              "detail": {
+                "type": "string",
+                "description": "Detailed error description"
+              },
+              "category": {
+                "type": "string",
+                "description": "Error category"
+              },
+              "status": {
+                "type": "integer",
+                "description": "HTTP status code"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "debug": {
+        "runtime": "bpmnEngine"
+      }
+    },
+    {
+      "nodeType": "uipath.core.flow.6b99be1f-1c80-46a0-9a5c-c2fb0087e339",
+      "version": "1.0.0",
+      "category": "flow.in-solution",
+      "runtimeConstraints": {
+        "exclude": [
+          "api-function"
+        ]
+      },
+      "description": "(In-solution) StudentSectionsFlow",
+      "tags": [
+        "in-solution",
+        "local"
+      ],
+      "sortOrder": 600,
+      "supportsErrorHandling": true,
+      "display": {
+        "label": "StudentSectionsFlow",
+        "icon": "flow-project"
+      },
+      "handleConfiguration": [
+        {
+          "position": "left",
+          "handles": [
+            {
+              "id": "input",
+              "type": "target",
+              "handleType": "input"
+            }
+          ]
+        },
+        {
+          "position": "right",
+          "handles": [
+            {
+              "id": "output",
+              "type": "source",
+              "handleType": "output"
+            },
+            {
+              "id": "error",
+              "label": "Error",
+              "type": "source",
+              "handleType": "output",
+              "visible": "{inputs.errorHandlingEnabled}",
+              "constraints": {
+                "maxConnections": 1
+              }
+            }
+          ]
+        }
+      ],
+      "toolbarExtensions": {
+        "design": {
+          "actions": [
+            {
+              "id": "open-workflow",
+              "icon": "external-link",
+              "label": "Open"
+            }
+          ]
+        }
+      },
+      "projectId": "94c1f711-f908-4928-a4ee-f080f06f6e2d",
+      "model": {
+        "type": "bpmn:ServiceTask",
+        "serviceType": "Orchestrator.StartFlowProcess",
+        "version": "v2",
+        "bindings": {
+          "resource": "process",
+          "resourceSubType": "Flow",
+          "resourceKey": "6b99be1f-1c80-46a0-9a5c-c2fb0087e339",
+          "orchestratorType": "flow",
+          "values": [
+            {
+              "name": "name",
+              "propertyAttribute": "name",
+              "default": "StudentSectionsFlow"
+            },
+            {
+              "name": "folderPath",
+              "propertyAttribute": "folderPath",
+              "default": ""
+            }
+          ]
+        },
+        "projectId": "94c1f711-f908-4928-a4ee-f080f06f6e2d",
+        "projectName": "StudentSectionsFlow",
+        "isInSolution": true,
+        "context": [
+          {
+            "name": "name",
+            "type": "string",
+            "value": "<bindings.name>"
+          },
+          {
+            "name": "folderPath",
+            "type": "string",
+            "value": "<bindings.folderPath>"
+          },
+          {
+            "name": "_label",
+            "type": "string",
+            "value": "StudentSectionsFlow"
+          }
+        ]
+      },
+      "form": {
+        "id": "activity-properties",
+        "title": "Maestro Flow",
+        "sections": [
+          {
+            "id": "inputs",
+            "title": "Inputs",
+            "collapsible": true,
+            "defaultExpanded": true,
+            "fields": [
+              {
+                "name": "inputs.students",
+                "type": "custom",
+                "component": "object-editor",
+                "label": "students",
+                "componentProps": {
+                  "schema": {
+                    "type": "array",
+                    "description": "The students to place, as StudentIntakeFlow parsed them"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "inputDefinition": {
+        "type": "object",
+        "properties": {
+          "students": {
+            "type": "array",
+            "description": "The students to place, as StudentIntakeFlow parsed them"
+          },
+          "fireAndForget": {
+            "type": "boolean"
+          }
+        }
+      },
+      "inputDefaults": {
+        "students": null,
+        "fireAndForget": false
+      },
+      "outputDefinition": {
+        "output": {
+          "type": "object",
+          "source": "=this",
+          "var": "output",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "section_1_path": {
+                "type": "string",
+                "description": "Path of section 1's CSV inside the bucket"
+              },
+              "section_2_path": {
+                "type": "string",
+                "description": "Path of section 2's CSV inside the bucket"
+              },
+              "section_1_count": {
+                "type": "number",
+                "description": "How many students are in section 1"
+              },
+              "section_2_count": {
+                "type": "number",
+                "description": "How many students are in section 2"
+              }
+            }
+          }
+        },
+        "error": {
+          "type": "object",
+          "description": "Error information if the node fails",
+          "source": "=Error",
+          "var": "error",
+          "schema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "detail",
+              "category",
+              "status"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code as a string"
+              },
+              "message": {
+                "type": "string",
+                "description": "High-level error message"
+              },
+              "detail": {
+                "type": "string",
+                "description": "Detailed error description"
+              },
+              "category": {
+                "type": "string",
+                "description": "Error category"
+              },
+              "status": {
+                "type": "integer",
+                "description": "HTTP status code"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "debug": {
+        "runtime": "bpmnEngine"
+      }
+    },
+    {
+      "nodeType": "core.control.end",
+      "version": "1.0",
+      "category": "control-flow",
+      "description": "Mark the end of a process path",
+      "tags": [
+        "control-flow",
+        "end",
+        "finish",
+        "complete"
+      ],
+      "sortOrder": 66,
+      "display": {
+        "label": "End",
+        "icon": "circle-check",
+        "shape": "circle"
+      },
+      "handleConfiguration": [
+        {
+          "position": "left",
+          "handles": [
+            {
+              "id": "input",
+              "type": "target",
+              "handleType": "input"
+            }
+          ]
+        }
+      ],
+      "model": {
+        "type": "bpmn:EndEvent"
+      }
+    }
+  ],
+  "variables": {
+    "globals": [
+      {
+        "id": "csv_path",
+        "direction": "in",
+        "type": "string",
+        "defaultValue": "input/students.csv",
+        "description": "Path of the student CSV inside the StudentSectionsFiles bucket",
+        "triggerNodeId": "start"
+      },
+      {
+        "id": "student_count",
+        "direction": "out",
+        "type": "number",
+        "description": "How many students the CSV held"
+      },
+      {
+        "id": "section_1_path",
+        "direction": "out",
+        "type": "string",
+        "description": "Section 1's CSV, as StudentSectionsFlow returned it"
+      },
+      {
+        "id": "section_2_path",
+        "direction": "out",
+        "type": "string",
+        "description": "Section 2's CSV, as StudentSectionsFlow returned it"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "start.output",
+        "type": "object",
+        "description": "Data passed when manually triggering the process.",
+        "binding": {
+          "nodeId": "start",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "parseCsv1.output",
+        "type": "object",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "students": {
+              "items": {
+                "properties": {
+                  "name": {
+                    "minLength": 1,
+                    "title": "Name",
+                    "type": "string"
+                  },
+                  "id_number": {
+                    "minLength": 1,
+                    "title": "Id Number",
+                    "type": "string"
+                  },
+                  "age": {
+                    "maximum": 25,
+                    "minimum": 3,
+                    "title": "Age",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "name",
+                  "id_number",
+                  "age"
+                ],
+                "title": "Student",
+                "type": "object"
+              },
+              "title": "Students",
+              "type": "array"
+            },
+            "count": {
+              "title": "Count",
+              "type": "integer"
+            }
+          }
+        },
+        "binding": {
+          "nodeId": "parseCsv1",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "parseCsv1.error",
+        "type": "object",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "required": [
+            "code",
+            "message",
+            "detail",
+            "category",
+            "status"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Error code as a string"
+            },
+            "message": {
+              "type": "string",
+              "description": "High-level error message"
+            },
+            "detail": {
+              "type": "string",
+              "description": "Detailed error description"
+            },
+            "category": {
+              "type": "string",
+              "description": "Error category"
+            },
+            "status": {
+              "type": "integer",
+              "description": "HTTP status code"
+            }
+          },
+          "additionalProperties": false
+        },
+        "description": "Error information if the node fails",
+        "binding": {
+          "nodeId": "parseCsv1",
+          "outputId": "error"
+        }
+      },
+      {
+        "id": "runSectionsFlow1.output",
+        "type": "object",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "section_1_path": {
+              "type": "string",
+              "description": "Path of section 1's CSV inside the bucket"
+            },
+            "section_2_path": {
+              "type": "string",
+              "description": "Path of section 2's CSV inside the bucket"
+            },
+            "section_1_count": {
+              "type": "number",
+              "description": "How many students are in section 1"
+            },
+            "section_2_count": {
+              "type": "number",
+              "description": "How many students are in section 2"
+            }
+          }
+        },
+        "binding": {
+          "nodeId": "runSectionsFlow1",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "runSectionsFlow1.error",
+        "type": "object",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "required": [
+            "code",
+            "message",
+            "detail",
+            "category",
+            "status"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Error code as a string"
+            },
+            "message": {
+              "type": "string",
+              "description": "High-level error message"
+            },
+            "detail": {
+              "type": "string",
+              "description": "Detailed error description"
+            },
+            "category": {
+              "type": "string",
+              "description": "Error category"
+            },
+            "status": {
+              "type": "integer",
+              "description": "HTTP status code"
+            }
+          },
+          "additionalProperties": false
+        },
+        "description": "Error information if the node fails",
+        "binding": {
+          "nodeId": "runSectionsFlow1",
+          "outputId": "error"
+        }
+      },
+      {
+        "id": "end1.student_count",
+        "type": "number",
+        "binding": {
+          "nodeId": "end1",
+          "outputId": "student_count"
+        }
+      },
+      {
+        "id": "end1.section_1_path",
+        "type": "string",
+        "binding": {
+          "nodeId": "end1",
+          "outputId": "section_1_path"
+        }
+      },
+      {
+        "id": "end1.section_2_path",
+        "type": "string",
+        "binding": {
+          "nodeId": "end1",
+          "outputId": "section_2_path"
+        }
+      }
+    ]
+  },
+  "bindings": [
+    {
+      "id": "bO7I7szRU",
+      "name": "name",
+      "type": "string",
+      "resource": "process",
+      "resourceKey": "fc171933-f8ef-4cae-95ba-11eddd0a81b0",
+      "default": "StudentIntakeFunction",
+      "propertyAttribute": "name",
+      "resourceSubType": "Function"
+    },
+    {
+      "id": "bu3g6S8R5",
+      "name": "folderPath",
+      "type": "string",
+      "resource": "process",
+      "resourceKey": "fc171933-f8ef-4cae-95ba-11eddd0a81b0",
+      "propertyAttribute": "folderPath",
+      "resourceSubType": "Function"
+    },
+    {
+      "id": "bfQiXT0JA",
+      "name": "name",
+      "type": "string",
+      "resource": "process",
+      "resourceKey": "6b99be1f-1c80-46a0-9a5c-c2fb0087e339",
+      "default": "StudentSectionsFlow",
+      "propertyAttribute": "name",
+      "resourceSubType": "Flow"
+    },
+    {
+      "id": "bWi192W7p",
+      "name": "folderPath",
+      "type": "string",
+      "resource": "process",
+      "resourceKey": "6b99be1f-1c80-46a0-9a5c-c2fb0087e339",
+      "propertyAttribute": "folderPath",
+      "resourceSubType": "Flow"
+    }
+  ],
+  "layout": {
+    "nodes": {
+      "start": {
+        "position": {
+          "x": -192,
+          "y": 0
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        },
+        "collapsed": false
+      },
+      "parseCsv1": {
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        },
+        "collapsed": false
+      },
+      "runSectionsFlow1": {
+        "position": {
+          "x": 192,
+          "y": 0
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        },
+        "collapsed": false
+      },
+      "end1": {
+        "position": {
+          "x": 384,
+          "y": 0
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        },
+        "collapsed": false
+      }
+    }
+  }
+}
