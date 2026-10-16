@@ -908,103 +908,16 @@ Zark Muckerberg,STU-001,15
 
 Computed by running `sections.py` on the data file; the tests assert the same names.
 
-## Run it on the tenant
+## Run it
 
-**Needs a tenant login; not run yet.** These steps create a bucket on the tenant you're logged
-into, upload a file to it and run three jobs.
-
-1. Check the login and, from this folder, go to the Solution:
-
-```bash
-uip login status
-```
-
-```bash
-cd StudentSections
-```
-
-```bash
-uip solution resources refresh
-```
-
-2. **First debug run: it should fail at Parse CSV.** The bucket is a Solution resource, so this
-   run creates it, empty, in your personal workspace (**Inference**: debug provisions into the
-   personal workspace). With no `input/students.csv` in it, **Parse CSV** fails, and the child Flow
-   never starts: the same thing a bad row does.
-
-```bash
-uip maestro flow debug StudentIntakeFlow --inputs '{"csv_path": "input/students.csv"}' --output json > /tmp/intake-debug-1.json
-```
-
-It takes 1 to 5 minutes and prints only at the end. **Check:** `jq '.Data.finalStatus' /tmp/intake-debug-1.json`
-says `Faulted`, and the cause names the missing file.
-
-3. **Find the bucket and upload the CSV.**
-
-```bash
-uip or buckets list --all-folders --name StudentSectionsFiles --output json
-```
-
-Copy the bucket's key (a GUID) and its folder into two shell variables. The folder is the one
-`buckets list` shows, usually your personal workspace, named `<your email>'s workspace`.
-
-```bash
-BUCKET_KEY=paste-the-key-here
-```
-
-```bash
-WORKSPACE="paste-the-folder-here"
-```
-
-```bash
-uip or bucket-files upload "$BUCKET_KEY" input/students.csv --folder-path "$WORKSPACE" --file ../data/students.csv --content-type text/csv
-```
-
-4. **Second debug run: the real one.**
-
-```bash
-uip maestro flow debug StudentIntakeFlow --inputs '{"csv_path": "input/students.csv"}' --output json > /tmp/intake-debug-2.json
-```
-
-**Check:**
-- `jq '.Data' /tmp/intake-debug-2.json` shows `student_count` 20 and the two paths.
-- In Maestro's instance view, click **Run sections flow**: its input holds the 20 students, and
-  its output holds the child's four outputs.
-- The child run appears as its own instance.
-
-5. **Read the two CSVs back.**
-
-```bash
-uip or bucket-files download "$BUCKET_KEY" output/section-1.csv --folder-path "$WORKSPACE"
-```
-
-```bash
-uip or bucket-files download "$BUCKET_KEY" output/section-2.csv --folder-path "$WORKSPACE"
-```
-
-**Check:** both match [Expected result](#expected-result).
-
-- **If step 2 didn't create the bucket** (`buckets list` finds nothing), create it in the personal
-  workspace yourself: `uip or buckets create StudentSectionsFiles --folder-path "$WORKSPACE"`.
-  Then continue with step 3.
-- **Don't run `uipath auth` in a function folder.** `uip solution pack`, which `flow debug` also
-  uses, ships `.env` inside the package. `uip login` keeps its login in `~/.uipath/`.
-- **Run either this folder or your rebuild on the tenant, not both.** They use the same function
-  and Flow names, and Orchestrator binds by name.
-
-**Things only the tenant run can confirm**
-
-| Unknown | Why it matters | If it's wrong |
-|---|---|---|
-| Does the first debug run create the bucket, and in which folder? | Steps 2–3 rely on it | Create it by hand (above) and note the folder |
-| Does a debug run of the parent also run the in-solution child? | The whole example | The node faults; read `$vars.runSectionsFlow1.error` in the instance view |
-| Does the child's `students` arrive as a list of objects? | `validate` can't check run-time shapes | `Assign sections` fails with `Invalid input`; look at its input |
-| Do the child's `out` variables come back as `output.section_1_path`…? | UiPath-WorkFusion's `IsaacTransactionMonitoringFlow` reads a child Flow's outputs this way (`$vars.integrateIsaacModel1.output.resultPayload`) | The parent's paths are `null`; look at the node's output |
+[HOW_TO_RUN.md](HOW_TO_RUN.md) runs this simulation in four levels: the tests, a local run, the
+tenant run, and a deployed run started over HTTP with curl or Postman. It also says where to look in the browser, and lists the things only the tenant run can
+confirm.
 
 ## Try this
 
 1. **Fire and forget.** In `StudentIntakeFlow.flow`, set the Flow node's `"fireAndForget": true`,
-   `validate`, and debug again (step 4).
+   `validate`, and debug again ([tenant step 4](HOW_TO_RUN.md#3-on-the-tenant)).
    - Does the parent's End still get the two paths?
    - What does `runSectionsFlow1.output` hold: nothing, a job key, an instance id?
    - Are the CSVs still written?
@@ -1048,7 +961,7 @@ uip or bucket-files download "$BUCKET_KEY" output/section-2.csv --folder-path "$
 | `validate`: `MISSING_OUTPUT_MAPPING` | 8f or 9f not done | Do it |
 | Node IDs end in `2` | A node added twice | Start again from step 1 in an empty folder |
 | `find resources` shows no bucket | `bindings.json` had no bucket entry when you ran `projects add` | Add the entry (step 6), then `uip solution resources refresh` |
-| Debug: Parse CSV fails, file not found | The CSV isn't in the bucket yet, or is in another folder's bucket | Tenant step 3 |
+| Debug: Parse CSV fails, file not found | The CSV isn't in the bucket yet, or is in another folder's bucket | [Tenant step 3](HOW_TO_RUN.md#3-on-the-tenant) |
 | Debug: the paths come back `null` | The child's End outputs aren't mapped, or the parent reads the wrong field | 8f, then 9f |
 | `Resource overwrites config file not found` | Harmless noise from `uipath run` | Ignore |
 
@@ -1059,7 +972,7 @@ uip or bucket-files download "$BUCKET_KEY" output/section-2.csv --folder-path "$
 - [ ] Both Flows `validate` as Valid with no warnings, and `uip solution pack . --dry-run` is Valid.
 - [ ] You can say which file is the contract, why there are two copies, and what stops them
   drifting.
-- [ ] **On the tenant:**
+- [ ] **[On the tenant](HOW_TO_RUN.md#3-on-the-tenant):**
   - the second debug run returns `student_count` 20 and two paths;
   - the two CSVs in the bucket match [Expected result](#expected-result);
   - `notes.md` answers the fire-and-forget question.

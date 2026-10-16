@@ -1,0 +1,9 @@
+{
+  "configuration": {
+    "INPUT_TYPE": "CSV",
+    "PROVIDER_ID": "DIVIDE"
+  },
+  "provider": {
+    "DIVIDE_ON_ZERO": "SKIP_ROW"
+  }
+}

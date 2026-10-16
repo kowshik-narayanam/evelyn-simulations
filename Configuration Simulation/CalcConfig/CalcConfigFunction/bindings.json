@@ -1,0 +1,48 @@
+{
+  "version": "2.0",
+  "resources": [
+    {
+      "resource": "bucket",
+      "key": "CalcConfigFiles",
+      "value": {
+        "name": {
+          "defaultValue": "CalcConfigFiles",
+          "isExpression": false,
+          "displayName": "Name"
+        },
+        "folderPath": {
+          "defaultValue": "",
+          "isExpression": false,
+          "displayName": "Folder Path"
+        }
+      },
+      "metadata": {
+        "ActivityName": "download",
+        "BindingsVersion": "2.2",
+        "DisplayLabel": "FullName"
+      }
+    },
+    {
+      "resource": "asset",
+      "key": "CalcApiKey",
+      "value": {
+        "name": {
+          "defaultValue": "CalcApiKey",
+          "isExpression": false,
+          "displayName": "Name"
+        },
+        "folderPath": {
+          "defaultValue": "",
+          "isExpression": false,
+          "displayName": "Folder Path"
+        }
+      },
+      "metadata": {
+        "ActivityName": "retrieve_credential",
+        "BindingsVersion": "2.2",
+        "DisplayLabel": "FullName",
+        "SubType": "credentialAsset"
+      }
+    }
+  ]
+}

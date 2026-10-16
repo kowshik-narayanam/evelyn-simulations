@@ -13,10 +13,15 @@ port starts, each simulation is a worked example of one piece.
 
 | Folder | Evelyn piece it simulates | UiPath pieces it shows | Status |
 |---|---|---|---|
-| [CsvProcessor Simulation](CsvProcessor%20Simulation/README.md) | CSV ingestion: `CsvTaskProcessor` and `CsvSchemaProducerProcessor`, and the CSV BP calling the main BP | A Flow calling a Flow, a contract shared by two function projects, a storage bucket | Verified locally; not run on a tenant yet |
+| [CsvProcessor Simulation](CsvProcessor%20Simulation/README.md) ([run it](CsvProcessor%20Simulation/HOW_TO_RUN.md)) | CSV ingestion: `CsvTaskProcessor` and `CsvSchemaProducerProcessor`, and the CSV BP calling the main BP | A Flow calling a Flow, a contract shared by two function projects, a storage bucket | Verified locally; not run on a tenant yet |
+| [Configuration Simulation](Configuration%20Simulation/README.md) ([run it](Configuration%20Simulation/HOW_TO_RUN.md)) | The configuration: `configuration.json` (the form), the saved values, `INPUT_TYPE`, and `PROVIDER_ID` picking a provider | Settings loaded once per run in three layers, a Switch with one node per provider, an `inout` global, a Credential asset for the secret | Verified locally; not run on a tenant yet |
 
-Each folder stands on its own. Its README has the build commands from an empty folder, the
-expected result and the troubleshooting. Start there.
+Each folder stands on its own, with two guides:
+- **HOW_TO_RUN.md** runs what's there: the tests, a local run, the tenant run, then a deployed
+  run started with curl or Postman. It also says where to find the run, the bucket and the asset
+  in the browser. Start here to see it work.
+- **README.md** explains what it simulates, and builds it from an empty folder by commands. It
+  also has the expected result and the troubleshooting.
 
 ## What you need
 
@@ -25,7 +30,8 @@ expected result and the troubleshooting. Start there.
 | [`uv`](https://docs.astral.sh/uv/) | Python 3.11 projects and their tests |
 | The `uip` CLI, logged in (`uip login status`) | Solution and Flow commands |
 | `jq` | The JSON edits in the build steps |
-| A UiPath tenant | Only the "Run it on the tenant" steps |
+| A UiPath tenant | Only levels 3 and 4 of each HOW_TO_RUN.md |
+| `curl`, or [Postman](https://www.postman.com/) | Level 4: starting a deployed Flow over HTTP |
 
 ## Ground rules
 

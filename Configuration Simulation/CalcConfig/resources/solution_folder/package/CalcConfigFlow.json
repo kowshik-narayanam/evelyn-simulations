@@ -1,0 +1,22 @@
+{
+  "docVersion": "1.0.0",
+  "resource": {
+    "name": "CalcConfigFlow",
+    "kind": "package",
+    "apiVersion": "orchestrator.uipath.com/v1",
+    "projectKey": "9fa14fe1-8f53-49b1-a804-9e51d826c823",
+    "dependencies": [],
+    "runtimeDependencies": [],
+    "folders": [
+      {
+        "fullyQualifiedName": "solution_folder"
+      }
+    ],
+    "spec": {
+      "name": "CalcConfigFlow"
+    },
+    "locks": [],
+    "key": "e88efc39-3d1b-4426-a394-8cc058b95952",
+    "files": []
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "docVersion": "1.0.0",
+  "resource": {
+    "name": "CalcConfigFiles",
+    "kind": "bucket",
+    "type": "orchestratorBucket",
+    "apiVersion": "orchestrator.uipath.com/v1",
+    "dependencies": [],
+    "runtimeDependencies": [],
+    "folders": [
+      {
+        "fullyQualifiedName": "solution_folder"
+      }
+    ],
+    "spec": {
+      "name": "CalcConfigFiles",
+      "type": "Orchestrator"
+    },
+    "locks": [],
+    "key": "fb38d476-fc64-4280-89e1-ddc4f46416fb",
+    "files": []
+  }
+}

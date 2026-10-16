@@ -1,0 +1,22 @@
+{
+  "docVersion": "1.0.0",
+  "resource": {
+    "name": "CalcConfigFunction",
+    "kind": "package",
+    "apiVersion": "orchestrator.uipath.com/v1",
+    "projectKey": "7beaf96e-ceee-4436-84d3-0f902e4ee9a2",
+    "dependencies": [],
+    "runtimeDependencies": [],
+    "folders": [
+      {
+        "fullyQualifiedName": "solution_folder"
+      }
+    ],
+    "spec": {
+      "name": "CalcConfigFunction"
+    },
+    "locks": [],
+    "key": "95f279e7-058c-4bd1-9c79-44c9d4d84b59",
+    "files": []
+  }
+}

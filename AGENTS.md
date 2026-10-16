@@ -33,6 +33,7 @@ private, so the user pulls; you don't.
 README.md, AGENTS.md, CLAUDE.md, .gitignore   this repo
 <Component> Simulation/                       one folder per simulation, e.g. CsvProcessor Simulation
 ├── README.md                                 the human guide: rebuild, expected result, try this
+├── HOW_TO_RUN.md                             running it: tests, local run, tenant run
 ├── AGENTS.md, CLAUDE.md                      rules for that folder (CLAUDE.md holds "@AGENTS.md")
 ├── data/                                     mock input
 └── <Solution>/                               the UiPath Solution: function projects and Flows
@@ -45,15 +46,24 @@ README.md, AGENTS.md, CLAUDE.md, .gitignore   this repo
 2. **Find that piece** in `names-screening` (and in the model, if it's involved). Cite `path:line`.
 3. **Build it in a new root folder**, `<Component> Simulation`. The usual shape: one Solution
    (`uip solution init`), Python coded function projects (`uv`, a pinned `uipath` version), Maestro
-   Flows built with `uip maestro flow` commands, and mock data in `data/`. Reuse what
-   [CsvProcessor Simulation](CsvProcessor%20Simulation/README.md) already shows instead of
-   inventing a second way.
+   Flows built with `uip maestro flow` commands, and mock data in `data/`. Reuse what the existing
+   simulations already show instead of inventing a second way:
+   [CsvProcessor Simulation](CsvProcessor%20Simulation/README.md) for a Flow calling a Flow and a
+   shared contract, [Configuration Simulation](Configuration%20Simulation/README.md) for settings,
+   a Switch over providers and secrets in assets.
 4. **Write the README** with the same sections as CsvProcessor Simulation:
    - the point of it;
    - an Evelyn → here table, and a WorkFusion → UiPath table;
    - the status: what was verified locally and what wasn't run;
    - "Build it yourself": every command, one per block, with a **Check** after each step;
-   - the expected result, run it on the tenant, try this, troubleshooting, done when.
+   - the expected result, a "Run it" pointer to HOW_TO_RUN.md, try this, troubleshooting, done
+     when.
+
+   Then **write HOW_TO_RUN.md**, with the same sections as CsvProcessor Simulation's: get it,
+   tests, a local run, on the tenant (a check after each step), deployed and started over HTTP
+   (curl and Postman, untested until someone runs it), where to look in the browser,
+   things only the tenant run can confirm, and when a run fails. Running belongs there, not in the
+   README.
 5. **Mock data only.** Use placeholder names (Alice and Bob, John Doe, Foo Bar, Lorem Ipsum) or tech
    names with their first letters swapped (Gill Bates, Melon Eusk). Design the data so a wrong
    implementation fails a test.

@@ -1,0 +1,28 @@
+{
+  "docVersion": "1.0.0",
+  "resource": {
+    "name": "CalcApiKey",
+    "kind": "asset",
+    "type": "credentialAsset",
+    "apiVersion": "orchestrator.uipath.com/v1",
+    "dependencies": [],
+    "runtimeDependencies": [],
+    "folders": [
+      {
+        "fullyQualifiedName": "solution_folder"
+      }
+    ],
+    "spec": {
+      "name": "CalcApiKey",
+      "type": "Credential",
+      "scope": "global",
+      "credentialStore": {
+        "key": "00000000-0000-0000-0000-000000000000",
+        "name": "Orchestrator Database"
+      }
+    },
+    "locks": [],
+    "key": "1e5c3832-7373-40cc-ae32-0d84a202d7b3",
+    "files": []
+  }
+}

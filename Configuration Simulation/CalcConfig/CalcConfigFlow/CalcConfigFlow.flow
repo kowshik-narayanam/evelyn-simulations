@@ -1,0 +1,2707 @@
+{
+  "id": "3504747a-7704-46d2-8605-746ef73a3bc5",
+  "version": "1.9",
+  "name": "CalcConfigFlow",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "core.trigger.manual",
+      "typeVersion": "1.0",
+      "display": {
+        "label": "Manual trigger"
+      },
+      "inputs": {
+        "entryPointId": "78d97bdf-8058-43d4-b03c-cfe4012db918",
+        "isDefaultEntryPoint": true
+      }
+    },
+    {
+      "id": "loadConfiguration1",
+      "type": "uipath.core.function.1fc79131-bcf8-4874-835a-568c0fd01095",
+      "typeVersion": "1.0.0",
+      "display": {
+        "label": "Load configuration"
+      },
+      "inputs": {
+        "operation": "load_configuration",
+        "overrides": "=js:$vars.start.output.overrides",
+        "config_path": "config/configuration_payload.json",
+        "config": null,
+        "numbers": null,
+        "results": null,
+        "report_path": ""
+      }
+    },
+    {
+      "id": "readNumbers1",
+      "type": "uipath.core.function.1fc79131-bcf8-4874-835a-568c0fd01095",
+      "typeVersion": "1.0.0",
+      "display": {
+        "label": "Read numbers"
+      },
+      "inputs": {
+        "operation": "read_numbers",
+        "overrides": null,
+        "config_path": "",
+        "config": "=js:$vars.loadConfiguration1.output.config",
+        "numbers": "=js:$vars.start.output.numbers",
+        "results": null,
+        "report_path": ""
+      }
+    },
+    {
+      "id": "whichCalculator1",
+      "type": "core.logic.switch",
+      "typeVersion": "1.1",
+      "display": {
+        "label": "Which calculator?"
+      },
+      "inputs": {
+        "cases": [
+          {
+            "id": "add",
+            "label": "ADD",
+            "expression": "$vars.loadConfiguration1.output.provider_id === \"ADD\""
+          },
+          {
+            "id": "subtract",
+            "label": "SUBTRACT",
+            "expression": "$vars.loadConfiguration1.output.provider_id === \"SUBTRACT\""
+          },
+          {
+            "id": "multiply",
+            "label": "MULTIPLY",
+            "expression": "$vars.loadConfiguration1.output.provider_id === \"MULTIPLY\""
+          },
+          {
+            "id": "divide",
+            "label": "DIVIDE",
+            "expression": "$vars.loadConfiguration1.output.provider_id === \"DIVIDE\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "add1",
+      "type": "uipath.core.function.1fc79131-bcf8-4874-835a-568c0fd01095",
+      "typeVersion": "1.0.0",
+      "display": {
+        "label": "Add"
+      },
+      "inputs": {
+        "operation": "add",
+        "overrides": null,
+        "config_path": "",
+        "config": "=js:$vars.loadConfiguration1.output.config",
+        "numbers": "=js:$vars.readNumbers1.output.numbers",
+        "results": null,
+        "report_path": ""
+      }
+    },
+    {
+      "id": "subtract1",
+      "type": "uipath.core.function.1fc79131-bcf8-4874-835a-568c0fd01095",
+      "typeVersion": "1.0.0",
+      "display": {
+        "label": "Subtract"
+      },
+      "inputs": {
+        "operation": "subtract",
+        "overrides": null,
+        "config_path": "",
+        "config": "=js:$vars.loadConfiguration1.output.config",
+        "numbers": "=js:$vars.readNumbers1.output.numbers",
+        "results": null,
+        "report_path": ""
+      }
+    },
+    {
+      "id": "multiply1",
+      "type": "uipath.core.function.1fc79131-bcf8-4874-835a-568c0fd01095",
+      "typeVersion": "1.0.0",
+      "display": {
+        "label": "Multiply"
+      },
+      "inputs": {
+        "operation": "multiply",
+        "overrides": null,
+        "config_path": "",
+        "config": "=js:$vars.loadConfiguration1.output.config",
+        "numbers": "=js:$vars.readNumbers1.output.numbers",
+        "results": null,
+        "report_path": ""
+      }
+    },
+    {
+      "id": "divide1",
+      "type": "uipath.core.function.1fc79131-bcf8-4874-835a-568c0fd01095",
+      "typeVersion": "1.0.0",
+      "display": {
+        "label": "Divide"
+      },
+      "inputs": {
+        "operation": "divide",
+        "overrides": null,
+        "config_path": "",
+        "config": "=js:$vars.loadConfiguration1.output.config",
+        "numbers": "=js:$vars.readNumbers1.output.numbers",
+        "results": null,
+        "report_path": ""
+      }
+    },
+    {
+      "id": "csvReportOn1",
+      "type": "core.logic.decision",
+      "typeVersion": "1.3",
+      "display": {
+        "label": "CSV report on?"
+      },
+      "inputs": {
+        "trueLabel": "Write it",
+        "falseLabel": "Skip it",
+        "expression": "$vars.loadConfiguration1.output.report_enabled"
+      }
+    },
+    {
+      "id": "writeReport1",
+      "type": "uipath.core.function.1fc79131-bcf8-4874-835a-568c0fd01095",
+      "typeVersion": "1.0.0",
+      "display": {
+        "label": "Write report"
+      },
+      "inputs": {
+        "operation": "write_report",
+        "overrides": null,
+        "config_path": "",
+        "config": null,
+        "numbers": null,
+        "results": "=js:$vars.calculation.results",
+        "report_path": "=js:$vars.loadConfiguration1.output.report_path"
+      }
+    },
+    {
+      "id": "end1",
+      "type": "core.control.end",
+      "typeVersion": "1.0",
+      "display": {
+        "label": "End"
+      },
+      "inputs": {},
+      "outputs": {
+        "calculation": {
+          "source": "=js:$vars.calculation",
+          "type": "object"
+        },
+        "provider_id": {
+          "source": "=js:$vars.calculation.provider_id",
+          "type": "string"
+        },
+        "alert_count": {
+          "source": "=js:$vars.calculation.alert_count",
+          "type": "number"
+        },
+        "report_path": {
+          "source": "=js:$vars.loadConfiguration1.output.report_path",
+          "type": "string"
+        },
+        "overridden_keys": {
+          "source": "=js:$vars.loadConfiguration1.output.overridden_keys",
+          "type": "array"
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "start-output-loadConfiguration1-input",
+      "sourceNodeId": "start",
+      "sourcePort": "output",
+      "targetNodeId": "loadConfiguration1",
+      "targetPort": "input"
+    },
+    {
+      "id": "loadConfiguration1-output-readNumbers1-input",
+      "sourceNodeId": "loadConfiguration1",
+      "sourcePort": "output",
+      "targetNodeId": "readNumbers1",
+      "targetPort": "input"
+    },
+    {
+      "id": "readNumbers1-output-whichCalculator1-input",
+      "sourceNodeId": "readNumbers1",
+      "sourcePort": "output",
+      "targetNodeId": "whichCalculator1",
+      "targetPort": "input"
+    },
+    {
+      "id": "whichCalculator1-case-add-add1-input",
+      "sourceNodeId": "whichCalculator1",
+      "sourcePort": "case-add",
+      "targetNodeId": "add1",
+      "targetPort": "input"
+    },
+    {
+      "id": "whichCalculator1-case-subtract-subtract1-input",
+      "sourceNodeId": "whichCalculator1",
+      "sourcePort": "case-subtract",
+      "targetNodeId": "subtract1",
+      "targetPort": "input"
+    },
+    {
+      "id": "whichCalculator1-case-multiply-multiply1-input",
+      "sourceNodeId": "whichCalculator1",
+      "sourcePort": "case-multiply",
+      "targetNodeId": "multiply1",
+      "targetPort": "input"
+    },
+    {
+      "id": "whichCalculator1-case-divide-divide1-input",
+      "sourceNodeId": "whichCalculator1",
+      "sourcePort": "case-divide",
+      "targetNodeId": "divide1",
+      "targetPort": "input"
+    },
+    {
+      "id": "add1-output-csvReportOn1-input",
+      "sourceNodeId": "add1",
+      "sourcePort": "output",
+      "targetNodeId": "csvReportOn1",
+      "targetPort": "input"
+    },
+    {
+      "id": "subtract1-output-csvReportOn1-input",
+      "sourceNodeId": "subtract1",
+      "sourcePort": "output",
+      "targetNodeId": "csvReportOn1",
+      "targetPort": "input"
+    },
+    {
+      "id": "multiply1-output-csvReportOn1-input",
+      "sourceNodeId": "multiply1",
+      "sourcePort": "output",
+      "targetNodeId": "csvReportOn1",
+      "targetPort": "input"
+    },
+    {
+      "id": "divide1-output-csvReportOn1-input",
+      "sourceNodeId": "divide1",
+      "sourcePort": "output",
+      "targetNodeId": "csvReportOn1",
+      "targetPort": "input"
+    },
+    {
+      "id": "csvReportOn1-true-writeReport1-input",
+      "sourceNodeId": "csvReportOn1",
+      "sourcePort": "true",
+      "targetNodeId": "writeReport1",
+      "targetPort": "input"
+    },
+    {
+      "id": "csvReportOn1-false-end1-input",
+      "sourceNodeId": "csvReportOn1",
+      "sourcePort": "false",
+      "targetNodeId": "end1",
+      "targetPort": "input"
+    },
+    {
+      "id": "writeReport1-output-end1-input",
+      "sourceNodeId": "writeReport1",
+      "sourcePort": "output",
+      "targetNodeId": "end1",
+      "targetPort": "input"
+    }
+  ],
+  "definitions": [
+    {
+      "nodeType": "core.trigger.manual",
+      "version": "1.0",
+      "category": "trigger",
+      "description": "Start the process manually",
+      "tags": [
+        "trigger",
+        "start",
+        "manual"
+      ],
+      "sortOrder": 80,
+      "display": {
+        "label": "Manual trigger",
+        "icon": "play",
+        "shape": "circle"
+      },
+      "handleConfiguration": [
+        {
+          "position": "right",
+          "handles": [
+            {
+              "id": "output",
+              "type": "source",
+              "handleType": "output",
+              "showButton": true,
+              "constraints": {
+                "forbiddenTargetCategories": [
+                  "trigger"
+                ]
+              }
+            }
+          ],
+          "visible": true
+        }
+      ],
+      "model": {
+        "type": "bpmn:StartEvent",
+        "entryPointId": true
+      },
+      "outputDefinition": {
+        "output": {
+          "type": "object",
+          "description": "Data passed when manually triggering the process.",
+          "source": "null",
+          "var": "output"
+        }
+      },
+      "toolbarExtensions": {
+        "design": {
+          "actions": [
+            {
+              "id": "change-trigger-type",
+              "icon": "square-mouse-pointer",
+              "label": "Change trigger type"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "nodeType": "uipath.core.function.1fc79131-bcf8-4874-835a-568c0fd01095",
+      "version": "1.0.0",
+      "category": "function",
+      "runtimeConstraints": {
+        "exclude": [
+          "api-function"
+        ]
+      },
+      "description": "(In-solution) CalcConfigFunction",
+      "tags": [
+        "in-solution",
+        "local"
+      ],
+      "sortOrder": 650,
+      "supportsErrorHandling": true,
+      "display": {
+        "label": "CalcConfigFunction",
+        "icon": "function"
+      },
+      "handleConfiguration": [
+        {
+          "position": "left",
+          "handles": [
+            {
+              "id": "input",
+              "type": "target",
+              "handleType": "input"
+            }
+          ]
+        },
+        {
+          "position": "right",
+          "handles": [
+            {
+              "id": "output",
+              "type": "source",
+              "handleType": "output"
+            }
+          ]
+        }
+      ],
+      "toolbarExtensions": {
+        "design": {
+          "actions": [
+            {
+              "id": "open-workflow",
+              "icon": "external-link",
+              "label": "Open"
+            }
+          ]
+        }
+      },
+      "projectId": "7beaf96e-ceee-4436-84d3-0f902e4ee9a2",
+      "model": {
+        "type": "bpmn:ServiceTask",
+        "serviceType": "Orchestrator.ExecuteFunctionAsync",
+        "version": "v2",
+        "bindings": {
+          "resource": "process",
+          "resourceSubType": "Function",
+          "resourceKey": "1fc79131-bcf8-4874-835a-568c0fd01095",
+          "orchestratorType": "function",
+          "values": [
+            {
+              "name": "name",
+              "propertyAttribute": "name",
+              "default": "CalcConfigFunction"
+            },
+            {
+              "name": "folderPath",
+              "propertyAttribute": "folderPath",
+              "default": ""
+            }
+          ]
+        },
+        "projectId": "7beaf96e-ceee-4436-84d3-0f902e4ee9a2",
+        "projectName": "CalcConfigFunction",
+        "isInSolution": true,
+        "context": [
+          {
+            "name": "name",
+            "type": "string",
+            "value": "<bindings.name>"
+          },
+          {
+            "name": "folderPath",
+            "type": "string",
+            "value": "<bindings.folderPath>"
+          },
+          {
+            "name": "_label",
+            "type": "string",
+            "value": "CalcConfigFunction"
+          }
+        ]
+      },
+      "form": {
+        "id": "activity-properties",
+        "title": "Function",
+        "sections": [
+          {
+            "id": "inputs",
+            "title": "Inputs",
+            "collapsible": true,
+            "defaultExpanded": true,
+            "fields": [
+              {
+                "name": "inputs.operation",
+                "type": "text",
+                "label": "operation"
+              },
+              {
+                "name": "inputs.overrides",
+                "type": "custom",
+                "component": "object-editor",
+                "label": "overrides",
+                "componentProps": {
+                  "schema": {
+                    "additionalProperties": true,
+                    "title": "Overrides",
+                    "type": "object"
+                  }
+                }
+              },
+              {
+                "name": "inputs.config_path",
+                "type": "text",
+                "label": "config_path"
+              },
+              {
+                "name": "inputs.config",
+                "type": "custom",
+                "component": "object-editor",
+                "label": "config",
+                "componentProps": {
+                  "schema": {
+                    "additionalProperties": true,
+                    "type": "object"
+                  }
+                }
+              },
+              {
+                "name": "inputs.numbers",
+                "type": "custom",
+                "component": "object-editor",
+                "label": "numbers",
+                "componentProps": {
+                  "schema": {
+                    "items": {
+                      "properties": {
+                        "id": {
+                          "title": "Id",
+                          "type": "string"
+                        },
+                        "a": {
+                          "title": "A",
+                          "type": "number"
+                        },
+                        "b": {
+                          "title": "B",
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "a",
+                        "b"
+                      ],
+                      "title": "Pair",
+                      "type": "object"
+                    },
+                    "title": "Numbers",
+                    "type": "array"
+                  }
+                }
+              },
+              {
+                "name": "inputs.results",
+                "type": "custom",
+                "component": "object-editor",
+                "label": "results",
+                "componentProps": {
+                  "schema": {
+                    "items": {
+                      "properties": {
+                        "id": {
+                          "title": "Id",
+                          "type": "string"
+                        },
+                        "a": {
+                          "title": "A",
+                          "type": "number"
+                        },
+                        "b": {
+                          "title": "B",
+                          "type": "number"
+                        },
+                        "result": {
+                          "type": "number"
+                        },
+                        "alert": {
+                          "title": "Alert",
+                          "type": "boolean"
+                        },
+                        "note": {
+                          "default": "",
+                          "title": "Note",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "a",
+                        "b",
+                        "result",
+                        "alert"
+                      ],
+                      "title": "Result",
+                      "type": "object"
+                    },
+                    "title": "Results",
+                    "type": "array"
+                  }
+                }
+              },
+              {
+                "name": "inputs.report_path",
+                "type": "text",
+                "label": "report_path"
+              }
+            ]
+          }
+        ]
+      },
+      "inputDefinition": {
+        "type": "object",
+        "properties": {
+          "operation": {
+            "title": "Operation",
+            "type": "string"
+          },
+          "overrides": {
+            "additionalProperties": true,
+            "title": "Overrides",
+            "type": "object"
+          },
+          "config_path": {
+            "default": "config/configuration_payload.json",
+            "title": "Config Path",
+            "type": "string"
+          },
+          "config": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "numbers": {
+            "items": {
+              "properties": {
+                "id": {
+                  "title": "Id",
+                  "type": "string"
+                },
+                "a": {
+                  "title": "A",
+                  "type": "number"
+                },
+                "b": {
+                  "title": "B",
+                  "type": "number"
+                }
+              },
+              "required": [
+                "id",
+                "a",
+                "b"
+              ],
+              "title": "Pair",
+              "type": "object"
+            },
+            "title": "Numbers",
+            "type": "array"
+          },
+          "results": {
+            "items": {
+              "properties": {
+                "id": {
+                  "title": "Id",
+                  "type": "string"
+                },
+                "a": {
+                  "title": "A",
+                  "type": "number"
+                },
+                "b": {
+                  "title": "B",
+                  "type": "number"
+                },
+                "result": {
+                  "type": "number"
+                },
+                "alert": {
+                  "title": "Alert",
+                  "type": "boolean"
+                },
+                "note": {
+                  "default": "",
+                  "title": "Note",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "a",
+                "b",
+                "result",
+                "alert"
+              ],
+              "title": "Result",
+              "type": "object"
+            },
+            "title": "Results",
+            "type": "array"
+          },
+          "report_path": {
+            "default": "",
+            "title": "Report Path",
+            "type": "string"
+          }
+        }
+      },
+      "inputDefaults": {
+        "operation": "",
+        "overrides": null,
+        "config_path": "",
+        "config": null,
+        "numbers": null,
+        "results": null,
+        "report_path": ""
+      },
+      "outputDefinition": {
+        "output": {
+          "type": "object",
+          "source": "=this",
+          "var": "output",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "config": {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              "input_type": {
+                "default": "",
+                "title": "Input Type",
+                "type": "string"
+              },
+              "provider_id": {
+                "default": "",
+                "title": "Provider Id",
+                "type": "string"
+              },
+              "report_enabled": {
+                "default": false,
+                "title": "Report Enabled",
+                "type": "boolean"
+              },
+              "report_path": {
+                "default": "",
+                "title": "Report Path",
+                "type": "string"
+              },
+              "overridden_keys": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Overridden Keys",
+                "type": "array"
+              },
+              "numbers": {
+                "items": {
+                  "properties": {
+                    "id": {
+                      "title": "Id",
+                      "type": "string"
+                    },
+                    "a": {
+                      "title": "A",
+                      "type": "number"
+                    },
+                    "b": {
+                      "title": "B",
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "a",
+                    "b"
+                  ],
+                  "title": "Pair",
+                  "type": "object"
+                },
+                "title": "Numbers",
+                "type": "array"
+              },
+              "count": {
+                "default": 0,
+                "title": "Count",
+                "type": "integer"
+              },
+              "results": {
+                "items": {
+                  "properties": {
+                    "id": {
+                      "title": "Id",
+                      "type": "string"
+                    },
+                    "a": {
+                      "title": "A",
+                      "type": "number"
+                    },
+                    "b": {
+                      "title": "B",
+                      "type": "number"
+                    },
+                    "result": {
+                      "type": "number"
+                    },
+                    "alert": {
+                      "title": "Alert",
+                      "type": "boolean"
+                    },
+                    "note": {
+                      "default": "",
+                      "title": "Note",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "a",
+                    "b",
+                    "result",
+                    "alert"
+                  ],
+                  "title": "Result",
+                  "type": "object"
+                },
+                "title": "Results",
+                "type": "array"
+              },
+              "alert_count": {
+                "default": 0,
+                "title": "Alert Count",
+                "type": "integer"
+              },
+              "rows_written": {
+                "default": 0,
+                "title": "Rows Written",
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "error": {
+          "type": "object",
+          "description": "Error information if the node fails",
+          "source": "=Error",
+          "var": "error",
+          "schema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "detail",
+              "category",
+              "status"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code as a string"
+              },
+              "message": {
+                "type": "string",
+                "description": "High-level error message"
+              },
+              "detail": {
+                "type": "string",
+                "description": "Detailed error description"
+              },
+              "category": {
+                "type": "string",
+                "description": "Error category"
+              },
+              "status": {
+                "type": "integer",
+                "description": "HTTP status code"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "debug": {
+        "runtime": "bpmnEngine"
+      }
+    },
+    {
+      "nodeType": "core.logic.switch",
+      "version": "1.1",
+      "category": "control-flow",
+      "description": "Route to one of many branches by condition",
+      "tags": [
+        "control-flow",
+        "switch",
+        "case",
+        "when"
+      ],
+      "sortOrder": 62,
+      "display": {
+        "label": "Switch",
+        "icon": "between-horizontal-start"
+      },
+      "handleConfiguration": [
+        {
+          "position": "left",
+          "handles": [
+            {
+              "id": "input",
+              "type": "target",
+              "handleType": "input"
+            }
+          ],
+          "visible": true
+        },
+        {
+          "position": "right",
+          "handles": [
+            {
+              "id": "case-{item.id}",
+              "type": "source",
+              "handleType": "output",
+              "label": "{item.label || 'Case ' + (index + 1)}",
+              "repeat": "inputs.cases"
+            },
+            {
+              "id": "default",
+              "type": "source",
+              "handleType": "output",
+              "label": "Default"
+            }
+          ],
+          "visible": true
+        }
+      ],
+      "debug": {
+        "runtime": "clientScript"
+      },
+      "model": {
+        "type": "bpmn:ExclusiveGateway"
+      },
+      "inputDefinition": {
+        "type": "object",
+        "properties": {
+          "cases": {
+            "type": "array",
+            "minItems": 1,
+            "errorMessage": "At least one case is required",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                },
+                "expression": {
+                  "type": "string",
+                  "minLength": 1,
+                  "errorMessage": "Add a condition"
+                }
+              },
+              "required": [
+                "expression"
+              ]
+            }
+          }
+        },
+        "required": [
+          "cases"
+        ]
+      },
+      "outputDefinition": {
+        "matchedCase": {
+          "type": "string",
+          "description": "The label of the matched case",
+          "var": "matchedCase"
+        },
+        "matchedCaseId": {
+          "type": "string",
+          "description": "The ID of the matched case (\"default\" for the default branch)",
+          "var": "matchedCaseId"
+        }
+      },
+      "inputDefaults": {
+        "cases": [
+          {
+            "id": "default-1",
+            "label": "Case 1",
+            "expression": ""
+          },
+          {
+            "id": "default-2",
+            "label": "Case 2",
+            "expression": ""
+          }
+        ]
+      },
+      "form": {
+        "id": "switch-properties",
+        "title": "Switch configuration",
+        "sections": [
+          {
+            "id": "cases",
+            "title": "Cases",
+            "description": "Each case is evaluated in order. The first condition that returns true is taken.",
+            "collapsible": true,
+            "defaultExpanded": true,
+            "fields": [
+              {
+                "name": "inputs.cases",
+                "type": "custom",
+                "label": "Switch cases",
+                "component": "case-list-editor",
+                "componentProps": {
+                  "minCases": 1,
+                  "maxCases": 10,
+                  "expressionPlaceholder": "$vars.httpRequest1.output.statusCode >= 200 && $vars.httpRequest1.output.statusCode < 300",
+                  "expressionValidationFields": [
+                    {
+                      "subPath": "expression",
+                      "validationMode": "expression",
+                      "expectedType": "boolean"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "runtimeConstraints": {
+        "exclude": [
+          "api-function"
+        ]
+      }
+    },
+    {
+      "nodeType": "core.logic.decision",
+      "version": "1.3",
+      "category": "control-flow",
+      "description": "Branch on a true or false condition",
+      "tags": [
+        "control-flow",
+        "if",
+        "loop",
+        "switch"
+      ],
+      "sortOrder": 61,
+      "display": {
+        "label": "Decision",
+        "icon": "trending-up-down"
+      },
+      "handleConfiguration": [
+        {
+          "position": "left",
+          "handles": [
+            {
+              "id": "input",
+              "type": "target",
+              "handleType": "input"
+            }
+          ],
+          "visible": true
+        },
+        {
+          "position": "right",
+          "handles": [
+            {
+              "id": "true",
+              "type": "source",
+              "handleType": "output",
+              "label": "{inputs.trueLabel}"
+            },
+            {
+              "id": "false",
+              "type": "source",
+              "handleType": "output",
+              "label": "{inputs.falseLabel}"
+            }
+          ],
+          "visible": true
+        }
+      ],
+      "debug": {
+        "runtime": "clientScript"
+      },
+      "model": {
+        "type": "bpmn:InclusiveGateway"
+      },
+      "inputDefinition": {
+        "type": "object",
+        "properties": {
+          "expression": {
+            "type": "string",
+            "minLength": 1,
+            "errorMessage": "Add a condition"
+          },
+          "trueLabel": {
+            "type": "string"
+          },
+          "falseLabel": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "expression"
+        ]
+      },
+      "outputDefinition": {
+        "matchedCase": {
+          "type": "string",
+          "description": "The label of the matched branch (true/false label)",
+          "var": "matchedCase"
+        },
+        "matchedCaseId": {
+          "type": "string",
+          "description": "The branch that was taken (true or false)",
+          "var": "matchedCaseId"
+        }
+      },
+      "inputDefaults": {
+        "trueLabel": "True",
+        "falseLabel": "False"
+      },
+      "form": {
+        "id": "decision-properties",
+        "title": "Decision configuration",
+        "sections": [
+          {
+            "id": "condition",
+            "title": "Condition",
+            "fields": [
+              {
+                "name": "inputs.expression",
+                "type": "custom",
+                "component": "code-editor",
+                "componentProps": {
+                  "singleLine": true,
+                  "mode": "expression",
+                  "toggleable": false,
+                  "language": "javascript",
+                  "returnType": "boolean",
+                  "validationMode": "expression",
+                  "showVariableButton": true,
+                  "placeholder": "$vars.httpRequest1.output.statusCode >= 200 && $vars.httpRequest1.output.statusCode < 300"
+                },
+                "label": "Condition",
+                "description": "The condition must be a JavaScript expression that evaluates to true or false."
+              },
+              {
+                "name": "inputs.trueLabel",
+                "type": "text",
+                "label": "True branch label",
+                "description": "This label appears on the true branch."
+              },
+              {
+                "name": "inputs.falseLabel",
+                "type": "text",
+                "label": "False branch label",
+                "description": "This label appears on the false branch."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "nodeType": "core.control.end",
+      "version": "1.0",
+      "category": "control-flow",
+      "description": "Mark the end of a process path",
+      "tags": [
+        "control-flow",
+        "end",
+        "finish",
+        "complete"
+      ],
+      "sortOrder": 66,
+      "display": {
+        "label": "End",
+        "icon": "circle-check",
+        "shape": "circle"
+      },
+      "handleConfiguration": [
+        {
+          "position": "left",
+          "handles": [
+            {
+              "id": "input",
+              "type": "target",
+              "handleType": "input"
+            }
+          ]
+        }
+      ],
+      "model": {
+        "type": "bpmn:EndEvent"
+      }
+    }
+  ],
+  "runtime": "maestro",
+  "bindings": [
+    {
+      "id": "bMKrC1JVx",
+      "name": "name",
+      "type": "string",
+      "resource": "process",
+      "resourceKey": "1fc79131-bcf8-4874-835a-568c0fd01095",
+      "default": "CalcConfigFunction",
+      "propertyAttribute": "name",
+      "resourceSubType": "Function"
+    },
+    {
+      "id": "bXpZ9DdcZ",
+      "name": "folderPath",
+      "type": "string",
+      "resource": "process",
+      "resourceKey": "1fc79131-bcf8-4874-835a-568c0fd01095",
+      "propertyAttribute": "folderPath",
+      "resourceSubType": "Function"
+    }
+  ],
+  "variables": {
+    "nodes": [
+      {
+        "id": "start.output",
+        "type": "object",
+        "description": "Data passed when manually triggering the process.",
+        "binding": {
+          "nodeId": "start",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "loadConfiguration1.output",
+        "type": "object",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "config": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "input_type": {
+              "default": "",
+              "title": "Input Type",
+              "type": "string"
+            },
+            "provider_id": {
+              "default": "",
+              "title": "Provider Id",
+              "type": "string"
+            },
+            "report_enabled": {
+              "default": false,
+              "title": "Report Enabled",
+              "type": "boolean"
+            },
+            "report_path": {
+              "default": "",
+              "title": "Report Path",
+              "type": "string"
+            },
+            "overridden_keys": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Overridden Keys",
+              "type": "array"
+            },
+            "numbers": {
+              "items": {
+                "properties": {
+                  "id": {
+                    "title": "Id",
+                    "type": "string"
+                  },
+                  "a": {
+                    "title": "A",
+                    "type": "number"
+                  },
+                  "b": {
+                    "title": "B",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "id",
+                  "a",
+                  "b"
+                ],
+                "title": "Pair",
+                "type": "object"
+              },
+              "title": "Numbers",
+              "type": "array"
+            },
+            "count": {
+              "default": 0,
+              "title": "Count",
+              "type": "integer"
+            },
+            "results": {
+              "items": {
+                "properties": {
+                  "id": {
+                    "title": "Id",
+                    "type": "string"
+                  },
+                  "a": {
+                    "title": "A",
+                    "type": "number"
+                  },
+                  "b": {
+                    "title": "B",
+                    "type": "number"
+                  },
+                  "result": {
+                    "type": "number"
+                  },
+                  "alert": {
+                    "title": "Alert",
+                    "type": "boolean"
+                  },
+                  "note": {
+                    "default": "",
+                    "title": "Note",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "a",
+                  "b",
+                  "result",
+                  "alert"
+                ],
+                "title": "Result",
+                "type": "object"
+              },
+              "title": "Results",
+              "type": "array"
+            },
+            "alert_count": {
+              "default": 0,
+              "title": "Alert Count",
+              "type": "integer"
+            },
+            "rows_written": {
+              "default": 0,
+              "title": "Rows Written",
+              "type": "integer"
+            }
+          }
+        },
+        "binding": {
+          "nodeId": "loadConfiguration1",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "loadConfiguration1.error",
+        "type": "object",
+        "description": "Error information if the node fails",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "required": [
+            "code",
+            "message",
+            "detail",
+            "category",
+            "status"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Error code as a string"
+            },
+            "message": {
+              "type": "string",
+              "description": "High-level error message"
+            },
+            "detail": {
+              "type": "string",
+              "description": "Detailed error description"
+            },
+            "category": {
+              "type": "string",
+              "description": "Error category"
+            },
+            "status": {
+              "type": "integer",
+              "description": "HTTP status code"
+            }
+          },
+          "additionalProperties": false
+        },
+        "binding": {
+          "nodeId": "loadConfiguration1",
+          "outputId": "error"
+        }
+      },
+      {
+        "id": "readNumbers1.output",
+        "type": "object",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "config": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "input_type": {
+              "default": "",
+              "title": "Input Type",
+              "type": "string"
+            },
+            "provider_id": {
+              "default": "",
+              "title": "Provider Id",
+              "type": "string"
+            },
+            "report_enabled": {
+              "default": false,
+              "title": "Report Enabled",
+              "type": "boolean"
+            },
+            "report_path": {
+              "default": "",
+              "title": "Report Path",
+              "type": "string"
+            },
+            "overridden_keys": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Overridden Keys",
+              "type": "array"
+            },
+            "numbers": {
+              "items": {
+                "properties": {
+                  "id": {
+                    "title": "Id",
+                    "type": "string"
+                  },
+                  "a": {
+                    "title": "A",
+                    "type": "number"
+                  },
+                  "b": {
+                    "title": "B",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "id",
+                  "a",
+                  "b"
+                ],
+                "title": "Pair",
+                "type": "object"
+              },
+              "title": "Numbers",
+              "type": "array"
+            },
+            "count": {
+              "default": 0,
+              "title": "Count",
+              "type": "integer"
+            },
+            "results": {
+              "items": {
+                "properties": {
+                  "id": {
+                    "title": "Id",
+                    "type": "string"
+                  },
+                  "a": {
+                    "title": "A",
+                    "type": "number"
+                  },
+                  "b": {
+                    "title": "B",
+                    "type": "number"
+                  },
+                  "result": {
+                    "type": "number"
+                  },
+                  "alert": {
+                    "title": "Alert",
+                    "type": "boolean"
+                  },
+                  "note": {
+                    "default": "",
+                    "title": "Note",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "a",
+                  "b",
+                  "result",
+                  "alert"
+                ],
+                "title": "Result",
+                "type": "object"
+              },
+              "title": "Results",
+              "type": "array"
+            },
+            "alert_count": {
+              "default": 0,
+              "title": "Alert Count",
+              "type": "integer"
+            },
+            "rows_written": {
+              "default": 0,
+              "title": "Rows Written",
+              "type": "integer"
+            }
+          }
+        },
+        "binding": {
+          "nodeId": "readNumbers1",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "readNumbers1.error",
+        "type": "object",
+        "description": "Error information if the node fails",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "required": [
+            "code",
+            "message",
+            "detail",
+            "category",
+            "status"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Error code as a string"
+            },
+            "message": {
+              "type": "string",
+              "description": "High-level error message"
+            },
+            "detail": {
+              "type": "string",
+              "description": "Detailed error description"
+            },
+            "category": {
+              "type": "string",
+              "description": "Error category"
+            },
+            "status": {
+              "type": "integer",
+              "description": "HTTP status code"
+            }
+          },
+          "additionalProperties": false
+        },
+        "binding": {
+          "nodeId": "readNumbers1",
+          "outputId": "error"
+        }
+      },
+      {
+        "id": "whichCalculator1.matchedCase",
+        "type": "string",
+        "description": "The label of the matched case",
+        "binding": {
+          "nodeId": "whichCalculator1",
+          "outputId": "matchedCase"
+        }
+      },
+      {
+        "id": "whichCalculator1.matchedCaseId",
+        "type": "string",
+        "description": "The ID of the matched case (\"default\" for the default branch)",
+        "binding": {
+          "nodeId": "whichCalculator1",
+          "outputId": "matchedCaseId"
+        }
+      },
+      {
+        "id": "add1.output",
+        "type": "object",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "config": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "input_type": {
+              "default": "",
+              "title": "Input Type",
+              "type": "string"
+            },
+            "provider_id": {
+              "default": "",
+              "title": "Provider Id",
+              "type": "string"
+            },
+            "report_enabled": {
+              "default": false,
+              "title": "Report Enabled",
+              "type": "boolean"
+            },
+            "report_path": {
+              "default": "",
+              "title": "Report Path",
+              "type": "string"
+            },
+            "overridden_keys": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Overridden Keys",
+              "type": "array"
+            },
+            "numbers": {
+              "items": {
+                "properties": {
+                  "id": {
+                    "title": "Id",
+                    "type": "string"
+                  },
+                  "a": {
+                    "title": "A",
+                    "type": "number"
+                  },
+                  "b": {
+                    "title": "B",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "id",
+                  "a",
+                  "b"
+                ],
+                "title": "Pair",
+                "type": "object"
+              },
+              "title": "Numbers",
+              "type": "array"
+            },
+            "count": {
+              "default": 0,
+              "title": "Count",
+              "type": "integer"
+            },
+            "results": {
+              "items": {
+                "properties": {
+                  "id": {
+                    "title": "Id",
+                    "type": "string"
+                  },
+                  "a": {
+                    "title": "A",
+                    "type": "number"
+                  },
+                  "b": {
+                    "title": "B",
+                    "type": "number"
+                  },
+                  "result": {
+                    "type": "number"
+                  },
+                  "alert": {
+                    "title": "Alert",
+                    "type": "boolean"
+                  },
+                  "note": {
+                    "default": "",
+                    "title": "Note",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "a",
+                  "b",
+                  "result",
+                  "alert"
+                ],
+                "title": "Result",
+                "type": "object"
+              },
+              "title": "Results",
+              "type": "array"
+            },
+            "alert_count": {
+              "default": 0,
+              "title": "Alert Count",
+              "type": "integer"
+            },
+            "rows_written": {
+              "default": 0,
+              "title": "Rows Written",
+              "type": "integer"
+            }
+          }
+        },
+        "binding": {
+          "nodeId": "add1",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "add1.error",
+        "type": "object",
+        "description": "Error information if the node fails",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "required": [
+            "code",
+            "message",
+            "detail",
+            "category",
+            "status"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Error code as a string"
+            },
+            "message": {
+              "type": "string",
+              "description": "High-level error message"
+            },
+            "detail": {
+              "type": "string",
+              "description": "Detailed error description"
+            },
+            "category": {
+              "type": "string",
+              "description": "Error category"
+            },
+            "status": {
+              "type": "integer",
+              "description": "HTTP status code"
+            }
+          },
+          "additionalProperties": false
+        },
+        "binding": {
+          "nodeId": "add1",
+          "outputId": "error"
+        }
+      },
+      {
+        "id": "subtract1.output",
+        "type": "object",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "config": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "input_type": {
+              "default": "",
+              "title": "Input Type",
+              "type": "string"
+            },
+            "provider_id": {
+              "default": "",
+              "title": "Provider Id",
+              "type": "string"
+            },
+            "report_enabled": {
+              "default": false,
+              "title": "Report Enabled",
+              "type": "boolean"
+            },
+            "report_path": {
+              "default": "",
+              "title": "Report Path",
+              "type": "string"
+            },
+            "overridden_keys": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Overridden Keys",
+              "type": "array"
+            },
+            "numbers": {
+              "items": {
+                "properties": {
+                  "id": {
+                    "title": "Id",
+                    "type": "string"
+                  },
+                  "a": {
+                    "title": "A",
+                    "type": "number"
+                  },
+                  "b": {
+                    "title": "B",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "id",
+                  "a",
+                  "b"
+                ],
+                "title": "Pair",
+                "type": "object"
+              },
+              "title": "Numbers",
+              "type": "array"
+            },
+            "count": {
+              "default": 0,
+              "title": "Count",
+              "type": "integer"
+            },
+            "results": {
+              "items": {
+                "properties": {
+                  "id": {
+                    "title": "Id",
+                    "type": "string"
+                  },
+                  "a": {
+                    "title": "A",
+                    "type": "number"
+                  },
+                  "b": {
+                    "title": "B",
+                    "type": "number"
+                  },
+                  "result": {
+                    "type": "number"
+                  },
+                  "alert": {
+                    "title": "Alert",
+                    "type": "boolean"
+                  },
+                  "note": {
+                    "default": "",
+                    "title": "Note",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "a",
+                  "b",
+                  "result",
+                  "alert"
+                ],
+                "title": "Result",
+                "type": "object"
+              },
+              "title": "Results",
+              "type": "array"
+            },
+            "alert_count": {
+              "default": 0,
+              "title": "Alert Count",
+              "type": "integer"
+            },
+            "rows_written": {
+              "default": 0,
+              "title": "Rows Written",
+              "type": "integer"
+            }
+          }
+        },
+        "binding": {
+          "nodeId": "subtract1",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "subtract1.error",
+        "type": "object",
+        "description": "Error information if the node fails",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "required": [
+            "code",
+            "message",
+            "detail",
+            "category",
+            "status"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Error code as a string"
+            },
+            "message": {
+              "type": "string",
+              "description": "High-level error message"
+            },
+            "detail": {
+              "type": "string",
+              "description": "Detailed error description"
+            },
+            "category": {
+              "type": "string",
+              "description": "Error category"
+            },
+            "status": {
+              "type": "integer",
+              "description": "HTTP status code"
+            }
+          },
+          "additionalProperties": false
+        },
+        "binding": {
+          "nodeId": "subtract1",
+          "outputId": "error"
+        }
+      },
+      {
+        "id": "multiply1.output",
+        "type": "object",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "config": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "input_type": {
+              "default": "",
+              "title": "Input Type",
+              "type": "string"
+            },
+            "provider_id": {
+              "default": "",
+              "title": "Provider Id",
+              "type": "string"
+            },
+            "report_enabled": {
+              "default": false,
+              "title": "Report Enabled",
+              "type": "boolean"
+            },
+            "report_path": {
+              "default": "",
+              "title": "Report Path",
+              "type": "string"
+            },
+            "overridden_keys": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Overridden Keys",
+              "type": "array"
+            },
+            "numbers": {
+              "items": {
+                "properties": {
+                  "id": {
+                    "title": "Id",
+                    "type": "string"
+                  },
+                  "a": {
+                    "title": "A",
+                    "type": "number"
+                  },
+                  "b": {
+                    "title": "B",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "id",
+                  "a",
+                  "b"
+                ],
+                "title": "Pair",
+                "type": "object"
+              },
+              "title": "Numbers",
+              "type": "array"
+            },
+            "count": {
+              "default": 0,
+              "title": "Count",
+              "type": "integer"
+            },
+            "results": {
+              "items": {
+                "properties": {
+                  "id": {
+                    "title": "Id",
+                    "type": "string"
+                  },
+                  "a": {
+                    "title": "A",
+                    "type": "number"
+                  },
+                  "b": {
+                    "title": "B",
+                    "type": "number"
+                  },
+                  "result": {
+                    "type": "number"
+                  },
+                  "alert": {
+                    "title": "Alert",
+                    "type": "boolean"
+                  },
+                  "note": {
+                    "default": "",
+                    "title": "Note",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "a",
+                  "b",
+                  "result",
+                  "alert"
+                ],
+                "title": "Result",
+                "type": "object"
+              },
+              "title": "Results",
+              "type": "array"
+            },
+            "alert_count": {
+              "default": 0,
+              "title": "Alert Count",
+              "type": "integer"
+            },
+            "rows_written": {
+              "default": 0,
+              "title": "Rows Written",
+              "type": "integer"
+            }
+          }
+        },
+        "binding": {
+          "nodeId": "multiply1",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "multiply1.error",
+        "type": "object",
+        "description": "Error information if the node fails",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "required": [
+            "code",
+            "message",
+            "detail",
+            "category",
+            "status"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Error code as a string"
+            },
+            "message": {
+              "type": "string",
+              "description": "High-level error message"
+            },
+            "detail": {
+              "type": "string",
+              "description": "Detailed error description"
+            },
+            "category": {
+              "type": "string",
+              "description": "Error category"
+            },
+            "status": {
+              "type": "integer",
+              "description": "HTTP status code"
+            }
+          },
+          "additionalProperties": false
+        },
+        "binding": {
+          "nodeId": "multiply1",
+          "outputId": "error"
+        }
+      },
+      {
+        "id": "divide1.output",
+        "type": "object",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "config": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "input_type": {
+              "default": "",
+              "title": "Input Type",
+              "type": "string"
+            },
+            "provider_id": {
+              "default": "",
+              "title": "Provider Id",
+              "type": "string"
+            },
+            "report_enabled": {
+              "default": false,
+              "title": "Report Enabled",
+              "type": "boolean"
+            },
+            "report_path": {
+              "default": "",
+              "title": "Report Path",
+              "type": "string"
+            },
+            "overridden_keys": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Overridden Keys",
+              "type": "array"
+            },
+            "numbers": {
+              "items": {
+                "properties": {
+                  "id": {
+                    "title": "Id",
+                    "type": "string"
+                  },
+                  "a": {
+                    "title": "A",
+                    "type": "number"
+                  },
+                  "b": {
+                    "title": "B",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "id",
+                  "a",
+                  "b"
+                ],
+                "title": "Pair",
+                "type": "object"
+              },
+              "title": "Numbers",
+              "type": "array"
+            },
+            "count": {
+              "default": 0,
+              "title": "Count",
+              "type": "integer"
+            },
+            "results": {
+              "items": {
+                "properties": {
+                  "id": {
+                    "title": "Id",
+                    "type": "string"
+                  },
+                  "a": {
+                    "title": "A",
+                    "type": "number"
+                  },
+                  "b": {
+                    "title": "B",
+                    "type": "number"
+                  },
+                  "result": {
+                    "type": "number"
+                  },
+                  "alert": {
+                    "title": "Alert",
+                    "type": "boolean"
+                  },
+                  "note": {
+                    "default": "",
+                    "title": "Note",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "a",
+                  "b",
+                  "result",
+                  "alert"
+                ],
+                "title": "Result",
+                "type": "object"
+              },
+              "title": "Results",
+              "type": "array"
+            },
+            "alert_count": {
+              "default": 0,
+              "title": "Alert Count",
+              "type": "integer"
+            },
+            "rows_written": {
+              "default": 0,
+              "title": "Rows Written",
+              "type": "integer"
+            }
+          }
+        },
+        "binding": {
+          "nodeId": "divide1",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "divide1.error",
+        "type": "object",
+        "description": "Error information if the node fails",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "required": [
+            "code",
+            "message",
+            "detail",
+            "category",
+            "status"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Error code as a string"
+            },
+            "message": {
+              "type": "string",
+              "description": "High-level error message"
+            },
+            "detail": {
+              "type": "string",
+              "description": "Detailed error description"
+            },
+            "category": {
+              "type": "string",
+              "description": "Error category"
+            },
+            "status": {
+              "type": "integer",
+              "description": "HTTP status code"
+            }
+          },
+          "additionalProperties": false
+        },
+        "binding": {
+          "nodeId": "divide1",
+          "outputId": "error"
+        }
+      },
+      {
+        "id": "csvReportOn1.matchedCase",
+        "type": "string",
+        "description": "The label of the matched branch (true/false label)",
+        "binding": {
+          "nodeId": "csvReportOn1",
+          "outputId": "matchedCase"
+        }
+      },
+      {
+        "id": "csvReportOn1.matchedCaseId",
+        "type": "string",
+        "description": "The branch that was taken (true or false)",
+        "binding": {
+          "nodeId": "csvReportOn1",
+          "outputId": "matchedCaseId"
+        }
+      },
+      {
+        "id": "writeReport1.output",
+        "type": "object",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "config": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "input_type": {
+              "default": "",
+              "title": "Input Type",
+              "type": "string"
+            },
+            "provider_id": {
+              "default": "",
+              "title": "Provider Id",
+              "type": "string"
+            },
+            "report_enabled": {
+              "default": false,
+              "title": "Report Enabled",
+              "type": "boolean"
+            },
+            "report_path": {
+              "default": "",
+              "title": "Report Path",
+              "type": "string"
+            },
+            "overridden_keys": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Overridden Keys",
+              "type": "array"
+            },
+            "numbers": {
+              "items": {
+                "properties": {
+                  "id": {
+                    "title": "Id",
+                    "type": "string"
+                  },
+                  "a": {
+                    "title": "A",
+                    "type": "number"
+                  },
+                  "b": {
+                    "title": "B",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "id",
+                  "a",
+                  "b"
+                ],
+                "title": "Pair",
+                "type": "object"
+              },
+              "title": "Numbers",
+              "type": "array"
+            },
+            "count": {
+              "default": 0,
+              "title": "Count",
+              "type": "integer"
+            },
+            "results": {
+              "items": {
+                "properties": {
+                  "id": {
+                    "title": "Id",
+                    "type": "string"
+                  },
+                  "a": {
+                    "title": "A",
+                    "type": "number"
+                  },
+                  "b": {
+                    "title": "B",
+                    "type": "number"
+                  },
+                  "result": {
+                    "type": "number"
+                  },
+                  "alert": {
+                    "title": "Alert",
+                    "type": "boolean"
+                  },
+                  "note": {
+                    "default": "",
+                    "title": "Note",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "a",
+                  "b",
+                  "result",
+                  "alert"
+                ],
+                "title": "Result",
+                "type": "object"
+              },
+              "title": "Results",
+              "type": "array"
+            },
+            "alert_count": {
+              "default": 0,
+              "title": "Alert Count",
+              "type": "integer"
+            },
+            "rows_written": {
+              "default": 0,
+              "title": "Rows Written",
+              "type": "integer"
+            }
+          }
+        },
+        "binding": {
+          "nodeId": "writeReport1",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "writeReport1.error",
+        "type": "object",
+        "description": "Error information if the node fails",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "required": [
+            "code",
+            "message",
+            "detail",
+            "category",
+            "status"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Error code as a string"
+            },
+            "message": {
+              "type": "string",
+              "description": "High-level error message"
+            },
+            "detail": {
+              "type": "string",
+              "description": "Detailed error description"
+            },
+            "category": {
+              "type": "string",
+              "description": "Error category"
+            },
+            "status": {
+              "type": "integer",
+              "description": "HTTP status code"
+            }
+          },
+          "additionalProperties": false
+        },
+        "binding": {
+          "nodeId": "writeReport1",
+          "outputId": "error"
+        }
+      },
+      {
+        "id": "end1.calculation",
+        "type": "object",
+        "binding": {
+          "nodeId": "end1",
+          "outputId": "calculation"
+        }
+      },
+      {
+        "id": "end1.provider_id",
+        "type": "string",
+        "binding": {
+          "nodeId": "end1",
+          "outputId": "provider_id"
+        }
+      },
+      {
+        "id": "end1.alert_count",
+        "type": "number",
+        "binding": {
+          "nodeId": "end1",
+          "outputId": "alert_count"
+        }
+      },
+      {
+        "id": "end1.report_path",
+        "type": "string",
+        "binding": {
+          "nodeId": "end1",
+          "outputId": "report_path"
+        }
+      },
+      {
+        "id": "end1.overridden_keys",
+        "type": "array",
+        "binding": {
+          "nodeId": "end1",
+          "outputId": "overridden_keys"
+        }
+      }
+    ],
+    "globals": [
+      {
+        "id": "overrides",
+        "direction": "in",
+        "type": "object",
+        "defaultValue": {},
+        "description": "Settings for this run only, laid over the saved payload key by key, e.g. {\"configuration\": {\"PROVIDER_ID\": \"MULTIPLY\"}}",
+        "triggerNodeId": "start"
+      },
+      {
+        "id": "numbers",
+        "direction": "in",
+        "type": "array",
+        "subType": "object",
+        "defaultValue": [],
+        "description": "The pairs to calculate when INPUT_TYPE is API: id, a, b",
+        "triggerNodeId": "start"
+      },
+      {
+        "id": "calculation",
+        "direction": "inout",
+        "type": "object",
+        "defaultValue": {},
+        "description": "The output of whichever calculator ran: provider_id, results, alert_count"
+      },
+      {
+        "id": "provider_id",
+        "direction": "out",
+        "type": "string",
+        "description": "The calculator this run used"
+      },
+      {
+        "id": "alert_count",
+        "direction": "out",
+        "type": "number",
+        "description": "How many results were above model.thresholds.alert_above"
+      },
+      {
+        "id": "report_path",
+        "direction": "out",
+        "type": "string",
+        "description": "Where the CSV report went inside the bucket; empty when the report is off"
+      },
+      {
+        "id": "overridden_keys",
+        "direction": "out",
+        "type": "array",
+        "subType": "string",
+        "description": "The settings this run overrode, as dotted keys"
+      }
+    ],
+    "variableUpdates": {
+      "add1": [
+        {
+          "variableId": "calculation",
+          "expression": {
+            "type": "jsExpression",
+            "expression": "$vars.add1.output",
+            "fieldType": "object"
+          }
+        }
+      ],
+      "subtract1": [
+        {
+          "variableId": "calculation",
+          "expression": {
+            "type": "jsExpression",
+            "expression": "$vars.subtract1.output",
+            "fieldType": "object"
+          }
+        }
+      ],
+      "multiply1": [
+        {
+          "variableId": "calculation",
+          "expression": {
+            "type": "jsExpression",
+            "expression": "$vars.multiply1.output",
+            "fieldType": "object"
+          }
+        }
+      ],
+      "divide1": [
+        {
+          "variableId": "calculation",
+          "expression": {
+            "type": "jsExpression",
+            "expression": "$vars.divide1.output",
+            "fieldType": "object"
+          }
+        }
+      ]
+    }
+  },
+  "layout": {
+    "nodes": {
+      "start": {
+        "position": {
+          "x": -192,
+          "y": 0
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        }
+      },
+      "loadConfiguration1": {
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        }
+      },
+      "readNumbers1": {
+        "position": {
+          "x": 192,
+          "y": 0
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        }
+      },
+      "whichCalculator1": {
+        "position": {
+          "x": 384,
+          "y": 0
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        }
+      },
+      "add1": {
+        "position": {
+          "x": 592,
+          "y": -208
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        }
+      },
+      "subtract1": {
+        "position": {
+          "x": 592,
+          "y": -16
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        }
+      },
+      "multiply1": {
+        "position": {
+          "x": 592,
+          "y": 176
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        }
+      },
+      "divide1": {
+        "position": {
+          "x": 592,
+          "y": 368
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        }
+      },
+      "csvReportOn1": {
+        "position": {
+          "x": 784,
+          "y": -16
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        }
+      },
+      "writeReport1": {
+        "position": {
+          "x": 976,
+          "y": -144
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        }
+      },
+      "end1": {
+        "position": {
+          "x": 1168,
+          "y": 0
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        }
+      }
+    }
+  }
+}

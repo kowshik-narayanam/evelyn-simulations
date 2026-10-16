@@ -1,0 +1,38 @@
+{
+  "docVersion": "1.0.0",
+  "resource": {
+    "name": "CalcConfigFlow",
+    "kind": "process",
+    "type": "flow",
+    "apiVersion": "orchestrator.uipath.com/v1",
+    "projectKey": "9fa14fe1-8f53-49b1-a804-9e51d826c823",
+    "dependencies": [
+      {
+        "kind": "package",
+        "name": "CalcConfigFlow"
+      }
+    ],
+    "runtimeDependencies": [],
+    "folders": [
+      {
+        "fullyQualifiedName": "solution_folder"
+      }
+    ],
+    "spec": {
+      "runtimeProfile": "Standard",
+      "type": "Flow",
+      "name": "CalcConfigFlow",
+      "package": {
+        "key": "e88efc39-3d1b-4426-a394-8cc058b95952"
+      },
+      "targetFrameworkValue": "Portable",
+      "retentionAction": "Delete",
+      "retentionPeriod": 30,
+      "staleRetentionAction": "Delete",
+      "staleRetentionPeriod": 180
+    },
+    "locks": [],
+    "key": "07b879cd-a3d8-4e7a-955a-c4e382d87cea",
+    "files": []
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "DocVersion": "1.0.0",
+  "StudioMinVersion": "2025.10.0",
+  "SolutionId": "d97295b9-b172-420a-802d-3dcd622ba5ac",
+  "Projects": [
+    {
+      "Type": "Function",
+      "ProjectRelativePath": "CalcConfigFunction/project.uiproj",
+      "Id": "7beaf96e-ceee-4436-84d3-0f902e4ee9a2"
+    },
+    {
+      "Type": "Flow",
+      "ProjectRelativePath": "CalcConfigFlow/project.uiproj",
+      "Id": "9fa14fe1-8f53-49b1-a804-9e51d826c823"
+    }
+  ]
+}

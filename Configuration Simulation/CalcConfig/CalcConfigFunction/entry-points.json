@@ -1,0 +1,245 @@
+{
+    "$schema": "https://cloud.uipath.com/draft/2024-12/entry-point",
+    "$id": "entry-points.json",
+    "entryPoints": [
+        {
+            "filePath": "main",
+            "uniqueId": "45f77d6e-364c-4fe9-bb3e-810b79cc52d9",
+            "type": "function",
+            "input": {
+                "type": "object",
+                "properties": {
+                    "operation": {
+                        "title": "Operation",
+                        "type": "string"
+                    },
+                    "overrides": {
+                        "additionalProperties": true,
+                        "title": "Overrides",
+                        "type": "object"
+                    },
+                    "config_path": {
+                        "default": "config/configuration_payload.json",
+                        "title": "Config Path",
+                        "type": "string"
+                    },
+                    "config": {
+                        "additionalProperties": true,
+                        "type": "object"
+                    },
+                    "numbers": {
+                        "items": {
+                            "properties": {
+                                "id": {
+                                    "title": "Id",
+                                    "type": "string"
+                                },
+                                "a": {
+                                    "title": "A",
+                                    "type": "number"
+                                },
+                                "b": {
+                                    "title": "B",
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "id",
+                                "a",
+                                "b"
+                            ],
+                            "title": "Pair",
+                            "type": "object"
+                        },
+                        "title": "Numbers",
+                        "type": "array"
+                    },
+                    "results": {
+                        "items": {
+                            "properties": {
+                                "id": {
+                                    "title": "Id",
+                                    "type": "string"
+                                },
+                                "a": {
+                                    "title": "A",
+                                    "type": "number"
+                                },
+                                "b": {
+                                    "title": "B",
+                                    "type": "number"
+                                },
+                                "result": {
+                                    "type": "number"
+                                },
+                                "alert": {
+                                    "title": "Alert",
+                                    "type": "boolean"
+                                },
+                                "note": {
+                                    "default": "",
+                                    "title": "Note",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "id",
+                                "a",
+                                "b",
+                                "result",
+                                "alert"
+                            ],
+                            "title": "Result",
+                            "type": "object"
+                        },
+                        "title": "Results",
+                        "type": "array"
+                    },
+                    "report_path": {
+                        "default": "",
+                        "title": "Report Path",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "operation"
+                ],
+                "title": "CalcIn"
+            },
+            "output": {
+                "type": "object",
+                "properties": {
+                    "config": {
+                        "additionalProperties": true,
+                        "type": "object"
+                    },
+                    "input_type": {
+                        "default": "",
+                        "title": "Input Type",
+                        "type": "string"
+                    },
+                    "provider_id": {
+                        "default": "",
+                        "title": "Provider Id",
+                        "type": "string"
+                    },
+                    "report_enabled": {
+                        "default": false,
+                        "title": "Report Enabled",
+                        "type": "boolean"
+                    },
+                    "report_path": {
+                        "default": "",
+                        "title": "Report Path",
+                        "type": "string"
+                    },
+                    "overridden_keys": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "title": "Overridden Keys",
+                        "type": "array"
+                    },
+                    "numbers": {
+                        "items": {
+                            "properties": {
+                                "id": {
+                                    "title": "Id",
+                                    "type": "string"
+                                },
+                                "a": {
+                                    "title": "A",
+                                    "type": "number"
+                                },
+                                "b": {
+                                    "title": "B",
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "id",
+                                "a",
+                                "b"
+                            ],
+                            "title": "Pair",
+                            "type": "object"
+                        },
+                        "title": "Numbers",
+                        "type": "array"
+                    },
+                    "count": {
+                        "default": 0,
+                        "title": "Count",
+                        "type": "integer"
+                    },
+                    "results": {
+                        "items": {
+                            "properties": {
+                                "id": {
+                                    "title": "Id",
+                                    "type": "string"
+                                },
+                                "a": {
+                                    "title": "A",
+                                    "type": "number"
+                                },
+                                "b": {
+                                    "title": "B",
+                                    "type": "number"
+                                },
+                                "result": {
+                                    "type": "number"
+                                },
+                                "alert": {
+                                    "title": "Alert",
+                                    "type": "boolean"
+                                },
+                                "note": {
+                                    "default": "",
+                                    "title": "Note",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "id",
+                                "a",
+                                "b",
+                                "result",
+                                "alert"
+                            ],
+                            "title": "Result",
+                            "type": "object"
+                        },
+                        "title": "Results",
+                        "type": "array"
+                    },
+                    "alert_count": {
+                        "default": 0,
+                        "title": "Alert Count",
+                        "type": "integer"
+                    },
+                    "rows_written": {
+                        "default": 0,
+                        "title": "Rows Written",
+                        "type": "integer"
+                    }
+                },
+                "required": [],
+                "title": "CalcOut"
+            },
+            "graph": {
+                "nodes": [
+                    {
+                        "id": "main.py:182",
+                        "name": "main",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    }
+                ],
+                "edges": []
+            }
+        }
+    ]
+}

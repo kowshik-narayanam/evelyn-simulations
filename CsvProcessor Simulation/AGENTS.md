@@ -21,7 +21,7 @@ BP → BP call (`BP_CALL` with `sendResultToCaller`).
 | `StudentSections/*Function/{main.py, intake.py, sections.py, student_contract.py, test_main.py}` | `entry-points.json`, `main.mermaid`, `project.uiproj`, `.agent/`, `.claude/`, `.uipath/`, `uv.lock` (run `uv run uipath init` / `uv lock`) |
 | `StudentSections/*Flow/*.flow`, **only by re-running the README's commands** | `StudentSections.uipx`, `resources/` (managed by `uip solution …`) |
 | The bucket entry in each `bindings.json` (README step 6) | `operate.json`, any `.bpmn` (generated from the `.flow`) |
-| `data/students.csv`, README, notes | `StudentSections/AGENTS.md`, `CLAUDE.md` and those inside each function: CLI boilerplate, not this file |
+| `data/students.csv`, README, HOW_TO_RUN, notes | `StudentSections/AGENTS.md`, `CLAUDE.md` and those inside each function: CLI boilerplate, not this file |
 
 ## Rules
 
@@ -34,7 +34,8 @@ BP → BP call (`BP_CALL` with `sendResultToCaller`).
    alone, so neither can import from the other. Edit one copy, then copy it over the other.
    `test_the_two_contract_copies_are_identical` enforces this.
 4. **Keep `data/students.csv` jumbled.** `test_the_input_file_is_jumbled` fails if it is reordered.
-   Change the expected sections in the tests and the README together if you change the data.
+   Change the expected sections in the tests, the README and HOW_TO_RUN together if you change the
+   data.
 5. **The `.flow` files are built by commands.** If you change a Flow, change the README's commands,
    rebuild in an empty `/tmp` folder, and commit what the commands produce. The only hand edits are
    the End-node outputs (8f, 9f) and the bucket bindings (step 6), each shown with a `jq` command.
@@ -43,7 +44,7 @@ BP → BP call (`BP_CALL` with `sendResultToCaller`).
 7. **Names are tenant-wide.** Don't reuse `StudentIntakeFunction`, `StudentSectionsFunction`, the two
    Flow names or the bucket name in another project on the same tenant.
 8. **Label guesses.** Anything not verified locally or on the tenant is marked **Inference** or
-   listed under "Things only the tenant run can confirm".
+   listed under "Things only the tenant run can confirm" in HOW_TO_RUN.md.
 
 ## Verify after any change
 

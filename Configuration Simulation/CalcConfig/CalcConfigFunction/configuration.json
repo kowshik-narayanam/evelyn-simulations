@@ -1,0 +1,76 @@
+{
+  "title": "Calculator worker settings",
+  "fields": [
+    {
+      "key": "configuration.INPUT_TYPE",
+      "label": "Input",
+      "type": "radio",
+      "values": [
+        { "label": "Upload CSV file", "value": "CSV" },
+        { "label": "WorkFusion API", "value": "API" }
+      ],
+      "defaultValue": "CSV"
+    },
+    {
+      "key": "configuration.DATA_FILE_LOCATION",
+      "label": "CSV file in the bucket",
+      "type": "textfield",
+      "defaultValue": "input/numbers.csv"
+    },
+    {
+      "key": "configuration.PROVIDER_ID",
+      "label": "Calculator",
+      "type": "select",
+      "values": [
+        { "label": "Add", "value": "ADD" },
+        { "label": "Subtract", "value": "SUBTRACT" },
+        { "label": "Multiply", "value": "MULTIPLY" },
+        { "label": "Divide", "value": "DIVIDE" }
+      ],
+      "defaultValue": "ADD"
+    },
+    {
+      "key": "provider.DIVIDE_ON_ZERO",
+      "label": "Divide: when b is 0",
+      "type": "radio",
+      "values": [
+        { "label": "Fail the run", "value": "FAIL" },
+        { "label": "Skip the row", "value": "SKIP_ROW" },
+        { "label": "Use 0", "value": "ZERO" }
+      ],
+      "defaultValue": "FAIL"
+    },
+    {
+      "key": "provider.ROUND_TO",
+      "label": "Decimal places",
+      "type": "number",
+      "validate": { "min": 0, "max": 6, "integer": true },
+      "defaultValue": 2
+    },
+    {
+      "key": "provider.API_KEY_ASSET",
+      "label": "Credential asset holding the API key",
+      "type": "textfield",
+      "defaultValue": "CalcApiKey"
+    },
+    {
+      "key": "model.thresholds.alert_above",
+      "label": "Alert when a result is above",
+      "type": "number",
+      "validate": { "min": -1000000, "max": 1000000 },
+      "defaultValue": 100
+    },
+    {
+      "key": "configuration.reports.csv.enable",
+      "label": "Write a CSV report",
+      "type": "checkbox",
+      "defaultValue": true
+    },
+    {
+      "key": "configuration.resulting_path",
+      "label": "Report folder in the bucket",
+      "type": "textfield",
+      "defaultValue": "output/{year}/{month}/"
+    }
+  ]
+}
