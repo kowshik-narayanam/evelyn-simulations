@@ -1,0 +1,11 @@
+integer_1,integer_2,operand
+12,30,add
+-5,8,add
+100,58,subtract
+3,10,subtract
+7,6,multiply
+-4,25,multiply
+84,4,divide
+-7,2,divide
+7,-2,divide
+0,5,divide

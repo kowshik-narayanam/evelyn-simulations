@@ -1,0 +1,39 @@
+{
+  "docVersion": "1.0.0",
+  "resource": {
+    "name": "DependencySimFlow",
+    "kind": "process",
+    "type": "flow",
+    "apiVersion": "orchestrator.uipath.com/v1",
+    "projectKey": "21087931-af63-43e4-ba64-f43652630c8a",
+    "isOverridable": true,
+    "dependencies": [
+      {
+        "kind": "package",
+        "name": "DependencySimFlow"
+      }
+    ],
+    "runtimeDependencies": [],
+    "folders": [
+      {
+        "fullyQualifiedName": "solution_folder"
+      }
+    ],
+    "spec": {
+      "runtimeProfile": "Standard",
+      "type": "Flow",
+      "name": "DependencySimFlow",
+      "package": {
+        "key": "e1861282-09d4-46e9-b80b-b42b58ed062d"
+      },
+      "targetFrameworkValue": "Portable",
+      "retentionAction": "Delete",
+      "retentionPeriod": 30,
+      "staleRetentionAction": "Delete",
+      "staleRetentionPeriod": 180
+    },
+    "locks": [],
+    "key": "98decd5d-5935-49be-a97f-ae20dcb593c2",
+    "files": []
+  }
+}

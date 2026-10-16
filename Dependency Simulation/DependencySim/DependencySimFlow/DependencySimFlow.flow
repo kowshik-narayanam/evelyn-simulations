@@ -1,0 +1,616 @@
+{
+  "id": "31cbf1c6-db39-4b33-bdc4-41c7782ae6f2",
+  "version": "1.9",
+  "name": "DependencySimFlow",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "core.trigger.manual",
+      "typeVersion": "1.0",
+      "display": {
+        "label": "Manual trigger"
+      },
+      "inputs": {
+        "entryPointId": "775255d8-8b43-4efc-aacb-ad0bf6289eb9",
+        "isDefaultEntryPoint": true
+      }
+    },
+    {
+      "id": "calculate1",
+      "type": "uipath.core.function.e145e22a-68b6-4348-8772-b03d392fa8c1",
+      "typeVersion": "1.0.0",
+      "display": {
+        "label": "Calculate"
+      },
+      "inputs": {
+        "csv_path": "=js:$vars.start.output.csv_path"
+      }
+    },
+    {
+      "id": "end1",
+      "type": "core.control.end",
+      "typeVersion": "1.0",
+      "display": {
+        "label": "End"
+      },
+      "inputs": {},
+      "outputs": {
+        "results": {
+          "source": "=js:$vars.calculate1.output.results",
+          "type": "array"
+        },
+        "count": {
+          "source": "=js:$vars.calculate1.output.count",
+          "type": "number"
+        },
+        "library_version": {
+          "source": "=js:$vars.calculate1.output.library_version",
+          "type": "string"
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "start-output-calculate1-input",
+      "sourceNodeId": "start",
+      "sourcePort": "output",
+      "targetNodeId": "calculate1",
+      "targetPort": "input"
+    },
+    {
+      "id": "calculate1-output-end1-input",
+      "sourceNodeId": "calculate1",
+      "sourcePort": "output",
+      "targetNodeId": "end1",
+      "targetPort": "input"
+    }
+  ],
+  "definitions": [
+    {
+      "nodeType": "core.trigger.manual",
+      "version": "1.0",
+      "category": "trigger",
+      "description": "Start the process manually",
+      "tags": [
+        "trigger",
+        "start",
+        "manual"
+      ],
+      "sortOrder": 80,
+      "display": {
+        "label": "Manual trigger",
+        "icon": "play",
+        "shape": "circle"
+      },
+      "handleConfiguration": [
+        {
+          "position": "right",
+          "handles": [
+            {
+              "id": "output",
+              "type": "source",
+              "handleType": "output",
+              "showButton": true,
+              "constraints": {
+                "forbiddenTargetCategories": [
+                  "trigger"
+                ]
+              }
+            }
+          ],
+          "visible": true
+        }
+      ],
+      "model": {
+        "type": "bpmn:StartEvent",
+        "entryPointId": true
+      },
+      "outputDefinition": {
+        "output": {
+          "type": "object",
+          "description": "Data passed when manually triggering the process.",
+          "source": "null",
+          "var": "output"
+        }
+      },
+      "toolbarExtensions": {
+        "design": {
+          "actions": [
+            {
+              "id": "change-trigger-type",
+              "icon": "square-mouse-pointer",
+              "label": "Change trigger type"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "nodeType": "uipath.core.function.e145e22a-68b6-4348-8772-b03d392fa8c1",
+      "version": "1.0.0",
+      "category": "function",
+      "runtimeConstraints": {
+        "exclude": [
+          "api-function"
+        ]
+      },
+      "description": "(In-solution) DependencySimFunction",
+      "tags": [
+        "in-solution",
+        "local"
+      ],
+      "sortOrder": 650,
+      "supportsErrorHandling": true,
+      "display": {
+        "label": "DependencySimFunction",
+        "icon": "function"
+      },
+      "handleConfiguration": [
+        {
+          "position": "left",
+          "handles": [
+            {
+              "id": "input",
+              "type": "target",
+              "handleType": "input"
+            }
+          ]
+        },
+        {
+          "position": "right",
+          "handles": [
+            {
+              "id": "output",
+              "type": "source",
+              "handleType": "output"
+            }
+          ]
+        }
+      ],
+      "toolbarExtensions": {
+        "design": {
+          "actions": [
+            {
+              "id": "open-workflow",
+              "icon": "external-link",
+              "label": "Open"
+            }
+          ]
+        }
+      },
+      "projectId": "831db55f-74be-4c82-997d-fb0902b563a5",
+      "model": {
+        "type": "bpmn:ServiceTask",
+        "serviceType": "Orchestrator.ExecuteFunctionAsync",
+        "version": "v2",
+        "bindings": {
+          "resource": "process",
+          "resourceSubType": "Function",
+          "resourceKey": "e145e22a-68b6-4348-8772-b03d392fa8c1",
+          "orchestratorType": "function",
+          "values": [
+            {
+              "name": "name",
+              "propertyAttribute": "name",
+              "default": "DependencySimFunction"
+            },
+            {
+              "name": "folderPath",
+              "propertyAttribute": "folderPath",
+              "default": ""
+            }
+          ]
+        },
+        "projectId": "831db55f-74be-4c82-997d-fb0902b563a5",
+        "projectName": "DependencySimFunction",
+        "isInSolution": true,
+        "context": [
+          {
+            "name": "name",
+            "type": "string",
+            "value": "<bindings.name>"
+          },
+          {
+            "name": "folderPath",
+            "type": "string",
+            "value": "<bindings.folderPath>"
+          },
+          {
+            "name": "_label",
+            "type": "string",
+            "value": "DependencySimFunction"
+          }
+        ]
+      },
+      "form": {
+        "id": "activity-properties",
+        "title": "Function",
+        "sections": [
+          {
+            "id": "inputs",
+            "title": "Inputs",
+            "collapsible": true,
+            "defaultExpanded": true,
+            "fields": [
+              {
+                "name": "inputs.csv_path",
+                "type": "text",
+                "label": "csv_path"
+              }
+            ]
+          }
+        ]
+      },
+      "inputDefinition": {
+        "type": "object",
+        "properties": {
+          "csv_path": {
+            "default": "input/calculations.csv",
+            "title": "Csv Path",
+            "type": "string"
+          }
+        }
+      },
+      "inputDefaults": {
+        "csv_path": ""
+      },
+      "outputDefinition": {
+        "output": {
+          "type": "object",
+          "source": "=this",
+          "var": "output",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "results": {
+                "items": {
+                  "properties": {
+                    "line": {
+                      "title": "Line",
+                      "type": "integer"
+                    },
+                    "integer_1": {
+                      "title": "Integer 1",
+                      "type": "integer"
+                    },
+                    "integer_2": {
+                      "title": "Integer 2",
+                      "type": "integer"
+                    },
+                    "operand": {
+                      "title": "Operand",
+                      "type": "string"
+                    },
+                    "result": {
+                      "title": "Result",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "line",
+                    "integer_1",
+                    "integer_2",
+                    "operand",
+                    "result"
+                  ],
+                  "title": "Result",
+                  "type": "object"
+                },
+                "title": "Results",
+                "type": "array"
+              },
+              "count": {
+                "title": "Count",
+                "type": "integer"
+              },
+              "library_version": {
+                "title": "Library Version",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "error": {
+          "type": "object",
+          "description": "Error information if the node fails",
+          "source": "=Error",
+          "var": "error",
+          "schema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "detail",
+              "category",
+              "status"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code as a string"
+              },
+              "message": {
+                "type": "string",
+                "description": "High-level error message"
+              },
+              "detail": {
+                "type": "string",
+                "description": "Detailed error description"
+              },
+              "category": {
+                "type": "string",
+                "description": "Error category"
+              },
+              "status": {
+                "type": "integer",
+                "description": "HTTP status code"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "debug": {
+        "runtime": "bpmnEngine"
+      }
+    },
+    {
+      "nodeType": "core.control.end",
+      "version": "1.0",
+      "category": "control-flow",
+      "description": "Mark the end of a process path",
+      "tags": [
+        "control-flow",
+        "end",
+        "finish",
+        "complete"
+      ],
+      "sortOrder": 66,
+      "display": {
+        "label": "End",
+        "icon": "circle-check",
+        "shape": "circle"
+      },
+      "handleConfiguration": [
+        {
+          "position": "left",
+          "handles": [
+            {
+              "id": "input",
+              "type": "target",
+              "handleType": "input"
+            }
+          ]
+        }
+      ],
+      "model": {
+        "type": "bpmn:EndEvent"
+      }
+    }
+  ],
+  "runtime": "maestro",
+  "bindings": [
+    {
+      "id": "bvkUPn65m",
+      "name": "name",
+      "type": "string",
+      "resource": "process",
+      "resourceKey": "e145e22a-68b6-4348-8772-b03d392fa8c1",
+      "default": "DependencySimFunction",
+      "propertyAttribute": "name",
+      "resourceSubType": "Function"
+    },
+    {
+      "id": "b55CiyDIS",
+      "name": "folderPath",
+      "type": "string",
+      "resource": "process",
+      "resourceKey": "e145e22a-68b6-4348-8772-b03d392fa8c1",
+      "propertyAttribute": "folderPath",
+      "resourceSubType": "Function"
+    }
+  ],
+  "variables": {
+    "nodes": [
+      {
+        "id": "start.output",
+        "type": "object",
+        "description": "Data passed when manually triggering the process.",
+        "binding": {
+          "nodeId": "start",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "calculate1.output",
+        "type": "object",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "results": {
+              "items": {
+                "properties": {
+                  "line": {
+                    "title": "Line",
+                    "type": "integer"
+                  },
+                  "integer_1": {
+                    "title": "Integer 1",
+                    "type": "integer"
+                  },
+                  "integer_2": {
+                    "title": "Integer 2",
+                    "type": "integer"
+                  },
+                  "operand": {
+                    "title": "Operand",
+                    "type": "string"
+                  },
+                  "result": {
+                    "title": "Result",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "line",
+                  "integer_1",
+                  "integer_2",
+                  "operand",
+                  "result"
+                ],
+                "title": "Result",
+                "type": "object"
+              },
+              "title": "Results",
+              "type": "array"
+            },
+            "count": {
+              "title": "Count",
+              "type": "integer"
+            },
+            "library_version": {
+              "title": "Library Version",
+              "type": "string"
+            }
+          }
+        },
+        "binding": {
+          "nodeId": "calculate1",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "calculate1.error",
+        "type": "object",
+        "description": "Error information if the node fails",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "required": [
+            "code",
+            "message",
+            "detail",
+            "category",
+            "status"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Error code as a string"
+            },
+            "message": {
+              "type": "string",
+              "description": "High-level error message"
+            },
+            "detail": {
+              "type": "string",
+              "description": "Detailed error description"
+            },
+            "category": {
+              "type": "string",
+              "description": "Error category"
+            },
+            "status": {
+              "type": "integer",
+              "description": "HTTP status code"
+            }
+          },
+          "additionalProperties": false
+        },
+        "binding": {
+          "nodeId": "calculate1",
+          "outputId": "error"
+        }
+      },
+      {
+        "id": "end1.results",
+        "type": "array",
+        "binding": {
+          "nodeId": "end1",
+          "outputId": "results"
+        }
+      },
+      {
+        "id": "end1.count",
+        "type": "number",
+        "binding": {
+          "nodeId": "end1",
+          "outputId": "count"
+        }
+      },
+      {
+        "id": "end1.library_version",
+        "type": "string",
+        "binding": {
+          "nodeId": "end1",
+          "outputId": "library_version"
+        }
+      }
+    ],
+    "globals": [
+      {
+        "id": "csv_path",
+        "direction": "in",
+        "type": "string",
+        "defaultValue": "input/calculations.csv",
+        "description": "Path of the calculations CSV inside the DependencySimFiles bucket",
+        "triggerNodeId": "start"
+      },
+      {
+        "id": "results",
+        "direction": "out",
+        "type": "array",
+        "subType": "object",
+        "description": "One entry per CSV row: line, integer_1, integer_2, operand and the library's result"
+      },
+      {
+        "id": "count",
+        "direction": "out",
+        "type": "number",
+        "description": "How many rows were calculated"
+      },
+      {
+        "id": "library_version",
+        "direction": "out",
+        "type": "string",
+        "description": "The evsim-calc version the function imported"
+      }
+    ]
+  },
+  "layout": {
+    "nodes": {
+      "start": {
+        "position": {
+          "x": -192,
+          "y": 0
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        }
+      },
+      "calculate1": {
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        }
+      },
+      "end1": {
+        "position": {
+          "x": 192,
+          "y": 0
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        }
+      }
+    }
+  }
+}

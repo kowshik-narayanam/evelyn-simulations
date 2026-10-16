@@ -1,0 +1,22 @@
+{
+  "docVersion": "1.0.0",
+  "resource": {
+    "name": "DatastoreSimFlow",
+    "kind": "package",
+    "apiVersion": "orchestrator.uipath.com/v1",
+    "projectKey": "f9caefe9-8a29-4626-a0ac-329a2a9d3a15",
+    "dependencies": [],
+    "runtimeDependencies": [],
+    "folders": [
+      {
+        "fullyQualifiedName": "solution_folder"
+      }
+    ],
+    "spec": {
+      "name": "DatastoreSimFlow"
+    },
+    "locks": [],
+    "key": "6709a902-8787-4d6a-b496-14ab338b57c8",
+    "files": []
+  }
+}

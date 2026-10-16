@@ -1,0 +1,23 @@
+{
+  "docVersion": "1.0.0",
+  "resource": {
+    "name": "DependencySimFunction",
+    "kind": "package",
+    "apiVersion": "orchestrator.uipath.com/v1",
+    "projectKey": "831db55f-74be-4c82-997d-fb0902b563a5",
+    "isOverridable": true,
+    "dependencies": [],
+    "runtimeDependencies": [],
+    "folders": [
+      {
+        "fullyQualifiedName": "solution_folder"
+      }
+    ],
+    "spec": {
+      "name": "DependencySimFunction"
+    },
+    "locks": [],
+    "key": "34182df5-48b3-4d06-8e3d-6edc39cdf736",
+    "files": []
+  }
+}

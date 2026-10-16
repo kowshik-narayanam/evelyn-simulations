@@ -1,0 +1,32 @@
+{
+  "displayName": "Datastore Sim Order",
+  "description": "Datastore Simulation: one row per order, the many side. Customer is the foreign key to DatastoreSimCustomer.",
+  "fields": [
+    {
+      "name": "OrderNumber",
+      "displayName": "Order Number",
+      "type": "STRING",
+      "lengthLimit": 20,
+      "isRequired": true,
+      "isUnique": true,
+      "description": "The order's business key, e.g. O1001. Unique"
+    },
+    {
+      "name": "Customer",
+      "displayName": "Customer",
+      "type": "RELATIONSHIP",
+      "isRequired": true,
+      "description": "The foreign key: holds the customer row's Id. Required, so every order has exactly one customer. referenceEntityId and referenceFieldId are added by jq at create time"
+    },
+    {
+      "name": "Amount",
+      "displayName": "Amount",
+      "type": "DECIMAL",
+      "decimalPrecision": 2,
+      "minValue": 0,
+      "maxValue": 1000000,
+      "isRequired": true,
+      "description": "The order's amount, 2 decimal places"
+    }
+  ]
+}

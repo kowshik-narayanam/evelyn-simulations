@@ -1,0 +1,24 @@
+{
+  "docVersion": "1.0.0",
+  "resource": {
+    "name": "DependencySimFiles",
+    "kind": "bucket",
+    "type": "orchestratorBucket",
+    "apiVersion": "orchestrator.uipath.com/v1",
+    "isOverridable": true,
+    "dependencies": [],
+    "runtimeDependencies": [],
+    "folders": [
+      {
+        "fullyQualifiedName": "solution_folder"
+      }
+    ],
+    "spec": {
+      "name": "DependencySimFiles",
+      "type": "Orchestrator"
+    },
+    "locks": [],
+    "key": "23db2bcb-65bd-4c9b-89dc-aaccc84bba43",
+    "files": []
+  }
+}

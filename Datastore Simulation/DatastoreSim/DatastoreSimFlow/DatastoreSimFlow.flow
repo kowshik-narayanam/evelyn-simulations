@@ -1,0 +1,1212 @@
+{
+  "id": "8e8645c4-1990-437d-9690-5cb78a963c3c",
+  "version": "1.9",
+  "name": "DatastoreSimFlow",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "core.trigger.manual",
+      "typeVersion": "1.0",
+      "display": {
+        "label": "Manual trigger"
+      },
+      "inputs": {
+        "entryPointId": "71991541-ee66-45e4-ba3b-18af4e2a94ef",
+        "isDefaultEntryPoint": true
+      }
+    },
+    {
+      "id": "addCustomers1",
+      "type": "uipath.core.function.478bffd6-2e96-413f-9a18-e29ff88355ce",
+      "typeVersion": "1.0.0",
+      "display": {
+        "label": "Add customers"
+      },
+      "inputs": {
+        "operation": "add_customers",
+        "customers": "=js:$vars.start.output.customers",
+        "orders": null
+      }
+    },
+    {
+      "id": "addOrders1",
+      "type": "uipath.core.function.478bffd6-2e96-413f-9a18-e29ff88355ce",
+      "typeVersion": "1.0.0",
+      "display": {
+        "label": "Add orders"
+      },
+      "inputs": {
+        "operation": "add_orders",
+        "customers": null,
+        "orders": "=js:$vars.start.output.orders"
+      }
+    },
+    {
+      "id": "ordersPerCustomer1",
+      "type": "uipath.core.function.478bffd6-2e96-413f-9a18-e29ff88355ce",
+      "typeVersion": "1.0.0",
+      "display": {
+        "label": "Orders per customer"
+      },
+      "inputs": {
+        "operation": "orders_per_customer",
+        "customers": null,
+        "orders": null
+      }
+    },
+    {
+      "id": "end1",
+      "type": "core.control.end",
+      "typeVersion": "1.0",
+      "display": {
+        "label": "End"
+      },
+      "inputs": {},
+      "outputs": {
+        "customers_added": {
+          "source": "=js:$vars.addCustomers1.output.customers_added",
+          "type": "number"
+        },
+        "customers_failed": {
+          "source": "=js:$vars.addCustomers1.output.customers_failed",
+          "type": "array"
+        },
+        "orders_added": {
+          "source": "=js:$vars.addOrders1.output.orders_added",
+          "type": "number"
+        },
+        "orders_rejected": {
+          "source": "=js:$vars.addOrders1.output.orders_rejected",
+          "type": "array"
+        },
+        "orders_failed": {
+          "source": "=js:$vars.addOrders1.output.orders_failed",
+          "type": "array"
+        },
+        "summary": {
+          "source": "=js:$vars.ordersPerCustomer1.output.summary",
+          "type": "array"
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "start-output-addCustomers1-input",
+      "sourceNodeId": "start",
+      "sourcePort": "output",
+      "targetNodeId": "addCustomers1",
+      "targetPort": "input"
+    },
+    {
+      "id": "addCustomers1-output-addOrders1-input",
+      "sourceNodeId": "addCustomers1",
+      "sourcePort": "output",
+      "targetNodeId": "addOrders1",
+      "targetPort": "input"
+    },
+    {
+      "id": "addOrders1-output-ordersPerCustomer1-input",
+      "sourceNodeId": "addOrders1",
+      "sourcePort": "output",
+      "targetNodeId": "ordersPerCustomer1",
+      "targetPort": "input"
+    },
+    {
+      "id": "ordersPerCustomer1-output-end1-input",
+      "sourceNodeId": "ordersPerCustomer1",
+      "sourcePort": "output",
+      "targetNodeId": "end1",
+      "targetPort": "input"
+    }
+  ],
+  "definitions": [
+    {
+      "nodeType": "core.trigger.manual",
+      "version": "1.0",
+      "category": "trigger",
+      "description": "Start the process manually",
+      "tags": [
+        "trigger",
+        "start",
+        "manual"
+      ],
+      "sortOrder": 80,
+      "display": {
+        "label": "Manual trigger",
+        "icon": "play",
+        "shape": "circle"
+      },
+      "handleConfiguration": [
+        {
+          "position": "right",
+          "handles": [
+            {
+              "id": "output",
+              "type": "source",
+              "handleType": "output",
+              "showButton": true,
+              "constraints": {
+                "forbiddenTargetCategories": [
+                  "trigger"
+                ]
+              }
+            }
+          ],
+          "visible": true
+        }
+      ],
+      "model": {
+        "type": "bpmn:StartEvent",
+        "entryPointId": true
+      },
+      "outputDefinition": {
+        "output": {
+          "type": "object",
+          "description": "Data passed when manually triggering the process.",
+          "source": "null",
+          "var": "output"
+        }
+      },
+      "toolbarExtensions": {
+        "design": {
+          "actions": [
+            {
+              "id": "change-trigger-type",
+              "icon": "square-mouse-pointer",
+              "label": "Change trigger type"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "nodeType": "uipath.core.function.478bffd6-2e96-413f-9a18-e29ff88355ce",
+      "version": "1.0.0",
+      "category": "function",
+      "runtimeConstraints": {
+        "exclude": [
+          "api-function"
+        ]
+      },
+      "description": "(In-solution) DatastoreSimFunction",
+      "tags": [
+        "in-solution",
+        "local"
+      ],
+      "sortOrder": 650,
+      "supportsErrorHandling": true,
+      "display": {
+        "label": "DatastoreSimFunction",
+        "icon": "function"
+      },
+      "handleConfiguration": [
+        {
+          "position": "left",
+          "handles": [
+            {
+              "id": "input",
+              "type": "target",
+              "handleType": "input"
+            }
+          ]
+        },
+        {
+          "position": "right",
+          "handles": [
+            {
+              "id": "output",
+              "type": "source",
+              "handleType": "output"
+            }
+          ]
+        }
+      ],
+      "toolbarExtensions": {
+        "design": {
+          "actions": [
+            {
+              "id": "open-workflow",
+              "icon": "external-link",
+              "label": "Open"
+            }
+          ]
+        }
+      },
+      "projectId": "48df05e2-b867-40a5-9c5b-8ac86bdf8ff3",
+      "model": {
+        "type": "bpmn:ServiceTask",
+        "serviceType": "Orchestrator.ExecuteFunctionAsync",
+        "version": "v2",
+        "bindings": {
+          "resource": "process",
+          "resourceSubType": "Function",
+          "resourceKey": "478bffd6-2e96-413f-9a18-e29ff88355ce",
+          "orchestratorType": "function",
+          "values": [
+            {
+              "name": "name",
+              "propertyAttribute": "name",
+              "default": "DatastoreSimFunction"
+            },
+            {
+              "name": "folderPath",
+              "propertyAttribute": "folderPath",
+              "default": ""
+            }
+          ]
+        },
+        "projectId": "48df05e2-b867-40a5-9c5b-8ac86bdf8ff3",
+        "projectName": "DatastoreSimFunction",
+        "isInSolution": true,
+        "context": [
+          {
+            "name": "name",
+            "type": "string",
+            "value": "<bindings.name>"
+          },
+          {
+            "name": "folderPath",
+            "type": "string",
+            "value": "<bindings.folderPath>"
+          },
+          {
+            "name": "_label",
+            "type": "string",
+            "value": "DatastoreSimFunction"
+          }
+        ]
+      },
+      "form": {
+        "id": "activity-properties",
+        "title": "Function",
+        "sections": [
+          {
+            "id": "inputs",
+            "title": "Inputs",
+            "collapsible": true,
+            "defaultExpanded": true,
+            "fields": [
+              {
+                "name": "inputs.operation",
+                "type": "text",
+                "label": "operation"
+              },
+              {
+                "name": "inputs.customers",
+                "type": "custom",
+                "component": "object-editor",
+                "label": "customers",
+                "componentProps": {
+                  "schema": {
+                    "items": {
+                      "properties": {
+                        "customer_code": {
+                          "minLength": 1,
+                          "title": "Customer Code",
+                          "type": "string"
+                        },
+                        "customer_name": {
+                          "minLength": 1,
+                          "title": "Customer Name",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "customer_code",
+                        "customer_name"
+                      ],
+                      "title": "Customer",
+                      "type": "object"
+                    },
+                    "title": "Customers",
+                    "type": "array"
+                  }
+                }
+              },
+              {
+                "name": "inputs.orders",
+                "type": "custom",
+                "component": "object-editor",
+                "label": "orders",
+                "componentProps": {
+                  "schema": {
+                    "items": {
+                      "properties": {
+                        "order_number": {
+                          "minLength": 1,
+                          "title": "Order Number",
+                          "type": "string"
+                        },
+                        "customer_code": {
+                          "minLength": 1,
+                          "title": "Customer Code",
+                          "type": "string"
+                        },
+                        "amount": {
+                          "minimum": 0,
+                          "title": "Amount",
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "order_number",
+                        "customer_code",
+                        "amount"
+                      ],
+                      "title": "Order",
+                      "type": "object"
+                    },
+                    "title": "Orders",
+                    "type": "array"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "inputDefinition": {
+        "type": "object",
+        "properties": {
+          "operation": {
+            "title": "Operation",
+            "type": "string"
+          },
+          "customers": {
+            "items": {
+              "properties": {
+                "customer_code": {
+                  "minLength": 1,
+                  "title": "Customer Code",
+                  "type": "string"
+                },
+                "customer_name": {
+                  "minLength": 1,
+                  "title": "Customer Name",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "customer_code",
+                "customer_name"
+              ],
+              "title": "Customer",
+              "type": "object"
+            },
+            "title": "Customers",
+            "type": "array"
+          },
+          "orders": {
+            "items": {
+              "properties": {
+                "order_number": {
+                  "minLength": 1,
+                  "title": "Order Number",
+                  "type": "string"
+                },
+                "customer_code": {
+                  "minLength": 1,
+                  "title": "Customer Code",
+                  "type": "string"
+                },
+                "amount": {
+                  "minimum": 0,
+                  "title": "Amount",
+                  "type": "number"
+                }
+              },
+              "required": [
+                "order_number",
+                "customer_code",
+                "amount"
+              ],
+              "title": "Order",
+              "type": "object"
+            },
+            "title": "Orders",
+            "type": "array"
+          }
+        }
+      },
+      "inputDefaults": {
+        "operation": "",
+        "customers": null,
+        "orders": null
+      },
+      "outputDefinition": {
+        "output": {
+          "type": "object",
+          "source": "=this",
+          "var": "output",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "ok": {
+                "default": true,
+                "title": "Ok",
+                "type": "boolean"
+              },
+              "error_message": {
+                "default": "",
+                "title": "Error Message",
+                "type": "string"
+              },
+              "customers_added": {
+                "default": 0,
+                "title": "Customers Added",
+                "type": "integer"
+              },
+              "customer_ids": {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "title": "Customer Ids",
+                "type": "object"
+              },
+              "customers_failed": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Customers Failed",
+                "type": "array"
+              },
+              "orders_added": {
+                "default": 0,
+                "title": "Orders Added",
+                "type": "integer"
+              },
+              "orders_rejected": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Orders Rejected",
+                "type": "array"
+              },
+              "orders_failed": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Orders Failed",
+                "type": "array"
+              },
+              "summary": {
+                "items": {
+                  "properties": {
+                    "customer_code": {
+                      "title": "Customer Code",
+                      "type": "string"
+                    },
+                    "customer_name": {
+                      "title": "Customer Name",
+                      "type": "string"
+                    },
+                    "order_count": {
+                      "title": "Order Count",
+                      "type": "integer"
+                    },
+                    "total_amount": {
+                      "title": "Total Amount",
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "customer_code",
+                    "customer_name",
+                    "order_count",
+                    "total_amount"
+                  ],
+                  "title": "CustomerSummary",
+                  "type": "object"
+                },
+                "title": "Summary",
+                "type": "array"
+              }
+            }
+          }
+        },
+        "error": {
+          "type": "object",
+          "description": "Error information if the node fails",
+          "source": "=Error",
+          "var": "error",
+          "schema": {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "type": "object",
+            "required": [
+              "code",
+              "message",
+              "detail",
+              "category",
+              "status"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Error code as a string"
+              },
+              "message": {
+                "type": "string",
+                "description": "High-level error message"
+              },
+              "detail": {
+                "type": "string",
+                "description": "Detailed error description"
+              },
+              "category": {
+                "type": "string",
+                "description": "Error category"
+              },
+              "status": {
+                "type": "integer",
+                "description": "HTTP status code"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "debug": {
+        "runtime": "bpmnEngine"
+      }
+    },
+    {
+      "nodeType": "core.control.end",
+      "version": "1.0",
+      "category": "control-flow",
+      "description": "Mark the end of a process path",
+      "tags": [
+        "control-flow",
+        "end",
+        "finish",
+        "complete"
+      ],
+      "sortOrder": 66,
+      "display": {
+        "label": "End",
+        "icon": "circle-check",
+        "shape": "circle"
+      },
+      "handleConfiguration": [
+        {
+          "position": "left",
+          "handles": [
+            {
+              "id": "input",
+              "type": "target",
+              "handleType": "input"
+            }
+          ]
+        }
+      ],
+      "model": {
+        "type": "bpmn:EndEvent"
+      }
+    }
+  ],
+  "runtime": "maestro",
+  "bindings": [
+    {
+      "id": "bJ7sA59oJ",
+      "name": "name",
+      "type": "string",
+      "resource": "process",
+      "resourceKey": "478bffd6-2e96-413f-9a18-e29ff88355ce",
+      "default": "DatastoreSimFunction",
+      "propertyAttribute": "name",
+      "resourceSubType": "Function"
+    },
+    {
+      "id": "bOkB2dfgg",
+      "name": "folderPath",
+      "type": "string",
+      "resource": "process",
+      "resourceKey": "478bffd6-2e96-413f-9a18-e29ff88355ce",
+      "propertyAttribute": "folderPath",
+      "resourceSubType": "Function"
+    }
+  ],
+  "variables": {
+    "nodes": [
+      {
+        "id": "start.output",
+        "type": "object",
+        "description": "Data passed when manually triggering the process.",
+        "binding": {
+          "nodeId": "start",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "addCustomers1.output",
+        "type": "object",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "default": true,
+              "title": "Ok",
+              "type": "boolean"
+            },
+            "error_message": {
+              "default": "",
+              "title": "Error Message",
+              "type": "string"
+            },
+            "customers_added": {
+              "default": 0,
+              "title": "Customers Added",
+              "type": "integer"
+            },
+            "customer_ids": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "title": "Customer Ids",
+              "type": "object"
+            },
+            "customers_failed": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Customers Failed",
+              "type": "array"
+            },
+            "orders_added": {
+              "default": 0,
+              "title": "Orders Added",
+              "type": "integer"
+            },
+            "orders_rejected": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Orders Rejected",
+              "type": "array"
+            },
+            "orders_failed": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Orders Failed",
+              "type": "array"
+            },
+            "summary": {
+              "items": {
+                "properties": {
+                  "customer_code": {
+                    "title": "Customer Code",
+                    "type": "string"
+                  },
+                  "customer_name": {
+                    "title": "Customer Name",
+                    "type": "string"
+                  },
+                  "order_count": {
+                    "title": "Order Count",
+                    "type": "integer"
+                  },
+                  "total_amount": {
+                    "title": "Total Amount",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "customer_code",
+                  "customer_name",
+                  "order_count",
+                  "total_amount"
+                ],
+                "title": "CustomerSummary",
+                "type": "object"
+              },
+              "title": "Summary",
+              "type": "array"
+            }
+          }
+        },
+        "binding": {
+          "nodeId": "addCustomers1",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "addCustomers1.error",
+        "type": "object",
+        "description": "Error information if the node fails",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "required": [
+            "code",
+            "message",
+            "detail",
+            "category",
+            "status"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Error code as a string"
+            },
+            "message": {
+              "type": "string",
+              "description": "High-level error message"
+            },
+            "detail": {
+              "type": "string",
+              "description": "Detailed error description"
+            },
+            "category": {
+              "type": "string",
+              "description": "Error category"
+            },
+            "status": {
+              "type": "integer",
+              "description": "HTTP status code"
+            }
+          },
+          "additionalProperties": false
+        },
+        "binding": {
+          "nodeId": "addCustomers1",
+          "outputId": "error"
+        }
+      },
+      {
+        "id": "addOrders1.output",
+        "type": "object",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "default": true,
+              "title": "Ok",
+              "type": "boolean"
+            },
+            "error_message": {
+              "default": "",
+              "title": "Error Message",
+              "type": "string"
+            },
+            "customers_added": {
+              "default": 0,
+              "title": "Customers Added",
+              "type": "integer"
+            },
+            "customer_ids": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "title": "Customer Ids",
+              "type": "object"
+            },
+            "customers_failed": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Customers Failed",
+              "type": "array"
+            },
+            "orders_added": {
+              "default": 0,
+              "title": "Orders Added",
+              "type": "integer"
+            },
+            "orders_rejected": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Orders Rejected",
+              "type": "array"
+            },
+            "orders_failed": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Orders Failed",
+              "type": "array"
+            },
+            "summary": {
+              "items": {
+                "properties": {
+                  "customer_code": {
+                    "title": "Customer Code",
+                    "type": "string"
+                  },
+                  "customer_name": {
+                    "title": "Customer Name",
+                    "type": "string"
+                  },
+                  "order_count": {
+                    "title": "Order Count",
+                    "type": "integer"
+                  },
+                  "total_amount": {
+                    "title": "Total Amount",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "customer_code",
+                  "customer_name",
+                  "order_count",
+                  "total_amount"
+                ],
+                "title": "CustomerSummary",
+                "type": "object"
+              },
+              "title": "Summary",
+              "type": "array"
+            }
+          }
+        },
+        "binding": {
+          "nodeId": "addOrders1",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "addOrders1.error",
+        "type": "object",
+        "description": "Error information if the node fails",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "required": [
+            "code",
+            "message",
+            "detail",
+            "category",
+            "status"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Error code as a string"
+            },
+            "message": {
+              "type": "string",
+              "description": "High-level error message"
+            },
+            "detail": {
+              "type": "string",
+              "description": "Detailed error description"
+            },
+            "category": {
+              "type": "string",
+              "description": "Error category"
+            },
+            "status": {
+              "type": "integer",
+              "description": "HTTP status code"
+            }
+          },
+          "additionalProperties": false
+        },
+        "binding": {
+          "nodeId": "addOrders1",
+          "outputId": "error"
+        }
+      },
+      {
+        "id": "ordersPerCustomer1.output",
+        "type": "object",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "default": true,
+              "title": "Ok",
+              "type": "boolean"
+            },
+            "error_message": {
+              "default": "",
+              "title": "Error Message",
+              "type": "string"
+            },
+            "customers_added": {
+              "default": 0,
+              "title": "Customers Added",
+              "type": "integer"
+            },
+            "customer_ids": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "title": "Customer Ids",
+              "type": "object"
+            },
+            "customers_failed": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Customers Failed",
+              "type": "array"
+            },
+            "orders_added": {
+              "default": 0,
+              "title": "Orders Added",
+              "type": "integer"
+            },
+            "orders_rejected": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Orders Rejected",
+              "type": "array"
+            },
+            "orders_failed": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Orders Failed",
+              "type": "array"
+            },
+            "summary": {
+              "items": {
+                "properties": {
+                  "customer_code": {
+                    "title": "Customer Code",
+                    "type": "string"
+                  },
+                  "customer_name": {
+                    "title": "Customer Name",
+                    "type": "string"
+                  },
+                  "order_count": {
+                    "title": "Order Count",
+                    "type": "integer"
+                  },
+                  "total_amount": {
+                    "title": "Total Amount",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "customer_code",
+                  "customer_name",
+                  "order_count",
+                  "total_amount"
+                ],
+                "title": "CustomerSummary",
+                "type": "object"
+              },
+              "title": "Summary",
+              "type": "array"
+            }
+          }
+        },
+        "binding": {
+          "nodeId": "ordersPerCustomer1",
+          "outputId": "output"
+        }
+      },
+      {
+        "id": "ordersPerCustomer1.error",
+        "type": "object",
+        "description": "Error information if the node fails",
+        "schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "required": [
+            "code",
+            "message",
+            "detail",
+            "category",
+            "status"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Error code as a string"
+            },
+            "message": {
+              "type": "string",
+              "description": "High-level error message"
+            },
+            "detail": {
+              "type": "string",
+              "description": "Detailed error description"
+            },
+            "category": {
+              "type": "string",
+              "description": "Error category"
+            },
+            "status": {
+              "type": "integer",
+              "description": "HTTP status code"
+            }
+          },
+          "additionalProperties": false
+        },
+        "binding": {
+          "nodeId": "ordersPerCustomer1",
+          "outputId": "error"
+        }
+      },
+      {
+        "id": "end1.customers_added",
+        "type": "number",
+        "binding": {
+          "nodeId": "end1",
+          "outputId": "customers_added"
+        }
+      },
+      {
+        "id": "end1.customers_failed",
+        "type": "array",
+        "binding": {
+          "nodeId": "end1",
+          "outputId": "customers_failed"
+        }
+      },
+      {
+        "id": "end1.orders_added",
+        "type": "number",
+        "binding": {
+          "nodeId": "end1",
+          "outputId": "orders_added"
+        }
+      },
+      {
+        "id": "end1.orders_rejected",
+        "type": "array",
+        "binding": {
+          "nodeId": "end1",
+          "outputId": "orders_rejected"
+        }
+      },
+      {
+        "id": "end1.orders_failed",
+        "type": "array",
+        "binding": {
+          "nodeId": "end1",
+          "outputId": "orders_failed"
+        }
+      },
+      {
+        "id": "end1.summary",
+        "type": "array",
+        "binding": {
+          "nodeId": "end1",
+          "outputId": "summary"
+        }
+      }
+    ],
+    "globals": [
+      {
+        "id": "customers",
+        "direction": "in",
+        "type": "array",
+        "subType": "object",
+        "defaultValue": [],
+        "description": "Customers to add: customer_code, customer_name",
+        "triggerNodeId": "start"
+      },
+      {
+        "id": "orders",
+        "direction": "in",
+        "type": "array",
+        "subType": "object",
+        "defaultValue": [],
+        "description": "Orders to add: order_number, customer_code, amount",
+        "triggerNodeId": "start"
+      },
+      {
+        "id": "customers_added",
+        "direction": "out",
+        "type": "number",
+        "description": "Customer rows written by this run"
+      },
+      {
+        "id": "customers_failed",
+        "direction": "out",
+        "type": "array",
+        "subType": "string",
+        "description": "Customers Data Fabric refused, e.g. a CustomerCode already there"
+      },
+      {
+        "id": "orders_added",
+        "direction": "out",
+        "type": "number",
+        "description": "Order rows written by this run"
+      },
+      {
+        "id": "orders_rejected",
+        "direction": "out",
+        "type": "array",
+        "subType": "string",
+        "description": "Orders refused by the foreign key check: no such customer"
+      },
+      {
+        "id": "orders_failed",
+        "direction": "out",
+        "type": "array",
+        "subType": "string",
+        "description": "Orders Data Fabric refused, e.g. an OrderNumber already there"
+      },
+      {
+        "id": "summary",
+        "direction": "out",
+        "type": "array",
+        "subType": "object",
+        "description": "Every customer with order_count and total_amount, those with no orders included"
+      }
+    ]
+  },
+  "layout": {
+    "nodes": {
+      "start": {
+        "position": {
+          "x": -192,
+          "y": 0
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        }
+      },
+      "addCustomers1": {
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        }
+      },
+      "addOrders1": {
+        "position": {
+          "x": 192,
+          "y": 0
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        }
+      },
+      "ordersPerCustomer1": {
+        "position": {
+          "x": 384,
+          "y": 0
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        }
+      },
+      "end1": {
+        "position": {
+          "x": 576,
+          "y": 0
+        },
+        "size": {
+          "width": 96,
+          "height": 96
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,117 @@
+{
+    "$schema": "https://cloud.uipath.com/draft/2024-12/entry-point",
+    "$id": "entry-points.json",
+    "entryPoints": [
+        {
+            "filePath": "main",
+            "uniqueId": "1e91736c-63de-472d-b80e-ca536b9284e5",
+            "type": "function",
+            "input": {
+                "type": "object",
+                "properties": {
+                    "csv_path": {
+                        "default": "input/calculations.csv",
+                        "title": "Csv Path",
+                        "type": "string"
+                    }
+                },
+                "required": [],
+                "title": "CalculateIn"
+            },
+            "output": {
+                "type": "object",
+                "properties": {
+                    "results": {
+                        "items": {
+                            "properties": {
+                                "line": {
+                                    "title": "Line",
+                                    "type": "integer"
+                                },
+                                "integer_1": {
+                                    "title": "Integer 1",
+                                    "type": "integer"
+                                },
+                                "integer_2": {
+                                    "title": "Integer 2",
+                                    "type": "integer"
+                                },
+                                "operand": {
+                                    "title": "Operand",
+                                    "type": "string"
+                                },
+                                "result": {
+                                    "title": "Result",
+                                    "type": "integer"
+                                }
+                            },
+                            "required": [
+                                "line",
+                                "integer_1",
+                                "integer_2",
+                                "operand",
+                                "result"
+                            ],
+                            "title": "Result",
+                            "type": "object"
+                        },
+                        "title": "Results",
+                        "type": "array"
+                    },
+                    "count": {
+                        "title": "Count",
+                        "type": "integer"
+                    },
+                    "library_version": {
+                        "title": "Library Version",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "results",
+                    "count",
+                    "library_version"
+                ],
+                "title": "CalculateOut"
+            },
+            "graph": {
+                "nodes": [
+                    {
+                        "id": "main.py:56",
+                        "name": "main",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    },
+                    {
+                        "id": "calculations.py:33",
+                        "name": "parse_calculations",
+                        "type": "function",
+                        "metadata": {
+                            "file": "calculations.py"
+                        }
+                    },
+                    {
+                        "id": "main.py:22",
+                        "name": "sdk",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    }
+                ],
+                "edges": [
+                    {
+                        "source": "main.py:56",
+                        "target": "calculations.py:33"
+                    },
+                    {
+                        "source": "main.py:56",
+                        "target": "main.py:22"
+                    }
+                ]
+            }
+        }
+    ]
+}

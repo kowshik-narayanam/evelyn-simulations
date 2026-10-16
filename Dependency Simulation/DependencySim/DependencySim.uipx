@@ -1,0 +1,17 @@
+{
+  "DocVersion": "1.0.0",
+  "StudioMinVersion": "2025.10.0",
+  "SolutionId": "8ee0e302-aade-403d-b76d-be6982116a2c",
+  "Projects": [
+    {
+      "Type": "Function",
+      "ProjectRelativePath": "DependencySimFunction/project.uiproj",
+      "Id": "831db55f-74be-4c82-997d-fb0902b563a5"
+    },
+    {
+      "Type": "Flow",
+      "ProjectRelativePath": "DependencySimFlow/project.uiproj",
+      "Id": "21087931-af63-43e4-ba64-f43652630c8a"
+    }
+  ]
+}

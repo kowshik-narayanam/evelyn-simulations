@@ -1,0 +1,178 @@
+{
+    "$schema": "https://cloud.uipath.com/draft/2024-12/entry-point",
+    "$id": "entry-points.json",
+    "entryPoints": [
+        {
+            "filePath": "main",
+            "uniqueId": "3e14518c-0b4b-48e5-9c46-aaf809092e8f",
+            "type": "function",
+            "input": {
+                "type": "object",
+                "properties": {
+                    "operation": {
+                        "title": "Operation",
+                        "type": "string"
+                    },
+                    "customers": {
+                        "items": {
+                            "properties": {
+                                "customer_code": {
+                                    "minLength": 1,
+                                    "title": "Customer Code",
+                                    "type": "string"
+                                },
+                                "customer_name": {
+                                    "minLength": 1,
+                                    "title": "Customer Name",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "customer_code",
+                                "customer_name"
+                            ],
+                            "title": "Customer",
+                            "type": "object"
+                        },
+                        "title": "Customers",
+                        "type": "array"
+                    },
+                    "orders": {
+                        "items": {
+                            "properties": {
+                                "order_number": {
+                                    "minLength": 1,
+                                    "title": "Order Number",
+                                    "type": "string"
+                                },
+                                "customer_code": {
+                                    "minLength": 1,
+                                    "title": "Customer Code",
+                                    "type": "string"
+                                },
+                                "amount": {
+                                    "minimum": 0,
+                                    "title": "Amount",
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "order_number",
+                                "customer_code",
+                                "amount"
+                            ],
+                            "title": "Order",
+                            "type": "object"
+                        },
+                        "title": "Orders",
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "operation"
+                ],
+                "title": "DatastoreIn"
+            },
+            "output": {
+                "type": "object",
+                "properties": {
+                    "ok": {
+                        "default": true,
+                        "title": "Ok",
+                        "type": "boolean"
+                    },
+                    "error_message": {
+                        "default": "",
+                        "title": "Error Message",
+                        "type": "string"
+                    },
+                    "customers_added": {
+                        "default": 0,
+                        "title": "Customers Added",
+                        "type": "integer"
+                    },
+                    "customer_ids": {
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "title": "Customer Ids",
+                        "type": "object"
+                    },
+                    "customers_failed": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "title": "Customers Failed",
+                        "type": "array"
+                    },
+                    "orders_added": {
+                        "default": 0,
+                        "title": "Orders Added",
+                        "type": "integer"
+                    },
+                    "orders_rejected": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "title": "Orders Rejected",
+                        "type": "array"
+                    },
+                    "orders_failed": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "title": "Orders Failed",
+                        "type": "array"
+                    },
+                    "summary": {
+                        "items": {
+                            "properties": {
+                                "customer_code": {
+                                    "title": "Customer Code",
+                                    "type": "string"
+                                },
+                                "customer_name": {
+                                    "title": "Customer Name",
+                                    "type": "string"
+                                },
+                                "order_count": {
+                                    "title": "Order Count",
+                                    "type": "integer"
+                                },
+                                "total_amount": {
+                                    "title": "Total Amount",
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "customer_code",
+                                "customer_name",
+                                "order_count",
+                                "total_amount"
+                            ],
+                            "title": "CustomerSummary",
+                            "type": "object"
+                        },
+                        "title": "Summary",
+                        "type": "array"
+                    }
+                },
+                "required": [],
+                "title": "DatastoreOut"
+            },
+            "graph": {
+                "nodes": [
+                    {
+                        "id": "main.py:184",
+                        "name": "main",
+                        "type": "function",
+                        "metadata": {
+                            "file": "main.py"
+                        }
+                    }
+                ],
+                "edges": []
+            }
+        }
+    ]
+}

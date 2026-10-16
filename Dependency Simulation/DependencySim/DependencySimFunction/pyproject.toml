@@ -1,0 +1,19 @@
+[project]
+name = "DependencySimFunction"
+version = "0.0.1"
+description = "DependencySimFunction"
+authors = [{ name = "John Doe", email = "john.doe@myemail.com" }]
+dependencies = [
+    "evsim-calc==1.0.0",
+    "pydantic>=2.10,<3",
+    "uipath>=2.14.0, <2.15.0",
+]
+requires-python = ">=3.11"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.uv.sources]
+evsim-calc = { path = "wheels/evsim_calc-1.0.0-py3-none-any.whl" }

@@ -1,0 +1,38 @@
+{
+  "docVersion": "1.0.0",
+  "resource": {
+    "name": "DatastoreSimFlow",
+    "kind": "process",
+    "type": "flow",
+    "apiVersion": "orchestrator.uipath.com/v1",
+    "projectKey": "f9caefe9-8a29-4626-a0ac-329a2a9d3a15",
+    "dependencies": [
+      {
+        "kind": "package",
+        "name": "DatastoreSimFlow"
+      }
+    ],
+    "runtimeDependencies": [],
+    "folders": [
+      {
+        "fullyQualifiedName": "solution_folder"
+      }
+    ],
+    "spec": {
+      "runtimeProfile": "Standard",
+      "type": "Flow",
+      "name": "DatastoreSimFlow",
+      "package": {
+        "key": "6709a902-8787-4d6a-b496-14ab338b57c8"
+      },
+      "targetFrameworkValue": "Portable",
+      "retentionAction": "Delete",
+      "retentionPeriod": 30,
+      "staleRetentionAction": "Delete",
+      "staleRetentionPeriod": 180
+    },
+    "locks": [],
+    "key": "08890551-dc2c-4b63-be16-b2a3c5643168",
+    "files": []
+  }
+}

@@ -15,6 +15,8 @@ port starts, each simulation is a worked example of one piece.
 |---|---|---|---|
 | [CsvProcessor Simulation](CsvProcessor%20Simulation/README.md) ([run it](CsvProcessor%20Simulation/HOW_TO_RUN.md)) | CSV ingestion: `CsvTaskProcessor` and `CsvSchemaProducerProcessor`, and the CSV BP calling the main BP | A Flow calling a Flow, a contract shared by two function projects, a storage bucket | Verified locally; not run on a tenant yet |
 | [Configuration Simulation](Configuration%20Simulation/README.md) ([run it](Configuration%20Simulation/HOW_TO_RUN.md)) | The configuration: `configuration.json` (the form), the saved values, `INPUT_TYPE`, and `PROVIDER_ID` picking a provider | Settings loaded once per run in three layers, a Switch with one node per provider, an `inout` global, a Credential asset for the secret | Verified locally; not run on a tenant yet |
+| [Dependency Simulation](Dependency%20Simulation/README.md) ([run it](Dependency%20Simulation/HOW_TO_RUN.md)) | Shipping a library: the `fircosoft-trust` and `address-lookup-jnw` jars, declared in a `pom.xml` and bundled into Evelyn's package | A library in its own project, built into a wheel, vendored inside a coded function, pinned in `pyproject.toml` and `uv.lock` | Verified locally; not run on a tenant yet |
+| [Datastore Simulation](Datastore%20Simulation/README.md) ([run it](Datastore%20Simulation/HOW_TO_RUN.md)) | Two related datastore tables: `alert_analytics` and `hit_analytics`, one alert with zero or many hits, linked by a text column with no foreign key | Two Data Fabric entities, customers and orders: a primary key, a unique business key, a `RELATIONSHIP` foreign key, a lookup before insert, a LEFT JOIN | Verified locally; not run on a tenant yet |
 
 Each folder stands on its own, with two guides:
 - **HOW_TO_RUN.md** runs what's there: the tests, a local run, the tenant run, then a deployed
@@ -30,6 +32,7 @@ Each folder stands on its own, with two guides:
 | [`uv`](https://docs.astral.sh/uv/) | Python 3.11 projects and their tests |
 | The `uip` CLI, logged in (`uip login status`) | Solution and Flow commands |
 | `jq` | The JSON edits in the build steps |
+| `unzip` | Looking inside a package (Dependency Simulation) |
 | A UiPath tenant | Only levels 3 and 4 of each HOW_TO_RUN.md |
 | `curl`, or [Postman](https://www.postman.com/) | Level 4: starting a deployed Flow over HTTP |
 

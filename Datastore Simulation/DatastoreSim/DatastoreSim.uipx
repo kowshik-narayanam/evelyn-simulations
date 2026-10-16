@@ -1,0 +1,17 @@
+{
+  "DocVersion": "1.0.0",
+  "StudioMinVersion": "2025.10.0",
+  "SolutionId": "8eaf4e73-1b5c-434e-9ae8-5b2dd7149770",
+  "Projects": [
+    {
+      "Type": "Function",
+      "ProjectRelativePath": "DatastoreSimFunction/project.uiproj",
+      "Id": "48df05e2-b867-40a5-9c5b-8ac86bdf8ff3"
+    },
+    {
+      "Type": "Flow",
+      "ProjectRelativePath": "DatastoreSimFlow/project.uiproj",
+      "Id": "f9caefe9-8a29-4626-a0ac-329a2a9d3a15"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+[
+  {"order_number": "O1001", "customer_code": "C001", "amount": 120.50},
+  {"order_number": "O1002", "customer_code": "C003", "amount": 15.00},
+  {"order_number": "O1003", "customer_code": "C001", "amount": 9.99},
+  {"order_number": "O1004", "customer_code": "C002", "amount": 300.00},
+  {"order_number": "O1005", "customer_code": "C999", "amount": 50.00},
+  {"order_number": "O1006", "customer_code": "C003", "amount": 42.10},
+  {"order_number": "O1007", "customer_code": "C001", "amount": 70.01},
+  {"order_number": "O1008", "customer_code": "C005", "amount": 5.25}
+]

@@ -1,0 +1,23 @@
+{
+  "docVersion": "1.0.0",
+  "resource": {
+    "name": "DependencySimFlow",
+    "kind": "package",
+    "apiVersion": "orchestrator.uipath.com/v1",
+    "projectKey": "21087931-af63-43e4-ba64-f43652630c8a",
+    "isOverridable": true,
+    "dependencies": [],
+    "runtimeDependencies": [],
+    "folders": [
+      {
+        "fullyQualifiedName": "solution_folder"
+      }
+    ],
+    "spec": {
+      "name": "DependencySimFlow"
+    },
+    "locks": [],
+    "key": "e1861282-09d4-46e9-b80b-b42b58ed062d",
+    "files": []
+  }
+}

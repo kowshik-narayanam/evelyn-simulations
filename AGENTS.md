@@ -50,7 +50,9 @@ README.md, AGENTS.md, CLAUDE.md, .gitignore   this repo
    simulations already show instead of inventing a second way:
    [CsvProcessor Simulation](CsvProcessor%20Simulation/README.md) for a Flow calling a Flow and a
    shared contract, [Configuration Simulation](Configuration%20Simulation/README.md) for settings,
-   a Switch over providers and secrets in assets.
+   a Switch over providers and secrets in assets, [Dependency Simulation](Dependency%20Simulation/README.md)
+   for a library shipped inside a function as a wheel, [Datastore Simulation](Datastore%20Simulation/README.md)
+   for Data Fabric entities with a primary key and a foreign key.
 4. **Write the README** with the same sections as CsvProcessor Simulation:
    - the point of it;
    - an Evelyn → here table, and a WorkFusion → UiPath table;

@@ -1,0 +1,15 @@
+[project]
+name = "evsim-calc"
+version = "1.0.0"
+description = "A tiny calculator library, shipped to a coded function as a wheel"
+requires-python = ">=3.11"
+dependencies = []
+
+[build-system]
+requires = ["uv_build>=0.13.0,<0.14.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]

@@ -1,0 +1,23 @@
+{
+  "displayName": "Datastore Sim Customer",
+  "description": "Datastore Simulation: one row per customer, the one side. Its primary key is the Id Data Fabric assigns; CustomerCode is the unique business key.",
+  "fields": [
+    {
+      "name": "CustomerCode",
+      "displayName": "Customer Code",
+      "type": "STRING",
+      "lengthLimit": 10,
+      "isRequired": true,
+      "isUnique": true,
+      "description": "The business key, e.g. C001. Unique: a second C001 is refused"
+    },
+    {
+      "name": "CustomerName",
+      "displayName": "Customer Name",
+      "type": "STRING",
+      "lengthLimit": 100,
+      "isRequired": true,
+      "description": "The customer's name"
+    }
+  ]
+}

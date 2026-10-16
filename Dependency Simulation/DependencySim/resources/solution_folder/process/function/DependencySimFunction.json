@@ -1,0 +1,41 @@
+{
+  "docVersion": "1.0.0",
+  "resource": {
+    "name": "DependencySimFunction",
+    "kind": "process",
+    "type": "function",
+    "apiVersion": "orchestrator.uipath.com/v1",
+    "projectKey": "831db55f-74be-4c82-997d-fb0902b563a5",
+    "isOverridable": true,
+    "dependencies": [
+      {
+        "kind": "package",
+        "name": "DependencySimFunction"
+      }
+    ],
+    "runtimeDependencies": [],
+    "folders": [
+      {
+        "fullyQualifiedName": "solution_folder"
+      }
+    ],
+    "spec": {
+      "type": "Function",
+      "name": "DependencySimFunction",
+      "package": {
+        "key": "34182df5-48b3-4d06-8e3d-6edc39cdf736"
+      },
+      "targetFrameworkValue": "Portable",
+      "retentionAction": "Delete",
+      "retentionPeriod": 30,
+      "staleRetentionAction": "Delete",
+      "staleRetentionPeriod": 180,
+      "entryPoints": "{\n    \"$schema\": \"https://cloud.uipath.com/draft/2024-12/entry-point\",\n    \"$id\": \"entry-points.json\",\n    \"entryPoints\": [\n        {\n            \"filePath\": \"main\",\n            \"uniqueId\": \"1e91736c-63de-472d-b80e-ca536b9284e5\",\n            \"type\": \"function\",\n            \"input\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"csv_path\": {\n                        \"default\": \"input/calculations.csv\",\n                        \"title\": \"Csv Path\",\n                        \"type\": \"string\"\n                    }\n                },\n                \"required\": [],\n                \"title\": \"CalculateIn\"\n            },\n            \"output\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"results\": {\n                        \"items\": {\n                            \"properties\": {\n                                \"line\": {\n                                    \"title\": \"Line\",\n                                    \"type\": \"integer\"\n                                },\n                                \"integer_1\": {\n                                    \"title\": \"Integer 1\",\n                                    \"type\": \"integer\"\n                                },\n                                \"integer_2\": {\n                                    \"title\": \"Integer 2\",\n                                    \"type\": \"integer\"\n                                },\n                                \"operand\": {\n                                    \"title\": \"Operand\",\n                                    \"type\": \"string\"\n                                },\n                                \"result\": {\n                                    \"title\": \"Result\",\n                                    \"type\": \"integer\"\n                                }\n                            },\n                            \"required\": [\n                                \"line\",\n                                \"integer_1\",\n                                \"integer_2\",\n                                \"operand\",\n                                \"result\"\n                            ],\n                            \"title\": \"Result\",\n                            \"type\": \"object\"\n                        },\n                        \"title\": \"Results\",\n                        \"type\": \"array\"\n                    },\n                    \"count\": {\n                        \"title\": \"Count\",\n                        \"type\": \"integer\"\n                    },\n                    \"library_version\": {\n                        \"title\": \"Library Version\",\n                        \"type\": \"string\"\n                    }\n                },\n                \"required\": [\n                    \"results\",\n                    \"count\",\n                    \"library_version\"\n                ],\n                \"title\": \"CalculateOut\"\n            },\n            \"graph\": {\n                \"nodes\": [\n                    {\n                        \"id\": \"main.py:56\",\n                        \"name\": \"main\",\n                        \"type\": \"function\",\n                        \"metadata\": {\n                            \"file\": \"main.py\"\n                        }\n                    },\n                    {\n                        \"id\": \"calculations.py:33\",\n                        \"name\": \"parse_calculations\",\n                        \"type\": \"function\",\n                        \"metadata\": {\n                            \"file\": \"calculations.py\"\n                        }\n                    },\n                    {\n                        \"id\": \"main.py:22\",\n                        \"name\": \"sdk\",\n                        \"type\": \"function\",\n                        \"metadata\": {\n                            \"file\": \"main.py\"\n                        }\n                    }\n                ],\n                \"edges\": [\n                    {\n                        \"source\": \"main.py:56\",\n                        \"target\": \"calculations.py:33\"\n                    },\n                    {\n                        \"source\": \"main.py:56\",\n                        \"target\": \"main.py:22\"\n                    }\n                ]\n            }\n        }\n    ]\n}",
+      "entryPointName": "main",
+      "entryPointUniqueId": "1e91736c-63de-472d-b80e-ca536b9284e5"
+    },
+    "locks": [],
+    "key": "e145e22a-68b6-4348-8772-b03d392fa8c1",
+    "files": []
+  }
+}
